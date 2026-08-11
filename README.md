@@ -46,13 +46,22 @@ Reinicia opencode para que cargue las skills y agentes nuevos.
 | **primary** | `docs`, `planning`, `design`, `sputnik` |
 | **subagent** | `security`, `devops`, `dotnet`, `aspnet`, `sqlserver`, `postgres`, `js`, `react`, `node`, `python`, `python-ai-intel`, `flutter`, `ui` |
 
+## Orquestación
+
+`build` (agente por defecto) delega automáticamente en subagentes según su `description` cuando la tarea coincide con sus keywords. El repo incluye `.opencode/agent/build.md`, un override de `build` con reglas explícitas de orquestación: qué subagente lanzar ante qué keywords y qué no delegar.
+
+Los agentes `primary` (`docs`, `planning`, `design`, `sputnik`) NO se delegan vía task — se activan con **Tab** o **@-mención**.
+
+Para afinar permisos de delegación a nivel global, copia el patrón de `opencode.example.json` a tu `opencode.json` (p.ej. pedir confirmación antes de lanzar `sputnik`).
+
 ## Estructura
 
 ```
 skills/               # 153 skills (<nombre>/SKILL.md)
-.opencode/agent/      # 17 agentes opencode (<nombre>.md)
+.opencode/agent/      # 18 agentes opencode (<nombre>.md)
 install.ps1           # Instalador de agentes (Windows)
 install.sh            # Instalador de agentes (macOS/Linux)
+opencode.example.json # Ejemplo de config global (permisos de delegación)
 ```
 
 ## Desarrollo

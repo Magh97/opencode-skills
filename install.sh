@@ -51,6 +51,9 @@ if [[ $DO_AGENTS -eq 1 ]]; then
         cp -f "$SRC_AGENTS"/*.md "$AGENT_DIR/"
         echo "Agentes instalados en $AGENT_DIR"
         echo "Agentes: $(ls "$AGENT_DIR"/*.md | xargs -n1 basename | sed 's/\.md$//' | tr '\n' ', ')"
+        if [[ -f "$AGENT_DIR/build.md" ]]; then
+            echo "Incluye build.md: override del agente build con reglas de orquestacion de subagentes."
+        fi
     else
         echo "Instalacion de agentes cancelada."
         DO_AGENTS=0

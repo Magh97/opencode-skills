@@ -69,6 +69,9 @@ if ($doAgents) {
     Copy-Item -Path (Join-Path $sourceAgents "*.md") -Destination $agentDir -Force
     Write-Host "Agentes instalados en $agentDir"
     Write-Host "Agentes disponibles: $((Get-ChildItem $agentDir -Filter '*.md' -File).Name -join ', ')"
+    if (Test-Path -LiteralPath (Join-Path $agentDir "build.md")) {
+        Write-Host "Incluye build.md: override del agente build con reglas de orquestacion de subagentes."
+    }
 }
 
 if ($doSkills) {
