@@ -1,10 +1,10 @@
 ---
 name: agent-anti-slop-designer-experimental
-description: Diseño de productos digitales vanguardistas que NO parecen hechos por IA. Cuestionario de descubrimiento visual arriesgado (movimiento artístico, navegación, tipografía, materialidad, color, interacción, estructura), exploración con mockups de imagen, y generación de design-system.md experimental con prohibiciones anti-slop. Usa cuando el usuario diga "no quiero que parezca hecho por AI", "diseño experimental", "design system vanguardista", "hazme algo memorable", "rompe convenciones", "cuestionario de estilo arriesgado", o quiera un producto visualmente distintivo.
+description: Diseño de productos digitales vanguardistas que NO parecen hechos por IA. Cuestionario de descubrimiento visual arriesgado (movimiento artístico, navegación, tipografía, materialidad, color, interacción, estructura, sonido, luz, tempo, cursor + opcionales de fricción y ancla temporal), exploración con mockups de imagen, y generación de design-system.md experimental con prohibiciones anti-slop. Usa cuando el usuario diga "no quiero que parezca hecho por AI", "diseño experimental", "design system vanguardista", "hazme algo memorable", "rompe convenciones", "cuestionario de estilo arriesgado", o quiera un producto visualmente distintivo.
 ---
 
 # Skill: Anti-Slop Design Architect — Edición Experimental
-## Versión: 2.0 | 2026-07-29
+## Versión: 2.1 | 2026-08-11
 ### Propósito
 Transformar ideas de aplicaciones en productos digitales que **no parezcan hechos por IA**. Esta skill prioriza el riesgo visual, la experimentación y la vanguardia sobre la seguridad. No busca "usable"; busca **memorable**. Si el resultado no hace que alguien diga "¿cómo hicieron esto?", no hemos terminado.
 
@@ -21,7 +21,7 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 ## Fase 1: Cuestionario de Descubrimiento Vanguardista
 > Regla de oro: Una pregunta a la vez. Barra de progreso. 4 alternativas + "Otra". Las alternativas deben ser visualmente **arriesgadas**, no seguras.
 
-### Paso 1.1: Voz y Personalidad (1/7)
+### Paso 1.1: Voz y Personalidad (1/11)
 **Pregunta:** Si tu app fuera un movimiento artístico, ¿cuál sería?
 
 | # | Opción | Descripción | Keywords de diseño |
@@ -34,7 +34,7 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 
 > Guardar como `personality_axis`.
 
-### Paso 1.2: Espacio y Navegación (2/7)
+### Paso 1.2: Espacio y Navegación (2/11)
 **Pregunta:** ¿Cómo se MUEVE el usuario por tu app?
 
 | # | Opción | Descripción | Técnica |
@@ -47,7 +47,7 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 
 > Guardar como `navigation_pattern`.
 
-### Paso 1.3: Tipografía como Arquitectura (3/7)
+### Paso 1.3: Tipografía como Arquitectura (3/11)
 **Pregunta:** La letra en tu app no es solo texto. Es...
 
 | # | Opción | Descripción | Fuentes / Técnicas |
@@ -60,7 +60,7 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 
 > Guardar como `typography_architecture`.
 
-### Paso 1.4: Materialidad Digital Extrema (4/7)
+### Paso 1.4: Materialidad Digital Extrema (4/11)
 **Pregunta:** ¿De qué material imposible está hecha tu app?
 
 | # | Opción | Descripción | Técnica |
@@ -73,7 +73,7 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 
 > Guardar como `materiality`.
 
-### Paso 1.5: Color como Emoción (5/7)
+### Paso 1.5: Color como Emoción (5/11)
 **Pregunta:** Elige una escena cinematográfica que represente la paleta de tu app:
 
 | # | Opción | Paleta base | Mood |
@@ -86,7 +86,7 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 
 > Guardar como `palette_mood`.
 
-### Paso 1.6: Interacción como Performance (6/7)
+### Paso 1.6: Interacción como Performance (6/11)
 **Pregunta:** ¿Qué pasa cuando el usuario TOCA algo?
 
 | # | Opción | Descripción | Técnica |
@@ -99,7 +99,7 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 
 > Guardar como `interaction_pattern`.
 
-### Paso 1.7: Estructura de Información (7/7)
+### Paso 1.7: Estructura de Información (7/11)
 **Pregunta:** ¿Cómo se organiza el contenido?
 
 | # | Opción | Descripción | Layout |
@@ -111,6 +111,81 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 | O | **Otra** | El usuario describe su estructura ideal | |
 
 > Guardar como `information_structure`.
+
+### Paso 1.8: Sonido como Atmósfera (8/11)
+**Pregunta:** Si tu app sonara, ¿qué escucharías al usarla?
+
+| # | Opción | Descripción | Técnica |
+|---|--------|-------------|---------|
+| 1 | **Silencio curado** | Cero audio. El silencio es la estética: toda la retroalimentación es visual y háptica. El sonido se reserva SOLO para momentos críticos. | Sin WebAudio, `navigator.vibrate` para háptica, sonido único y memorable para errores |
+| 2 | **Paisaje sonoro generativo** | Un ambiente sonoro que evoluciona con scroll, hover y contexto. Nunca se repite, nunca es predecible. | Tone.js / WebAudio, generative sequencers, osciladores por sección |
+| 3 | **Interfaz percusiva** | Cada toque, click y transición dispara un micro-hit sonoro. La app suena como un instrumento que el usuario toca. | Sound sprites (Howler.js), síntesis FM corta, hits sincronizados con motion |
+| 4 | **Sinestesia audio-visual** | Sonido, color y movimiento son la MISMA señal. Cambian juntos como un organismo único. | Audio-reactive visuals, `AnalyserNode` alimentando color y motion |
+
+> Guardar como `sound_identity`.
+
+### Paso 1.9: Luz y Atmósfera (9/11)
+**Pregunta:** ¿Cómo ilumina tu app?
+
+| # | Opción | Descripción | Técnica |
+|---|--------|-------------|---------|
+| 1 | **Fotograma de cine** | Una sola fuente de luz dramática. Todo lo demás en penumbra. El foco señala lo importante. | Radial-gradients direccionales, vignettes, box-shadow de foco |
+| 2 | **Neón perpetuo** | Glows por todas partes. La app brilla en la oscuridad, el color ES luz. | text-shadow/box-shadow glow, blur layers, dark-mode como default |
+| 3 | **Luz de día plano** | Sin sombras, sin profundidad. Iluminación frontal uniforme, colores honestos y planos. | Zero box-shadow, surfaces flat, bordes definidos |
+| 4 | **Elementos que emiten luz** | Cada componente es una lámpara. Hover = encender. El fondo es oscuridad que respira. | `filter: brightness`, backdrop glow, transiciones de iluminación por estado |
+
+> Guardar como `lighting_profile`.
+
+### Paso 1.10: Ritmo y Tempo (10/11)
+**Pregunta:** ¿Cuál es el pulso de tu app?
+
+| # | Opción | Descripción | Técnica |
+|---|--------|-------------|---------|
+| 1 | **Cine lento** | Todo se toma su tiempo. Transiciones largas, pausas deliberadas que crean suspense y peso. | Durations 600–1200ms, easings suaves, timelines secuenciales |
+| 2 | **Pulso cardíaco** | Un ritmo constante late bajo toda la interfaz. Los elementos respiran con él. | Duration tokens con base 500ms, keyframes de "latido", sincronía rítmica |
+| 3 | **Edición frenética** | Cortes rápidos, todo reacciona al instante. Energía de montaje de trailer. | Durations 80–200ms, anticipación, easings exagerados |
+| 4 | **Tempo por fases** | El ritmo cambia por contexto: lento en lectura, rápido en acción, climax en momentos clave. | Context-based duration maps, transition tokens por zona |
+
+> Guardar como `tempo_rhythm`.
+
+### Paso 1.11: Cursor como Personaje (11/11)
+**Pregunta:** ¿Qué hace el puntero cuando el usuario toca tu mundo?
+
+| # | Opción | Descripción | Técnica |
+|---|--------|-------------|---------|
+| 1 | **Pluma que deja tinta** | El cursor deja rastros y mancha el contenido al pasar. Cada movimiento es una marca. | Pointer trails, `mix-blend-mode`, canvas para el rastro |
+| 2 | **Láser quirúrgico** | Preciso, con anillo de foco. El cursor se convierte en una herramienta quirúrgica. | Custom cursor crosshair/anillo, snap en targets interactivos |
+| 3 | **Ser vivo** | El cursor respira, se inclina, reacciona al contenido y a la velocidad del movimiento. | Custom cursor animado (keyframes), transform según velocidad/hover |
+| 4 | **Mano invisible** | Sin cursor visible. El sistema muestra contexto según dónde estás. | `cursor: none`, tooltips contextuales, highlight de zona activa |
+
+> Guardar como `cursor_identity`.
+
+---
+
+### Paso 1.12: Preguntas Avanzadas Opcionales (Bonus)
+> Después del paso 1.11, ofrecer: *"Ya tienes las bases. ¿Quieres refinar 2 dimensiones más? (Opcional)"*.
+> Si el usuario acepta, hacer estas DOS preguntas una a la vez con barra de progreso. Si no, saltar directo a Fase 1.5.
+> Si el usuario responde las opcionales, sus keys (`friction_profile`, `temporal_anchor`) se integran a la Fase 2.
+
+#### Pregunta Opcional A: Fricción Deliberada → `friction_profile`
+**Pregunta:** ¿Cuánto esfuerzo debe poner el usuario para lograr las cosas?
+
+| # | Opción | Descripción | Técnica |
+|---|--------|-------------|---------|
+| 1 | **Cero fricción** | Todo es instantáneo. Cero pasos de más; la eficiencia ES la estética. | Optimistic UI, autosave, atajos de teclado |
+| 2 | **Ritual ceremonioso** | Cada acción importante es un acto con pasos, pausas y anticipación. | Multi-step reveals, confirmaciones narrativas, transiciones rituales |
+| 3 | **Recompensa escalonada** | La app dosifica la información; el usuario "gana" capas al interactuar. | Progressive disclosure, unlocks visuales, meta-progreso |
+| 4 | **Obstáculo deliberado** | Pequeños retos para llegar a la funcionalidad. El descubrimiento es parte del juego. | Micro-puzzles, gestos a descubrir, easter eggs como recompensa |
+
+#### Pregunta Opcional B: Ancla Temporal → `temporal_anchor`
+**Pregunta:** ¿De qué época parece venir tu app?
+
+| # | Opción | Descripción | Técnica |
+|---|--------|-------------|---------|
+| 1 | **Retro-futurismo 80s** | El futuro que imaginaba 1984: terminales, scanlines, pronóstico optimista. | Neon, CRT effects, tipografía chunky, paleta sintética |
+| 2 | **Y2K Chrome** | 2000s: metal cepillado, brillos, optimismo tecnológico de burbuja. | Gradientes metálicos, highlights blancos, orb shapes |
+| 3 | **Presente radical** | 2026 y más allá: limpio pero con decisiones que aún no se ven en las masas. | Colores inusuales, tipografías nuevas, micro-interacciones avanzadas |
+| 4 | **Atemporal alienígena** | Sin referencia a ninguna época conocida. Podría venir de otro planeta. | Geometría imposible, sin tropes reconocibles, color no-humano |
 
 ---
 
@@ -125,6 +200,10 @@ Genera 4 mockups de interfaz de app para [tipo de app] con estilo [personality_a
 - Tipografía: [typography_architecture]
 - Navegación: [navigation_pattern]
 - Interacción: [interaction_pattern]
+- Luz: [lighting_profile]
+- Tempo: [tempo_rhythm] (representar en la elección de captura de momento)
+- Cursor: [cursor_identity] (mostrar el cursor dentro del mockup)
+- Sonido: [sound_identity] (traducir a pistas visuales: ondas, micrófonos, o silencio visual limpio)
 
 Cada mockup debe ser visualmente DISTINTO de los otros. Experimenta con:
 - Layouts asimétricos extremos
@@ -132,12 +211,14 @@ Cada mockup debe ser visualmente DISTINTO de los otros. Experimenta con:
 - Superposición de capas con blend modes
 - Elementos que rompen el viewport
 - Texturas y materialidades visibles
+- Iluminación dramática según [lighting_profile]
+- Cursor visible y con personalidad
 
 Estilo: UI/UX design mockup, high fidelity, experimental, avant-garde.
 ```
 
 > Mostrar los 4 mockups al usuario. Pedir que elija uno o que combine elementos de varios.
-> Extraer del mockup elegido: paleta exacta, tipografía dominante, layout pattern, texturas visibles.
+> Extraer del mockup elegido: paleta exacta, tipografía dominante, layout pattern, texturas visibles, tratamiento de luz y comportamiento de cursor si son visibles.
 
 ---
 
@@ -181,6 +262,24 @@ Basado en tu selección, propongo lo siguiente para tu app:
 
 10. RESPONSIVE: En móvil, la app [se adapta fielmente / se transforma en otra cosa / prioriza una versión].
     [Descripción del comportamiento responsive].
+
+11. SONIDO: [sound_identity] → El audio es [silencio curado / generativo / percusivo / sinestésico].
+    [Descripción del tratamiento sonoro. Si es silencio: qué fallbacks hápticos y cuándo se rompe el silencio].
+
+12. LUZ: [lighting_profile] → La iluminación es [cine / neón / plano / emisiva].
+    [Descripción de tokens de luz, glows y profundidad].
+
+13. TEMPO: [tempo_rhythm] → La app respira con [cine lento / pulso cardíaco / frenético / por fases].
+    Duración base: [valor]. Easing principal: [valor]. [Patrón rítmico].
+
+14. CURSOR: [cursor_identity] → El puntero es [tinta / láser / ser vivo / invisible].
+    [Descripción del comportamiento del cursor por estado].
+
+15. FRICCIÓN: [friction_profile o "estándar"] → La experiencia exige [cero esfuerzo / ritual / recompensa / reto].
+    [Descripción de cómo se dosifica la interacción].
+
+16. ANCLA TEMPORAL: [temporal_anchor o "no definida"] → La estética referencia [época].
+    [Referencias concretas de la época si aplica].
 ```
 
 > Pedir al usuario: "¿Hay algún supuesto que NO te guste? Responde con los números (ej: 2, 5, 9) o di 'todo bien' para continuar."
@@ -230,6 +329,12 @@ Generar `design-system.md` con estructura expandida para diseño vanguardista.
 - **Materialidad:** [materiality]
 - **Interacción como:** [interaction_pattern]
 - **Estructura:** [information_structure]
+- **Sonido:** [sound_identity]
+- **Luz:** [lighting_profile]
+- **Tempo:** [tempo_rhythm]
+- **Cursor:** [cursor_identity]
+- **Fricción:** [friction_profile — si respondió la opcional]
+- **Ancla temporal:** [temporal_anchor — si respondió la opcional]
 
 ## 2. Paleta de Color
 | Token | Hex | Uso | Blend Mode | Notas |
@@ -374,6 +479,11 @@ Esta app NUNCA usará:
 - [ ] Tipografía que no sea un elemento de diseño activo
 - [ ] Espaciado predecible (8px, 16px, 24px, 32px...) sin variación
 - [ ] "Diseño responsive" que solo significa "más pequeño en móvil"
+- [ ] Sonido de notificación del sistema genérico (pop/ding por defecto del OS)
+- [ ] Cursor arrow del sistema sin personalidad ni comportamiento
+- [ ] Todas las transiciones con la misma duración (tempo uniforme = cadáver rítmico)
+- [ ] Iluminación plana sin dirección ni drama cuando la personalidad pide profundidad
+- [ ] Silencio total cuando el sonido es parte de la identidad (y viceversa: sonido genérico cuando el silencio es la estética)
 
 ## 12. Referencias y Moodboard
 [Sugerir 3-5 referencias reales que capturen la esencia]
@@ -384,6 +494,53 @@ Esta app NUNCA usará:
 - **Performance considerations:** [qué cuidar]
 - **Accessibility:** [cómo mantener accesibilidad SIN sacrificar personalidad]
 - **Browser support:** [qué features modernos usar con confianza]
+
+## 14. Sonido y Audio
+| Acción | Sonido / Silencio | Técnica | Volumen |
+|--------|-------------------|---------|---------|
+| Click / tap | [descripción o NADA] | [Tone.js / Howler / WebAudio / háptica] | [dB] |
+| Transición de sección | [descripción o NADA] | [técnica] | [dB] |
+| Error | [descripción] | [técnica] | [dB] |
+| Success | [descripción] | [técnica] | [dB] |
+| Ambiente | [generativo / silencio / loop] | [técnica] | [dB] |
+
+> Especificar: ¿Respetar prefers-reduced-motion afecta también al audio? ¿Hay mute visible siempre?
+> Si `sound_identity` es "silencio curado": documentar exactamente qué ÚNICO sonido existe (el error) y por qué.
+
+## 15. Iluminación
+| Token | Valor | Uso | Técnica |
+|-------|-------|-----|---------|
+| Light source | [dirección/tipo de luz] | Foco principal | [radial-gradient / spotlight / none] |
+| --glow-primary | [valor] | [dónde brilla] | [box-shadow / text-shadow / blur] |
+| --glow-secondary | [valor] | [dónde brilla] | [técnica] |
+| Background darkness | [valor] | Fondo base | [color + depth] |
+| Hover illumination | [descripción] | Qué pasa al encender un elemento | [filter brightness / glow] |
+
+> Especificar: ¿El modo oscuro es el default o una elección? ¿La luz cambia con interacción?
+
+## 16. Tempo System
+| Token | Valor | Uso |
+|-------|-------|-----|
+| Duration base | [ms] | Ritmo general |
+| Duration fast | [ms] | Micro-interacciones |
+| Duration slow | [ms] | Transiciones de sección |
+| Easing principal | [cubic-bezier/ease] | Todo el motion |
+| Easing de climax | [cubic-bezier/ease] | Momentos importantes |
+| Patrón rítmico | [descripción] | Cómo "late" la interfaz |
+
+> Especificar: ¿El tempo es uniforme o por fases? ¿Qué secciones son lentas y cuáles rápidas?
+
+## 17. Cursor
+| Estado | Comportamiento | Técnica |
+|--------|----------------|---------|
+| Default | [descripción] | [custom cursor / none / system] |
+| Hover en interactivo | [descripción] | [transform / snap / trail] |
+| En texto | [descripción] | [descripción] |
+| Drag / activo | [descripción] | [descripción] |
+| Loading | [descripción] | [descripción] |
+
+> Especificar: ¿El cursor respeta touch devices (desaparece en móvil)? ¿Deja rastros persistentes?
+> Si es "mano invisible": documentar los tooltips contextuales que lo reemplazan.
 ```
 
 ---
@@ -401,6 +558,12 @@ Tu app tiene ahora una identidad visual ÚNICA basada en:
 - Paleta: [primario, secundario, fondo, acento]
 - Interacción: [interaction_pattern]
 - Estructura: [information_structure]
+- Sonido: [sound_identity]
+- Luz: [lighting_profile]
+- Tempo: [tempo_rhythm]
+- Cursor: [cursor_identity]
+- [Fricción: friction_profile — si respondió la opcional]
+- [Ancla temporal: temporal_anchor — si respondió la opcional]
 
 El documento `design-system.md` está listo y servirá como fuente de verdad
 para TODA la generación de código posterior.
@@ -434,6 +597,11 @@ pueden requerir técnicas avanzadas (WebGL, shaders, animaciones complejas).
 13. **La tipografía NO es decorativa.** Es arquitectura, es narrativa, es la voz de la app.
 14. **Cada interacción debe ser memorable.** Un hover que solo cambia de color es un hover fallido.
 15. **El responsive no es "más pequeño".** Es una reimaginación del layout para el viewport.
+16. **El sonido es diseño.** Un "ding" genérico del sistema es tan slop como un gradiente púrpura. Silencio, ritmo y audio deben ser decisiones tan conscientes como el color.
+17. **La luz tiene dirección.** Iluminar no es "agregar sombras"; es decidir de dónde viene la luz y qué resalta.
+18. **El tempo define la emoción.** Una misma animación con otra duración cambia el significado. La duración es un token, no un capricho.
+19. **El cursor es parte de la escena.** No un puntero que flota sobre tu mundo: un personaje dentro de él.
+20. **Las opcionales son palanca, no relleno.** Fricción y ancla temporal son preguntas que solo valen si el usuario quiere más profundidad; nunca forzarlas.
 
 ---
 

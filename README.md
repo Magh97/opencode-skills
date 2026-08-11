@@ -1,6 +1,6 @@
 # opencode-skills
 
-Conjunto de **153 skills** y **20 agentes** para [opencode](https://opencode.ai), agrupados por kits: .NET, ASP.NET Core, SQL Server, PostgreSQL, Python, Node.js, React, Flutter, JavaScript, seguridad, DevOps, Git, planeación, diseño y más.
+Conjunto de **154 skills** y **21 agentes** para [opencode](https://opencode.ai), agrupados por kits: .NET, ASP.NET Core, SQL Server, PostgreSQL, Python, Node.js, React, Flutter, JavaScript, seguridad, DevOps, Git, planeación, diseño y más.
 
 ## Instalación
 
@@ -43,23 +43,23 @@ Reinicia opencode para que cargue las skills y agentes nuevos.
 
 | Modo | Agentes |
 |------|---------|
-| **primary** | `docs`, `planning`, `design`, `sputnik`, `security`, `devops`, `git`, `code-review` |
-| **all** | `ui` |
+| **primary** | `sputnik`, `security`, `devops`, `git`, `code-review` |
+| **all** | `docs`, `planning`, `design`, `ui`, `business-planning` |
 | **subagent** | `dotnet`, `aspnet`, `sqlserver`, `postgres`, `js`, `react`, `node`, `python`, `python-ai-intel`, `flutter` |
 
 ## Orquestación
 
 `build` (agente por defecto) delega automáticamente en subagentes según su `description` cuando la tarea coincide con sus keywords. El repo incluye `.opencode/agent/build.md`, un override de `build` con reglas explícitas de orquestación: qué subagente lanzar ante qué keywords y qué no delegar.
 
-Los agentes `primary` (`docs`, `planning`, `design`, `sputnik`, `security`, `devops`, `git`, `code-review`) NO se delegan vía task — se activan con **Tab** o **@-mención**. `ui` es `mode: all`: se puede abrir directo (cuestionario de diseño) y a la vez es delegable por otros agentes vía task.
+Los agentes `primary` (`sputnik`, `security`, `devops`, `git`, `code-review`) NO se delegan vía task — se activan con **Tab** o **@-mención**. Los agentes `all` (`docs`, `planning`, `design`, `ui`, `business-planning`) se pueden abrir directo y a la vez son delegables por otros agentes vía task. `business-planning` es un orquestador: genera el plan de negocio (12 secciones) y delega a `planning`, `design` y `docs` para producir la estructura teórica completa del proyecto.
 
 Para afinar permisos de delegación a nivel global, copia el patrón de `opencode.example.json` a tu `opencode.json` (p.ej. pedir confirmación antes de lanzar `sputnik`).
 
 ## Estructura
 
 ```
-skills/               # 153 skills (<nombre>/SKILL.md)
-.opencode/agent/      # 20 agentes opencode (<nombre>.md)
+skills/               # 154 skills (<nombre>/SKILL.md)
+.opencode/agent/      # 21 agentes opencode (<nombre>.md)
 install.ps1           # Instalador de agentes (Windows)
 install.sh            # Instalador de agentes (macOS/Linux)
 opencode.example.json # Ejemplo de config global (permisos de delegación)
