@@ -1,5 +1,10 @@
-# Skill: Anti-Slop Design Architect
-## Versión: 1.0 | 2026-07-28
+---
+name: agent-anti-slop-designer
+description: Diseño de productos digitales con personalidad que no parecen hechos por IA. Cuestionario de descubrimiento de estilo (voz, energía, tipografía, material, color, interacción), refinamiento de supuestos y generación de design-system.md con identidad humana. Usa cuando el usuario diga "que no parezca hecho por AI", "diseño con personalidad", "design system", "cuestionario de estilo", "evita el estilo genérico de IA", o quiera UI con alma e intención.
+---
+
+# Skill: Agent Anti-Slop Designer
+## Version: 1.0 | 2026-07-28
 ### Propósito
 Transformar ideas de aplicaciones AI-genéricas en productos digitales con personalidad, intención y alma humana. Esta skill guía al usuario —incluso cuando no sabe qué quiere— a través de un cuestionario de descubrimiento de estilo, extrayendo un design system único antes de que una sola línea de código se genere.
 
@@ -334,7 +339,7 @@ para TODA la generación de código posterior.
 Copia y pega esto para activar esta skill:
 
 ```
-Activa la skill Anti-Slop Design Architect. Quiero diseñar [tipo de app] 
+Activa la skill Agent Anti-Slop Designer. Quiero disenar [tipo de app] 
 que se sienta [adjetivo: cálida/rebelde/minimalista/artística/etc.]. 
 [Opcional: No tengo claro el estilo, guíame con el cuestionario].
 ```
