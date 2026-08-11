@@ -1,6 +1,6 @@
 # opencode-skills
 
-Conjunto de **153 skills** y **17 agentes** para [opencode](https://opencode.ai), agrupados por kits: .NET, ASP.NET Core, SQL Server, PostgreSQL, Python, Node.js, React, Flutter, JavaScript, seguridad, DevOps, planeación, diseño y más.
+Conjunto de **153 skills** y **20 agentes** para [opencode](https://opencode.ai), agrupados por kits: .NET, ASP.NET Core, SQL Server, PostgreSQL, Python, Node.js, React, Flutter, JavaScript, seguridad, DevOps, Git, planeación, diseño y más.
 
 ## Instalación
 
@@ -43,14 +43,15 @@ Reinicia opencode para que cargue las skills y agentes nuevos.
 
 | Modo | Agentes |
 |------|---------|
-| **primary** | `docs`, `planning`, `design`, `sputnik` |
-| **subagent** | `security`, `devops`, `dotnet`, `aspnet`, `sqlserver`, `postgres`, `js`, `react`, `node`, `python`, `python-ai-intel`, `flutter`, `ui` |
+| **primary** | `docs`, `planning`, `design`, `sputnik`, `security`, `devops`, `git`, `code-review` |
+| **all** | `ui` |
+| **subagent** | `dotnet`, `aspnet`, `sqlserver`, `postgres`, `js`, `react`, `node`, `python`, `python-ai-intel`, `flutter` |
 
 ## Orquestación
 
 `build` (agente por defecto) delega automáticamente en subagentes según su `description` cuando la tarea coincide con sus keywords. El repo incluye `.opencode/agent/build.md`, un override de `build` con reglas explícitas de orquestación: qué subagente lanzar ante qué keywords y qué no delegar.
 
-Los agentes `primary` (`docs`, `planning`, `design`, `sputnik`) NO se delegan vía task — se activan con **Tab** o **@-mención**.
+Los agentes `primary` (`docs`, `planning`, `design`, `sputnik`, `security`, `devops`, `git`, `code-review`) NO se delegan vía task — se activan con **Tab** o **@-mención**. `ui` es `mode: all`: se puede abrir directo (cuestionario de diseño) y a la vez es delegable por otros agentes vía task.
 
 Para afinar permisos de delegación a nivel global, copia el patrón de `opencode.example.json` a tu `opencode.json` (p.ej. pedir confirmación antes de lanzar `sputnik`).
 
@@ -58,7 +59,7 @@ Para afinar permisos de delegación a nivel global, copia el patrón de `opencod
 
 ```
 skills/               # 153 skills (<nombre>/SKILL.md)
-.opencode/agent/      # 18 agentes opencode (<nombre>.md)
+.opencode/agent/      # 20 agentes opencode (<nombre>.md)
 install.ps1           # Instalador de agentes (Windows)
 install.sh            # Instalador de agentes (macOS/Linux)
 opencode.example.json # Ejemplo de config global (permisos de delegación)
