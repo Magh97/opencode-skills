@@ -9,7 +9,8 @@
  *  4. Consistencia repo vs instalación (~/.config/opencode) por hash MD5
  *  5. Que los agentes referenciados por business-planning existan
  *
- * Uso: node verify-install.js [--fix-report]
+ * Uso: node verify-install.js [--config <dir>]
+ *   --config <dir>  Ruta al directorio config a verificar (default: ~/.config/opencode)
  * Salida: tabla resumen + códigos de salida (0 ok, 1 con hallazgos)
  */
 const fs = require("fs");
@@ -21,7 +22,12 @@ const YAML = require("yaml");
 const REPO = __dirname; // .opencode/
 const REPO_SKILLS = path.join(REPO, "..", "skills");
 const REPO_AGENTS = path.join(REPO, "agent");
-const CFG = path.join(require("os").homedir(), ".config", "opencode");
+// --config <dir> permite verificar contra un HOME/config limpio (emulación)
+const args = process.argv.slice(2);
+const cfgIdx = args.indexOf("--config");
+const CFG = cfgIdx !== -1 && args[cfgIdx + 1]
+  ? path.resolve(args[cfgIdx + 1])
+  : path.join(require("os").homedir(), ".config", "opencode");
 const CFG_SKILLS = path.join(CFG, "skills");
 const CFG_AGENTS = path.join(CFG, "agent");
 
@@ -227,6 +233,7 @@ for (const agent of BP_DELEGATES) {
 console.log("=".repeat(62));
 console.log("VERIFICACIÓN DE INSTALACIÓN — opencode-skills");
 console.log("=".repeat(62));
+console.log(`Config verificado: ${CFG}`);
 console.log("");
 console.log("Skills:".padEnd(10), `repo=${summary.skills.repo}  config=${summary.skills.config}  idénticas=${summary.skills.ok}  con diferencias/faltantes=${summary.skills.missing}`);
 console.log("Agentes:".padEnd(10), `repo=${summary.agents.repo}  config=${summary.agents.config}  idénticos=${summary.agents.ok}  con diferencias/faltantes=${summary.agents.missing}`);
