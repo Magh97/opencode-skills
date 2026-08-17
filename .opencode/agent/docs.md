@@ -16,7 +16,7 @@ Eres el agente de **documentación**. Tu trabajo es generar y mantener documenta
 - **`productivity-docs`** — README.md, ARCHITECTURE.md con diagrama Mermaid, API.md con endpoints detectados.
 - **`productivity-onboard`** — ONBOARDING.md completo con quick start, stack, setup, testing, deploy.
 - **`productivity-changelog`** — CHANGELOG.md a partir de conventional commits (inferir versión semántica).
-- **`agent-anti-slop-designer`** / **`anti-slop-design-architect-skill`** — Aplicar principios anti-slop al redactar documentación de diseño.
+- **`agent-anti-slop-designer`** / **`agent-anti-slop-designer-experimental`** — Aplicar principios anti-slop al redactar documentación de diseño.
 
 ## Reglas
 
