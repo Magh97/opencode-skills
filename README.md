@@ -4,9 +4,36 @@ Conjunto de **154 skills** y **21 agentes** para [opencode](https://opencode.ai)
 
 ## Instalación
 
-### 1. Skills (vía npx)
+### 1. Vía recomendada: script del repo (skills + agentes)
 
-Usa el CLI [skills](https://www.npmjs.com/package/skills):
+**Windows (PowerShell):**
+```powershell
+# Instalar agentes (21) en ~/.config/opencode/agent/
+./install.ps1 -Yes
+
+# Instalar agentes + skills (154) en ~/.config/opencode/
+./install.ps1 -Yes -Global
+```
+
+**macOS / Linux:**
+```bash
+# Instalar agentes (21)
+./install.sh -y
+
+# Instalar agentes + skills (154) con -Global
+./install.sh -y --global
+```
+
+Esta vía es la **verificada**: copia exactamente lo que hay en el repo y garantiza sincronía entre repo y config. Puedes comprobar la instalación con el script del repo:
+
+```bash
+node .opencode/verify-install.js                 # verifica ~/.config/opencode
+node .opencode/verify-install.js --config <dir>  # verifica una instalación en otra ruta (sistema limpio)
+```
+
+### 2. Vía alternativa: CLI `npx skills` (⚠️ solo skills, con bug conocido)
+
+El CLI [skills](https://www.npmjs.com/package/skills) instala solo skills (no agentes):
 
 ```bash
 # Listar skills disponibles (opcional)
@@ -19,21 +46,10 @@ npx skills add Magh97/opencode-skills --all -g -a opencode -y
 npx skills add Magh97/opencode-skills --skill dotnet-core --skill dotnet-ef-core -g -a opencode -y
 ```
 
-### 2. Agentes
-
-El CLI `npx skills add` solo instala skills. Usa el script de instalación del repo:
-
-**Windows (PowerShell):**
-```powershell
-./install.ps1 -Yes
-```
-
-**macOS / Linux:**
-```bash
-./install.sh -y
-```
-
-Los scripts copian `.opencode/agent/*.md` a `~/.config/opencode/agent/`. Para copiar también las skills a la carpeta global de opencode usa `-Global` (Windows) o `--global` (macOS/Linux).
+> **BUG CONOCIDO:** El CLI `npx skills` **no funciona de forma confiable para opencode**:
+> - Sin `OPENCODE_CLIENT` (cuando se ejecuta desde una shell normal) no detecta opencode como agente: instala para otros agentes (Eve, PromptScript, etc.) y **no** escribe en `~/.config/opencode/skills/`.
+> - Con `OPENCODE_CLIENT` (cuando corre dentro de opencode) **ignora `$USERPROFILE`**: instala en el directorio de trabajo (crea `.agents/`, `skills-lock.json`) y, si se ejecuta desde el repo, puede **sobrescribir el config real de opencode con line endings LF** y reemplazar los directorios de `skills/` por **junctions** (rompiendo el working tree de git).
+> - **Solución:** usa `install.ps1 -Global` / `install.sh -y --global` (vía 1). Si detectas archivos movidos a `.agents/`, `.claude/`, `agent/` o junctions en `skills/`, restaura con `git checkout HEAD -- skills/` y vuelve a correr `install.ps1 -Global`.
 
 ### 3. Reiniciar
 
