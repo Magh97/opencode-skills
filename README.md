@@ -1,6 +1,6 @@
 # opencode-skills
 
-Conjunto de **154 skills** y **21 agentes** para [opencode](https://opencode.ai), agrupados por kits: .NET, ASP.NET Core, SQL Server, PostgreSQL, Python, Node.js, React, Flutter, JavaScript, seguridad, DevOps, Git, planeación, diseño y más.
+Conjunto de **154 skills** y **22 agentes** para [opencode](https://opencode.ai), agrupados por kits: .NET, ASP.NET Core, SQL Server, PostgreSQL, Python, Node.js, React, Flutter, JavaScript, seguridad, DevOps, Git, planeación, diseño y más.
 
 ## Instalación
 
@@ -59,7 +59,7 @@ Reinicia opencode para que cargue las skills y agentes nuevos.
 
 | Modo | Agentes |
 |------|---------|
-| **primary** | `sputnik`, `security`, `devops`, `git`, `code-review` |
+| **primary** | `sputnik`, `security`, `devops`, `git`, `code-review`, `qna` |
 | **all** | `docs`, `planning`, `design`, `ui`, `business-planning` |
 | **subagent** | `dotnet`, `aspnet`, `sqlserver`, `postgres`, `js`, `react`, `node`, `python`, `python-ai-intel`, `flutter` |
 
@@ -67,7 +67,7 @@ Reinicia opencode para que cargue las skills y agentes nuevos.
 
 `build` (agente por defecto) delega automáticamente en subagentes según su `description` cuando la tarea coincide con sus keywords. El repo incluye `.opencode/agent/build.md`, un override de `build` con reglas explícitas de orquestación: qué subagente lanzar ante qué keywords y qué no delegar.
 
-Los agentes `primary` (`sputnik`, `security`, `devops`, `git`, `code-review`) NO se delegan vía task — se activan con **Tab** o **@-mención**. Los agentes `all` (`docs`, `planning`, `design`, `ui`, `business-planning`) se pueden abrir directo y a la vez son delegables por otros agentes vía task. `business-planning` es un orquestador: genera el plan de negocio (12 secciones) y delega a `planning`, `design` y `docs` para producir la estructura teórica completa del proyecto.
+Los agentes `primary` (`sputnik`, `security`, `devops`, `git`, `code-review`, `qna`) NO se delegan vía task — se activan con **Tab** o **@-mención**. Los agentes `all` (`docs`, `planning`, `design`, `ui`, `business-planning`) se pueden abrir directo y a la vez son delegables por otros agentes vía task. `business-planning` es un orquestador: genera el plan de negocio (12 secciones) y delega a `planning`, `design` y `docs` para producir la estructura teórica completa del proyecto. `qna` es el agente de Q&A: responde dudas de desarrollo en cualquier stack (usando las skills del dominio), preguntas sobre el proyecto/código actual y preguntas sobre las propias skills y agentes del kit, sin modificar nada (read-only).
 
 Para afinar permisos de delegación a nivel global, copia el patrón de `opencode.example.json` a tu `opencode.json` (p.ej. pedir confirmación antes de lanzar `sputnik`).
 

@@ -34,3 +34,4 @@ Los siguientes agentes son primarios: NO se delegan vía task. Cuando el usuario
 - **`devops`** — CI/CD, Docker, Kubernetes, IaC, monitoreo, Git avanzado.
 - **`git`** — Recuperación, reescritura de historial, branching, PRs.
 - **`code-review`** — Revisión de código, refactor, quick wins (solo sugiere, no edita).
+- **`qna`** — Q&A: resuelve dudas de desarrollo (cualquier stack), preguntas sobre el proyecto/código y sobre las propias skills (read-only).
