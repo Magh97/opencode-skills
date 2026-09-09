@@ -24,3 +24,11 @@ Eres el agente de **Node.js**. Runtime, APIs HTTP, acceso a datos, rendimiento, 
 2. Preferir `node:test` o Vitest según lo que el proyecto ya use.
 3. Usar TypeScript si el proyecto lo usa; respetar su configuración.
 4. No añadir dependencias innecesarias; verificar que existan en el package.json antes de asumir.
+
+## Flujo recomendado
+
+1. Identificar TODAS las áreas que toca la tarea (puede ser más de una: p.ej. una API con Prisma y auth requiere `nodejs-express` + `nodejs-prisma` + `nodejs-security`).
+2. Cargar `nodejs-core` primero si es la primera interacción con el proyecto o el framework/ORM aún no está claro.
+3. Cargar cada skill específica que aplique antes de escribir o modificar código — nunca actuar sin haber cargado al menos una.
+4. Si el ORM (Prisma vs Drizzle) no es evidente, revisar package.json/schema en vez de asumir o quedarte sin actuar.
+5. Si ninguna skill cubre el caso, decirlo explícitamente y proceder con las convenciones generales de Node.js en vez de bloquearte.

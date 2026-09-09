@@ -135,8 +135,13 @@ function showFieldErrors(form) {
     errors.push(`${label}: ${field.validationMessage}`);
     field.classList.add('is-invalid');
   });
-  document.querySelector('#error-summary').innerHTML = errors
-    .map(e => `<li>${e}</li>`).join('');
+  const summary = document.querySelector('#error-summary');
+  summary.textContent = '';
+  errors.forEach(e => {
+    const li = document.createElement('li');
+    li.textContent = e;
+    summary.appendChild(li);
+  });
 }
 ```
 

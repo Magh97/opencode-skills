@@ -1,6 +1,7 @@
 ---
 name: flutter-deployment
 description: "Despliegue de apps Flutter en iOS y Android. Cubre code signing, App Store Connect, Google Play Console, Codemagic CI/CD, versionado semántico, splash screen, íconos, y publicación. Actívala al preparar un release, configurar CI/CD móvil, o publicar en las tiendas."
+disable-model-invocation: true
 ---
 
 # Flutter Deployment

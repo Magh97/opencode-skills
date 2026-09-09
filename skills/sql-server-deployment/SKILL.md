@@ -1,6 +1,6 @@
 ---
 name: sql-server-deployment
-description: "Despliegue y migraciones de SQL Server. Cubre estrategias de migración (EF Core, Flyway, DbUp), CI/CD con SSDT/DACPAC y SqlPackage, contenedores Docker, scripts idempotentes, zero-downtime deployments, y versionado de bases de datos. Actívala al diseñar pipelines de CI/CD, configurar migraciones automáticas, o planear despliegues sin downtime."
+description: "Despliegue y migraciones de ESQUEMA/CI-CD de SQL Server (no de código de acceso a datos — para eso ver `sql-server-integration`). Cubre estrategias de migración (EF Core, Flyway, DbUp), CI/CD con SSDT/DACPAC y SqlPackage, contenedores Docker, scripts idempotentes, zero-downtime deployments, y versionado de bases de datos. Actívala al diseñar pipelines de CI/CD, configurar migraciones automáticas, o planear despliegues sin downtime."
 disable-model-invocation: true
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: postgresql-advanced
-description: "T-SQL avanzado en PostgreSQL. Cubre CTEs recursivos (WITH RECURSIVE), window functions (ROW_NUMBER, RANK, LAG, LEAD), JSON/JSONB (operadores, indexación GIN, jsonb_path_query), full-text search (tsvector, tsquery), arrays, range types, dominio y tipos custom, y extensiones pgvector para AI/RAG. Actívala al implementar queries complejas, reportes analíticos, búsquedas avanzadas, o pipelines de embeddings."
+description: "PL/pgSQL avanzado en PostgreSQL. Cubre CTEs recursivos (WITH RECURSIVE), window functions (ROW_NUMBER, RANK, LAG, LEAD), JSON/JSONB (operadores, indexación GIN, jsonb_path_query), full-text search (tsvector, tsquery), arrays, range types, dominio y tipos custom, y extensiones pgvector para AI/RAG. Actívala al implementar queries complejas, reportes analíticos, búsquedas avanzadas, o pipelines de embeddings."
 disable-model-invocation: true
 ---
 

@@ -52,7 +52,7 @@ Si una tarea requeriría **5 o más puntos**, NO se puede estimar así. Debe div
 - `Se crea DB` → Creación de base de datos o schema
 - `Se crea tabla SQL` → Creación de una tabla
 - `Se realiza SP` → Creación de un stored procedure
-### Backend (.NET Core 8)
+### Backend (.NET 10)
 - `Se crea archivo BackEnd` → Servicio, infraestructura, clase de utilidad
 - `Se crea Consulta BackEnd` → Endpoint GET
 - `Se crea Alta BackEnd` → Endpoint POST
@@ -171,7 +171,7 @@ Pide al usuario el **Nombre del proyecto** y **Req.** si no los proporcionó. Si
 3. **Infiere todas las tareas necesarias** por capa.
 4. **Aplica las reglas** de puntuación y división.
 5. **Devuelve la tabla** agrupada por capa con subtotales y total general.
-6. **Pregunta al final**: "¿Quieres que suba estos issues a Jira?" Si dice que sí, carga `sputnik-jira/GUIDE.md`. "¿Quieres exportar a Excel?" Si dice que sí, carga `sputnik-excel/GUIDE.md`.
+6. **Pregunta al final**: "¿Quieres que suba estos issues a Jira?" Si dice que sí, carga la skill `sputnik-jira`. "¿Quieres exportar a Excel?" Si dice que sí, carga la skill `sputnik-excel`.
 
 ## Retrospectiva de estimación
 

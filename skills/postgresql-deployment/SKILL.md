@@ -199,15 +199,14 @@ sudo apt install postgresql-18
 
 ## Backups y restore en CI
 
-### Clonar producción para staging
+Uso puntual dentro del pipeline, para clonar producción a staging:
 
 ```bash
-# Backup de producción
 pg_dump -h prod -U backup -d miapp -Fc -f prod_backup.dump
-
-# Restore en staging (anonimizar datos PII opcional)
 pg_restore -h staging -U deploy -d miapp --clean --if-exists prod_backup.dump
 ```
+
+> Para la teoría completa de backup/restore/HA (Patroni, WAL, replicación), ver `postgresql-architecture`.
 
 ### Scripts idempotentes
 

@@ -112,6 +112,8 @@ model.save_pretrained("llama-3.2-3b-ov/")
 
 ## Quantization de LLMs
 
+> Esta sección cubre cuantización de pesos de LLMs (NNCF weight compression, AWQ/GPTQ). Para cuantización NNCF de modelos de visión/generales (post-training INT8/INT4 con `nncf.quantize`), ver `python-ai-intel-openvino`.
+
 ### INT8 con NNCF
 
 ```python

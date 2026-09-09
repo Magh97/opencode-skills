@@ -1,6 +1,6 @@
 ---
 name: planning-stakeholders
-description: "Mapeo de stakeholders, matriz RACI, plan de comunicación y análisis de impacto. Actívala al identificar interesados del proyecto, definir responsabilidades, o cuando el usuario diga 'stakeholders', 'RACI', 'matriz de comunicación', 'análisis de impacto', 'quién decide qué'."
+description: "Mapeo de stakeholders, matriz RACI, plan de comunicación y análisis de impacto. Actívala al identificar interesados del proyecto, definir responsabilidades, o cuando el usuario diga 'stakeholders', 'RACI', 'matriz de comunicación', 'análisis de impacto', 'quién decide qué'. Normalmente se usa junto con planning-core, planning-risk y planning-roadmap al planear un proyecto completo."
 ---
 
 # Planning Stakeholders — Mapeo y Comunicación

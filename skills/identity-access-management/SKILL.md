@@ -169,6 +169,8 @@ Aplicación (SP) → Redirect → IdP (Okta/Azure AD) → AuthN →
 
 ## Zero Trust Identity
 
+> Nota: aquí Zero Trust se trata a nivel de identidad y autenticación de usuarios (riesgo adaptativo, PAM, JIT). Para Zero Trust a nivel de red/arquitectura (microsegmentación, security boundaries), ver `secure-architecture`.
+
 ### Principios
 1. Verify identity explicitly (strong AuthN)
 2. Validate device health (MDM compliance)

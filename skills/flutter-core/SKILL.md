@@ -1,6 +1,6 @@
 ---
 name: flutter-core
-description: "Guía principal de Flutter 3.44 y Dart 3.12 (2026). Cubre widgets, composición, stateful/stateless, hot reload, temas, navegación básica, null safety, records, patterns y fundamentos del framework. Actívala para cualquier tarea Flutter: nuevas pantallas, diseño de widgets, o migración de versiones. Las sub-skills del kit profundizan en dominios específicos."
+description: "Guía principal de Flutter 3.44 y Dart 3.12 (2026). Cubre widgets, composición, stateful/stateless, hot reload, temas, null safety, records, patterns y fundamentos del framework. Actívala para cualquier tarea Flutter: nuevas pantallas, diseño de widgets, o migración de versiones. Las sub-skills del kit profundizan en dominios específicos."
 ---
 
 # Flutter Core Guide

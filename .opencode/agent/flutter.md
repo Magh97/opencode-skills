@@ -26,3 +26,11 @@ Eres el agente de **Flutter y Dart**. UI, estado, navegación, almacenamiento, n
 2. Usar `const` widgets agresivamente para rendimiento.
 3. Seguir la estructura de carpetas del proyecto existente.
 4. No mezclar estrategias de state management dentro del mismo proyecto.
+
+## Flujo recomendado
+
+1. Identificar TODAS las áreas que toca la tarea (puede ser más de una: p.ej. una pantalla con datos remotos requiere `flutter-networking` + `flutter-state` + `flutter-ui`).
+2. Cargar `flutter-core` primero si es la primera interacción con el proyecto o la solución de estado aún no está clara.
+3. Cargar cada skill específica que aplique antes de escribir o modificar código — nunca actuar sin haber cargado al menos una.
+4. Si la solución de estado (Riverpod/BLoC/Provider) no es evidente, revisar pubspec.yaml/main.dart antes de asumir.
+5. Si ninguna skill cubre el caso, decirlo explícitamente y proceder con las convenciones generales de Flutter en vez de bloquearte.

@@ -124,6 +124,8 @@ app.MapWhen(context =>
 
 ## Filtros en MVC / Controllers
 
+> Esta skill (`aspnet-middleware`) es la fuente canónica de filtros (Authorization, Resource, Action, Exception, Result Filters). `aspnet-mvc` y `aspnet-razor-pages` solo muestran el uso puntual de filtros dentro de su propio contexto.
+
 ### Action Filter
 
 ```csharp

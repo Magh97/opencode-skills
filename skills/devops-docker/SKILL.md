@@ -167,20 +167,9 @@ volumes:
 
 ## Seguridad de imágenes
 
-```bash
-# Trivy — escaneo de vulnerabilidades
-docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image ghcr.io/mi-org/miapp:latest
+Antes de publicar: escanea la imagen con Trivy y fírmala con Cosign.
 
-# En CI: fallar si hay vulnerabilidades críticas
-trivy image --severity CRITICAL --exit-code 1 ghcr.io/mi-org/miapp:latest
-
-# Cosign — firmar imágenes
-cosign sign --key cosign.key ghcr.io/mi-org/miapp:latest
-cosign verify --key cosign.pub ghcr.io/mi-org/miapp:latest
-
-# Keyless signing (OIDC) con GitHub Actions
-cosign sign ghcr.io/mi-org/miapp:${{ github.sha }}
-```
+> Para el detalle completo de escaneo de vulnerabilidades y firma de imágenes, ver `devops-security`.
 
 ---
 

@@ -304,6 +304,8 @@ compiled = core.compile_model(
 
 ## NNCF — Quantization
 
+> Esta sección cubre cuantización NNCF para modelos generales/visión (post-training INT8/INT4 con `nncf.quantize`). Para cuantización de pesos de LLMs (INT8/INT4 weight compression, AWQ/GPTQ), ver `python-ai-intel-llm`.
+
 ```python
 import nncf
 

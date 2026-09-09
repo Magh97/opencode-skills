@@ -12,16 +12,70 @@
     ./install.ps1 -Global
 .EXAMPLE
     ./install.ps1 -Agents -Skills
+.EXAMPLE
+    # Solo instalar los kits de tu stack (skills + agentes)
+    ./install.ps1 -Yes -Global -Kits dotnet,aspnet,sql-server,react,js,postgresql,flutter,git,planning,design,devops,agent,sputnik
 #>
 [CmdletBinding()]
 param(
     [switch]$Global,
     [switch]$Agents,
     [switch]$Skills,
-    [switch]$Yes
+    [switch]$Yes,
+    [string[]]$Kits,
+    [switch]$ListKits
 )
 
 $ErrorActionPreference = "Stop"
+
+# Mapa de kit -> prefijo(s) de carpeta en skills/. "python" excluye "python-ai-intel-*"
+# (que es su propio kit) y "security" agrupa las skills sueltas de seguridad que no
+# comparten prefijo de carpeta.
+$KitMap = [ordered]@{
+    "agent"           = @{ Prefix = "agent-" }
+    "aspnet"          = @{ Prefix = "aspnet-" }
+    "design"          = @{ Prefix = "design-" }
+    "devops"          = @{ Prefix = "devops-" }
+    "dotnet"          = @{ Prefix = "dotnet-" }
+    "flutter"         = @{ Prefix = "flutter-" }
+    "git"             = @{ Prefix = "git-" }
+    "js"              = @{ Prefix = "js-" }
+    "nodejs"          = @{ Prefix = "nodejs-" }
+    "planning"        = @{ Prefix = "planning-" }
+    "ponytail"        = @{ Prefix = "ponytail" }
+    "postgresql"      = @{ Prefix = "postgresql-" }
+    "productivity"    = @{ Prefix = "productivity-" }
+    "python-ai-intel" = @{ Prefix = "python-ai-intel-" }
+    "python"          = @{ Prefix = "python-"; ExcludePrefix = "python-ai-intel-" }
+    "react"           = @{ Prefix = "react-" }
+    "security"        = @{ Names = @("application-security", "compliance-governance", "cryptography-secrets", "detection-response", "devsecops", "identity-access-management", "infrastructure-security", "secure-architecture", "security-fundamentals", "vulnerability-management") }
+    "sputnik"         = @{ Prefix = "sputnik-" }
+    "sql-server"      = @{ Prefix = "sql-server-" }
+}
+
+if ($ListKits) {
+    $KitMap.Keys | Sort-Object | ForEach-Object { Write-Host $_ }
+    exit 0
+}
+
+function Test-SkillInKits {
+    param([string]$Name, [string[]]$SelectedKits)
+    foreach ($kit in $SelectedKits) {
+        if (-not $KitMap.Contains($kit)) {
+            throw "Kit desconocido: '$kit'. Usa -ListKits para ver los kits disponibles."
+        }
+        $def = $KitMap[$kit]
+        if ($def.Names) {
+            if ($def.Names -contains $Name) { return $true }
+        } else {
+            if ($Name -eq $def.Prefix.TrimEnd('-') -or $Name.StartsWith($def.Prefix)) {
+                if ($def.ExcludePrefix -and $Name.StartsWith($def.ExcludePrefix)) { continue }
+                return $true
+            }
+        }
+    }
+    return $false
+}
 
 function Confirm-Action {
     param([string]$Message)
@@ -34,6 +88,11 @@ $repo = Split-Path -Parent $MyInvocation.MyCommand.Path
 $configDir = Join-Path $HOME ".config\opencode"
 $agentDir = Join-Path $configDir "agent"
 $skillDir = Join-Path $configDir "skills"
+
+# Kits admite comas dentro de un solo valor: -Kits dotnet,aspnet,react
+if ($Kits) {
+    $Kits = $Kits | ForEach-Object { $_ -split ',' } | Where-Object { $_ }
+}
 
 $doAgents = $Agents -or (-not $Skills)
 $doSkills = $Skills -or (-not $Agents)
@@ -76,10 +135,14 @@ if ($doAgents) {
 
 if ($doSkills) {
     New-Item -ItemType Directory -Path $skillDir -Force | Out-Null
-    Get-ChildItem -Path $sourceSkills -Directory | ForEach-Object {
+    $skillDirs = Get-ChildItem -Path $sourceSkills -Directory
+    if ($Kits) {
+        $skillDirs = $skillDirs | Where-Object { Test-SkillInKits -Name $_.Name -SelectedKits $Kits }
+    }
+    $skillDirs | ForEach-Object {
         Copy-Item -Path $_.FullName -Destination $skillDir -Recurse -Force
     }
-    Write-Host "Skills instaladas en $skillDir"
+    Write-Host "Skills instaladas en $skillDir ($($skillDirs.Count) de $((Get-ChildItem -Path $sourceSkills -Directory).Count))"
 }
 
 Write-Host ""

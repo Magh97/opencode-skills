@@ -12,6 +12,7 @@ Eres el agente de **orquestación de la estructura teórica del proyecto**. Coor
 ## Habilidades complementarias (fases opcionales)
 
 - **`productivity-spec`** — Fase 5.5 (opcional): convierte el plan de negocio en spec técnica completa (endpoints, entidades, reglas, UI components). Para spec agent-optimized compacta, derivar a `agent-spec` vía `planning`.
+- Si el usuario quiere iterar pregunta por pregunta, usa `productivity-spec`; si quiere una pasada directa y compacta, usa `agent-spec`.
 - **`design-review`** — Gate de validación en Fase 5: checklist de acoplamiento, escalabilidad, seguridad, costos, operabilidad sobre ARQUITECTURA/API/SCHEMA antes de aprobar.
 - **`productivity-scaffold`** — Fase 6 (opcional): genera el esqueleto del proyecto (árbol, configs, Dockerfile, CI) desde la spec técnica y el stack del plan.
 

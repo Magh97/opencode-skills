@@ -1,6 +1,7 @@
 ---
 name: dotnet-dapper
 description: "Dapper 2.1 en .NET 10. Cubre queries y comandos tipados, mapeo one-to-many (splitOn), stored procedures, transacciones, bulk operations, multi-mapping, y estrategia híbrida EF Core + Dapper (EF para writes, Dapper para reads). Actívala cuando el proyecto use Dapper como ORM, al optimizar queries de alto rendimiento, o al decidir entre EF Core y Dapper."
+disable-model-invocation: true
 ---
 
 # Dapper — Micro-ORM para .NET

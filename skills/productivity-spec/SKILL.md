@@ -96,7 +96,7 @@ El usuario te indicará qué números de suposiciones no le gustaron. Para cada 
 [████░░░░░░] Progreso: X de Y preguntas completadas
 ```
 
-### Fase 5: Generación de la Especificación
+### Fase 4: Generación de la Especificación
 
 Al confirmar el usuario, genera la especificación final con:
 

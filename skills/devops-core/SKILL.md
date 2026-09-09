@@ -130,7 +130,7 @@ Incidente detectado
 
 ## Sub-skills del kit
 
-> 📁 Cada sub-skill tiene su guía detallada en `./{nombre}/GUIDE.md`. Usa `read` para cargarla cuando el tema lo requiera.
+> 📁 Cada sub-skill tiene su propio `SKILL.md` con el detalle; el subagente `.opencode/agent/devops.md` decide cuál cargar según la tarea.
 
 
 | Skill | Cuándo cargarla |

@@ -8,6 +8,8 @@ disable-model-invocation: true
 
 Guía de Kubernetes 1.36 (Abr 2026) con Helm y ArgoCD. Enfoque en aplicaciones, no en administración de cluster.
 
+> **Nota de alcance:** usa `devops-kubernetes` para desplegar y gestionar cargas de trabajo DENTRO de un cluster ya existente (Deployments, Services, Ingress, Helm). Para provisionar/crear infraestructura de cluster gestionado (EKS/GKE/AKS, IAM, costos, FinOps), ve a `devops-cloud`.
+
 ---
 
 ## Recursos esenciales

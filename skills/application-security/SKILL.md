@@ -182,10 +182,9 @@ Datos manipulados ejecutan código durante deserialización.
 ## Seguridad de APIs
 
 ### Autenticación
-- OAuth 2.0 + PKCE para SPAs/mobile
-- Client Credentials para M2M
-- JWT con expiración corta (5-15 min) + refresh tokens rotativos
-- API Keys solo para servicios internos o partners, nunca para usuarios finales
+APIs deben autenticarse con tokens de vida corta (OAuth2/JWT), nunca con credenciales estáticas expuestas al cliente.
+
+> Para el detalle completo de protocolos de autenticación (OAuth2 + PKCE, JWT, refresh tokens, MFA, SSO), ver `identity-access-management`.
 
 ### Autorización
 - Scope validation: token con `orders:read` no puede escribir

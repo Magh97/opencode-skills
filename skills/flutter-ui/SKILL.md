@@ -1,6 +1,7 @@
 ---
 name: flutter-ui
 description: "UI en Flutter con Material 3. Cubre temas, diseño responsive (LayoutBuilder, MediaQuery), formularios avanzados, animaciones (AnimationController, Hero, staggered), y componentes reutilizables. Actívala al diseñar pantallas, crear Design System, o implementar animaciones."
+disable-model-invocation: true
 ---
 
 # Flutter UI & Material 3

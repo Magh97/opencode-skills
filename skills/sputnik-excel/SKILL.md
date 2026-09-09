@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Obtiene issues directamente desde Jira, los estima con la metodología `sputnik-core`, y genera un archivo Excel de cotización de servicios usando el formato de la plantilla **"Cotización - Validacion Ingresos Smartket.xlsx"**.
 
-También acepta input manual: una tabla ya estimada por `cotizador-sputnik` o una lista de historias/tareas pegadas en el chat.
+También acepta input manual: una tabla ya estimada por `sputnik-core` o una lista de historias/tareas pegadas en el chat.
 
 ## Requisitos
 
@@ -116,7 +116,7 @@ Si el usuario pide cotizar issues directamente desde Jira:
 2. Pregunta al usuario en un solo mensaje:
    - **Project key** (ej. `SPK`, `ITSEG`). Si no lo sabe, usa `get_visible_jira_projects` para listarlos.
    - **Filtro**: ¿todos los issues del proyecto? ¿un sprint específico? ¿un JQL? (default: issues sin resolver del proyecto, o los de un sprint activo).
-   - **¿Los issues ya tienen story points?** Si sí, se usan directamente y solo se convierten a horas. Si no, se estiman con `cotizador-sputnik`.
+   - **¿Los issues ya tienen story points?** Si sí, se usan directamente y solo se convierten a horas. Si no, se estiman con `sputnik-core`.
 3. Obtén los issues con `search_jira_issues` usando JQL. Extrae de cada uno: key, summary, description, story points (si existen), labels, issue type.
 
 ### Paso 1: Estimar (si aplica)

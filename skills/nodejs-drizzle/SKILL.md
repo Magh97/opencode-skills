@@ -1,6 +1,7 @@
 ---
 name: nodejs-drizzle
 description: "Drizzle ORM en Node.js (v1.0 RC, 2026). Cubre schema declaration, queries SQL-like y relacionales, relaciones (one-to-one, one-to-many, many-to-many), transacciones y savepoints, migrations con drizzle-kit, Zod validation (createInsertSchema/createSelectSchema), prepared statements, connection pooling, SQL Server + PostgreSQL, y estrategia híbrida con Prisma. Actívala cuando el proyecto use Drizzle como ORM, al diseñar schemas type-safe, optimizar queries serverless, o decidir entre Drizzle y Prisma."
+disable-model-invocation: true
 ---
 
 # Drizzle ORM — TypeScript ORM SQL-first

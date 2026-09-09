@@ -8,6 +8,8 @@ disable-model-invocation: true
 
 Guía de frameworks HTTP en Node.js 2026. Express 5, Fastify y Hono como opciones principales.
 
+> Esta skill cubre solo configuración básica de middleware HTTP (helmet, cors, rate-limit a nivel setup). Para hardening de seguridad (CORS estricto, rate limiting avanzado, JWT/OAuth2, npm audit), la fuente canónica es `nodejs-security`.
+
 ---
 
 ## Elección de framework

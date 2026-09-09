@@ -28,6 +28,8 @@ Level sticks until changed or session end.
 | **ponytail** | `/ponytail` | Lazy mode itself. Simplest solution that works. |
 | **ponytail-review** | `/ponytail-review` | Over-engineering review: `L42: yagni: factory, one product. Inline.` |
 | **ponytail-gain** | `/ponytail-gain` | Measured-impact scoreboard: less code, less cost, more speed. |
+| **ponytail-audit** | `/ponytail-audit` | Whole-repo over-engineering audit: ranked list of what to delete, simplify, or replace with stdlib/native equivalents. |
+| **ponytail-debt** | `/ponytail-debt` | Harvests every `ponytail:` comment into a debt ledger, flagging shortcuts with no upgrade path. |
 | **ponytail-help** | `/ponytail-help` | This card. |
 
 Codex uses `@ponytail`, `@ponytail-review`, and `@ponytail-help`; Claude Code

@@ -14,6 +14,8 @@ Guía de decisiones arquitectónicas de seguridad aplicables a cloud, on-premise
 
 > "Never trust, always verify."
 
+> Nota: aquí Zero Trust se trata a nivel de red/arquitectura (microsegmentación, security boundaries, service mesh). Para Zero Trust aplicado a identidad y autenticación de usuarios (señales de riesgo, respuesta adaptativa, PAM), ver `identity-access-management`.
+
 ### Pilares
 
 1. **Verify explicitly**: Autenticar y autorizar cada acceso basado en múltiples señales (identidad, dispositivo, ubicación, comportamiento)
@@ -83,10 +85,9 @@ Un punto único que aplica políticas antes de permitir acceso:
 - Reverse proxy con mTLS
 
 ### 2. Secure Pipe
-Cifrado en tránsito obligatorio:
-- TLS 1.3 para todo tráfico externo
-- mTLS para servicio-a-servicio
-- VPN/Private Link para cloud híbrido
+Principio arquitectónico: todo tráfico que cruza una frontera de confianza (externo, entre servicios, o hacia cloud híbrido) debe viajar cifrado por diseño, no como opción.
+
+> Para configuración TLS/mTLS detallada (versiones, cipher suites, cert pinning), ver `cryptography-secrets`.
 
 ### 3. Sandbox / Isolation
 Ejecutar código no confiable en ambientes restringidos:
@@ -110,23 +111,9 @@ Dividir datos y funciones para limitar blast radius:
 
 ## Hardening de infraestructura
 
-### Checklist de hardening
+Principio arquitectónico: minimizar la superficie de ataque en cada capa (OS/container, red, servicios, datos, identidad) aplicando defaults seguros y benchmarks reconocidos (CIS) antes de operar.
 
-- [ ] **OS/Container**: Minimal base image (distroless, Alpine), no root, read-only filesystem
-- [ ] **Network**: Default deny, solo puertos necesarios, no exposición pública de management
-- [ ] **Servicios**: Desactivar features no usadas, headers de seguridad, rate limiting
-- [ ] **Data**: Cifrado at rest (AES-256), cifrado in transit (TLS 1.3), key rotation
-- [ ] **Identidad**: No credenciales hardcodeadas, uso de managed identities, rotación automática
-- [ ] **Logging**: Centralizado, inmutable, con integridad (WORM storage)
-- [ ] **Backup**: 3-2-1 rule, encrypted, tested restore procedures
-
-### CIS Benchmarks
-Aplicar benchmarks del Center for Internet Security:
-- CIS Docker Benchmark
-- CIS Kubernetes Benchmark
-- CIS AWS Foundations
-- CIS Azure Foundations
-- CIS Windows/Linux Server Benchmarks
+> Para la implementación técnica detallada de hardening de contenedores/servidores (Dockerfiles, CIS Benchmarks por plataforma, comandos), ver `infrastructure-security`.
 
 ---
 

@@ -135,66 +135,33 @@ print(parsed.customer_id)  # "CUST-001" (stripped + upper)
 
 ## Async/Await moderno
 
+`asyncio.TaskGroup` (cancelación segura), `asyncio.timeout`, `Queue.shutdown` y `to_thread` son las piezas base para I/O concurrente en 3.13+:
+
 ```python
 import asyncio
 from asyncio import TaskGroup
 
-# ✅ TaskGroup (Python 3.11+, estable en 3.13)
 async def fetch_orders(user_ids: list[str]) -> list[Order]:
     async with TaskGroup() as tg:
         tasks = [tg.create_task(fetch_user_orders(uid)) for uid in user_ids]
-
-    # Si alguna tarea falla, todas se cancelan automáticamente
-    return [task.result() for task in tasks]
-
-# ✅ asyncio.timeout (Python 3.11+)
-async def fetch_with_timeout(url: str, timeout: float = 5.0):
-    async with asyncio.timeout(timeout):
-        return await fetch(url)
-
-# ✅ Queue.shutdown (Python 3.13+)
-async def producer_consumer():
-    queue: asyncio.Queue[int] = asyncio.Queue()
-    # ... producir / consumir ...
-    queue.shutdown()  # Cierra la queue, los consumidores salen limpiamente
-
-# ✅ asyncio.to_thread (CPU-bound sin bloquear event loop)
-async def process_data(data: bytes) -> Result:
-    return await asyncio.to_thread(cpu_intensive_computation, data)
+    return [task.result() for task in tasks]  # si una falla, todas se cancelan
 ```
+
+> Para el detalle avanzado de asyncio (TaskGroups con semáforos, `asyncio.timeout`, `Queue.shutdown`, profiling) ver `python-performance`.
 
 ---
 
 ## Free-threaded Python (3.14, sin GIL)
 
-```bash
-# Instalar Python 3.14 con free-threading
-uv python install 3.14 --install-free-threaded
+Python 3.14 soporta free-threading oficial: sin GIL, `threading.Thread`/`ThreadPoolExecutor` escalan en multi-core para CPU-bound.
 
-# Ejecutar en modo free-threaded
+```bash
+uv python install 3.14 --install-free-threaded
 uv run --free-threaded python -c "import sys; print(sys._is_gil_enabled())"
 # → False (GIL deshabilitado)
 ```
 
-```python
-# Con free-threading, threading.Thread escala en multi-core
-from threading import Thread
-
-def cpu_task(start: int, end: int) -> int:
-    total = 0
-    for i in range(start, end):
-        total += i * i
-    return total
-
-threads = [
-    Thread(target=cpu_task, args=(i * 100_000, (i + 1) * 100_000))
-    for i in range(4)
-]
-for t in threads:
-    t.start()  # Ahora realmente corren en paralelo (sin GIL)
-for t in threads:
-    t.join()
-```
+> Para el detalle avanzado de free-threading en producción (precauciones, thread-safety de extensiones C, comparación con multiprocessing) ver `python-performance`.
 
 ---
 
@@ -284,7 +251,7 @@ sql = query.format(cust_id="CUST-001")
 
 ## Sub-skills del kit
 
-> 📁 Cada sub-skill tiene su guía detallada en `./{nombre}/GUIDE.md`. Usa `read` para cargarla cuando el tema lo requiera.
+> 📁 Cada sub-skill tiene su propio `SKILL.md` con el detalle; el subagente `.opencode/agent/python.md` decide cuál cargar según la tarea.
 
 
 | Skill | Cuándo cargarla |

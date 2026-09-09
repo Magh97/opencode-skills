@@ -1,6 +1,7 @@
 ---
 name: nodejs-prisma
 description: "Prisma 7 ORM en Node.js (2026). Cubre schema declaration (PSL), modelos y relaciones, Prisma Client CRUD, nested writes, filtering/sorting/pagination, interactive transactions y batch, middleware con client extensions ($extends), migraciones con Prisma Migrate, seeding, SQL Server + PostgreSQL, raw SQL con $queryRaw, Prisma Accelerate, connection pooling, y estrategia híbrida con Drizzle. Actívala cuando el proyecto use Prisma como ORM, al diseñar schemas, implementar queries type-safe, o configurar migraciones."
+disable-model-invocation: true
 ---
 
 # Prisma 7 ORM — Schema-first TypeScript ORM

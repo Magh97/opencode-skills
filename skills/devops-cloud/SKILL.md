@@ -8,6 +8,8 @@ disable-model-invocation: true
 
 Guía de cloud computing y optimización de costos (2026). AWS, GCP, Azure.
 
+> **Nota de alcance:** usa `devops-cloud` para provisionar/crear infraestructura de cluster gestionado (EKS/GKE/AKS, IAM, costos, FinOps). Para desplegar y gestionar cargas de trabajo DENTRO de un cluster ya existente (Deployments, Services, Ingress, Helm), ve a `devops-kubernetes`.
+
 ---
 
 ## Tabla de decisión cloud

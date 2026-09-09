@@ -1,6 +1,7 @@
 ---
 name: flutter-navigation
 description: "Navegación en Flutter con GoRouter v17. Cubre rutas declarativas, deep linking (Universal Links, App Links), nested navigation (ShellRoute), guards de autenticación, paso de parámetros entre rutas, y transiciones personalizadas. Actívala al configurar navegación, implementar deep links, o proteger rutas con auth."
+disable-model-invocation: true
 ---
 
 # Flutter Navigation — GoRouter v17

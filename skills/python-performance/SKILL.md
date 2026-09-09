@@ -197,12 +197,8 @@ stmt = (
 result = await db.execute(stmt)
 orders = result.all()
 
-# ✅ selectinload sobre joinedload (evita JOIN explosivo)
-stmt = (
-    select(Order)
-    .where(Order.customer_id == customer_id)
-    .options(selectinload(Order.items), selectinload(Order.payments))
-)
+# Nota: para estrategia de carga de relaciones (selectinload vs joinedload),
+# ver los patrones de acceso a datos en `python-database`.
 
 # ✅ noload: explícitamente no cargar relaciones
 stmt = select(Order).options(noload(Order.items))

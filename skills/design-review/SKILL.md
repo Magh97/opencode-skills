@@ -1,6 +1,6 @@
 ---
 name: design-review
-description: "Revisión estructurada de diseño técnico. Checklist de evaluación: acoplamiento, escalabilidad, seguridad, costos, operabilidad. Formato de sesión de design review. Actívala al evaluar un diseño propuesto, antes de empezar a implementar, o cuando el usuario diga 'revisar diseño', 'design review', 'validar arquitectura', 'revisar el diseño de X'."
+description: "Revisión estructurada de diseño técnico. Checklist de evaluación: acoplamiento, escalabilidad, seguridad, costos, operabilidad. Formato de sesión de design review. Actívala al evaluar un diseño propuesto, antes de empezar a implementar, o cuando el usuario diga 'revisar diseño', 'design review', 'validar arquitectura', 'revisar el diseño de X'. Normalmente se usa junto con design-core y sus hermanas (design-api, design-data, design-adr) al hacer un diseño técnico completo."
 ---
 
 # Design Review — Validación de Diseño

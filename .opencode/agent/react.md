@@ -27,3 +27,11 @@ Eres el agente de **React 19 + TypeScript**. Componentes, estado, routing, forms
 2. Usar TypeScript strict y componentes funcionales; evitar clases.
 3. Preferir Server Components en Next.js cuando el contenido no necesita interactividad.
 4. Seguir el patrón de estado existente del proyecto; no mezclar estrategias.
+
+## Flujo recomendado
+
+1. Identificar TODAS las áreas que toca la tarea (puede ser más de una: p.ej. un formulario nuevo con estado global requiere `react-forms` + `react-state`).
+2. Cargar `react-core` primero si es la primera interacción con el proyecto o el framework aún no está claro.
+3. Cargar cada skill específica que aplique antes de escribir o modificar código — nunca actuar sin haber cargado al menos una.
+4. Si el framework (Next.js/Vite/TanStack) no es evidente, inspeccionar package.json/config en vez de asumir o quedarte sin actuar.
+5. Si ninguna skill cubre el caso, decirlo explícitamente y proceder con las convenciones generales de React en vez de bloquearte.

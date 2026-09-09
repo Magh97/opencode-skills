@@ -13,6 +13,8 @@ Guía de planeación esencial. Cubre lo mínimo para arrancar un proyecto con cl
 
 Todo proyecto debe caber en una hoja. Si no, no está claro.
 
+Nota: las mini-secciones de Stakeholders, Hitos y Riesgos de abajo son un resumen de una página; para el detalle completo (matriz RACI, roadmap por fases, matriz de riesgos), cargar también `planning-stakeholders`, `planning-roadmap` y `planning-risk` respectivamente.
+
 ```markdown
 # [Nombre del Proyecto]
 

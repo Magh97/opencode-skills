@@ -1,6 +1,6 @@
 ---
 name: dotnet-core
-description: "Guía principal de desarrollo .NET (C#, .NET 9/10). Cubre convenciones de código, features modernas de C# 12-14, sistema de proyectos, hosting, DI, configuración, middleware, logging, serialización y herramientas del ecosistema. Actívala para cualquier tarea .NET: nuevas features, revisión de código, arquitectura, migraciones o debugging. Las sub-skills del kit profundizan en dominios específicos."
+description: "Guía principal de desarrollo .NET (C#, .NET 9/10). Cubre convenciones de código, features modernas de C# 13-14, sistema de proyectos, hosting, DI, configuración, middleware, logging, serialización y herramientas del ecosistema. Actívala para cualquier tarea .NET: nuevas features, revisión de código, arquitectura, migraciones o debugging. Las sub-skills del kit profundizan en dominios específicos."
 ---
 
 # .NET Core Development Guide
@@ -497,42 +497,11 @@ var name = customer.Name ?? "Unknown";
 
 ---
 
-## Estructura de proyecto (Clean Architecture / Vertical Slices)
+## Estructura de proyecto (resumen)
 
-```
-src/
-├── MiApp.Api/                  # ASP.NET Core host, endpoints, middleware
-│   ├── Endpoints/
-│   │   └── Orders/
-│   │       ├── CreateOrder.cs      # Mapea ruta + handler en un archivo
-│   │       └── GetOrderById.cs
-│   ├── Middleware/
-│   ├── appsettings.json
-│   └── Program.cs
-├── MiApp.Application/          # Casos de uso, DTOs, validadores, interfaces
-│   └── Orders/
-│       ├── CreateOrder/
-│       │   ├── CreateOrderCommand.cs
-│       │   ├── CreateOrderHandler.cs
-│       │   └── CreateOrderValidator.cs
-│       └── GetOrder/
-│           ├── GetOrderQuery.cs
-│           └── GetOrderHandler.cs
-├── MiApp.Domain/               # Entidades, value objects, enums, domain events
-│   ├── Orders/
-│   │   ├── Order.cs
-│   │   ├── OrderItem.cs
-│   │   ├── OrderStatus.cs        # enum
-│   │   └── OrderCreatedEvent.cs
-│   └── Customers/
-└── MiApp.Infrastructure/       # EF Core, repos, servicios externos
-    ├── Data/
-    │   ├── AppDbContext.cs
-    │   └── Configurations/       # IEntityTypeConfiguration<T>
-    └── Services/
-        ├── StripePaymentService.cs
-        └── EmailService.cs
-```
+Un proyecto .NET típico separa capas por responsabilidad: **Api** (host, endpoints, middleware), **Application** (casos de uso, DTOs, validadores), **Domain** (entidades, value objects, eventos) e **Infrastructure** (EF Core, repos, servicios externos).
+
+> Para el detalle completo de cada estilo arquitectónico (Clean, Hexagonal, Vertical Slices, Modular Monolith), ver `dotnet-architecture`.
 
 ---
 
@@ -555,7 +524,7 @@ src/
 
 ## Sub-skills del kit
 
-> 📁 Cada sub-skill tiene su guía detallada en `./{nombre}/GUIDE.md`. Usa `read` para cargarla cuando el tema lo requiera.
+> 📁 Cada sub-skill tiene su propio `SKILL.md` con el detalle; el subagente `.opencode/agent/dotnet.md` decide cuál cargar según la tarea.
 
 
 Cada sub-skill profundiza en su dominio:

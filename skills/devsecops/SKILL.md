@@ -65,7 +65,7 @@ Build
 Test
    ├── DAST (OWASP ZAP, Burp Suite CI)
    ├── Integration Tests
-   └── IaC Scan (Checkov, tfsec)
+   └── IaC Scan (Checkov, tfsec) — ver `infrastructure-security` para el detalle de policy-as-code e IaC hardening
    │
 Deploy
    ├── Policy Gate (OPA, Sentinel)
@@ -100,50 +100,17 @@ Runtime
 
 ## Supply Chain Security
 
-### SBOM en cada build
-```
-Generar: CycloneDX o SPDX
-Almacenar: Adjunto al artefacto, en registry
-Escaneo: Comparar contra NVD, advisory databases
-Alertar: Notificar si nueva CVE afecta artefacto desplegado
-```
+Gate de pipeline: cada build genera SBOM, firma el artefacto/imagen (cosign) y verifica la firma antes de deploy; fallar el build si falta SBOM o la firma no valida.
 
-### Firmas y provenance
-```
-1. Firmar commits: git commit -S (GPG) o git commit --gpg-sign
-2. Firmar imágenes: cosign sign --key cosign.key image:tag
-3. Verificar en deploy: cosign verify --key cosign.pub image:tag
-4. SLSA provenance: generar attestation de build
-5. Binary authorization: solo imágenes firmadas por CI trusted
-```
-
-### Dependencias
-- Pin versions: `package==1.2.3` no `package>=1.2.3`
-- Hash verification: `requirements.txt` con hashes, `package-lock.json`
-- Private registry: Nexus, Artifactory, GitHub Packages (no descargar directo de internet en build)
-- Vendor dependencies: commitear en repo o private registry
+> Para el diseño completo de supply chain security (SBOM CycloneDX/SPDX, SLSA, dependency pinning, hash verification), ver `secure-architecture`.
 
 ---
 
 ## Secret Management en CI/CD
 
-### Anti-patrones
-```
-❌ Secrets en código fuente
-❌ Secrets en variables de entorno del runner (compartidas)
-❌ Secrets en logs de build
-❌ Hardcodear API keys en Dockerfiles
-❌ .env files en repos
-```
+Qué detectar en el pipeline (gates): secret scanning en pre-commit y CI (GitLeaks, TruffleHog, GitGuardian) que bloquee el build ante un hallazgo; no imprimir secrets en logs; usar OIDC/workload identity en vez de credenciales de larga duración.
 
-### Patrones correctos
-```
-✅ GitHub/GitLab native secrets (encrypted, auditado)
-✅ Vault integration: vault kv get -field=api_key secret/ci
-✅ Dynamic credentials: Vault AWS STS, database dynamic roles
-✅ Short-lived tokens: OIDC federation (no long-lived secrets)
-✅ Secret scanning en pre-commit hooks
-```
+> Para gestión completa de secretos (Vault, rotación, anti-patrones, ciclo de vida), ver `cryptography-secrets`.
 
 ### OIDC / Workload Identity
 ```
@@ -186,6 +153,8 @@ GitHub Actions → OIDC token → Cloud provider (AWS/Azure/GCP)
 
 ## Tooling por fase
 
+Referencia de en qué fase del pipeline va cada gate (no el detalle de cada herramienta — para eso ver `vulnerability-management`, que cubre qué hace cada tipo de escaneo y cómo interpretarlo):
+
 | Fase | Herramientas | Integración |
 |------|--------------|-------------|
 | Pre-commit | git-secrets, talisman, pre-commit hooks | Local dev |
@@ -197,7 +166,8 @@ GitHub Actions → OIDC token → Cloud provider (AWS/Azure/GCP)
 | IaC | Checkov, tfsec, Terrascan, cfn-nag | Pipeline |
 | Runtime | Falco, Sysdig, Aqua, Prisma Cloud | K8s / Cloud |
 | CSPM | Prowler, ScoutSuite, Prisma, Wiz | Cloud continuo |
-| SIEM | Splunk, Sentinel, Elastic, Wazuh | Operaciones |
+
+Plataformas SIEM/SOAR: ver `detection-response`.
 
 ---
 

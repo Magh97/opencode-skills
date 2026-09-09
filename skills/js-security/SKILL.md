@@ -62,46 +62,11 @@ link.href = safeUrl(userInput);
 
 ---
 
-## CSRF con ASP.NET MVC
+## CSRF / anti-forgery
 
-```html
-<!-- El helper genera un input hidden con el token -->
-@Html.AntiForgeryToken()
-<!-- <input name="__RequestVerificationToken" type="hidden" value="CfDJ8..."> -->
-```
+Todo POST que cambie estado debe incluir el token anti-forgery del servidor (en ASP.NET MVC, `@Html.AntiForgeryToken()` genera un input oculto `__RequestVerificationToken`) como header o campo del body, para que el servidor pueda validar que la petición viene de un formulario propio.
 
-```javascript
-// ✅ Incluir token en todo POST
-async function safePost(url, data) {
-  const token = document.querySelector(
-    'input[name="__RequestVerificationToken"]'
-  )?.value;
-
-  const headers = { 'Content-Type': 'application/json' };
-  if (token) {
-    headers['RequestVerificationToken'] = token;
-  }
-
-  const res = await fetch(url, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify(data),
-  });
-
-  if (res.status === 400) {
-    const body = await res.text();
-    if (body.includes('anti-forgery')) {
-      throw new Error('CSRF token inválido. Recarga la página.');
-    }
-  }
-
-  return res;
-}
-
-// ✅ También funciona con FormData (el token va en el formulario)
-const formData = new FormData(form);
-// input[name="__RequestVerificationToken"] se incluye automáticamente
-```
+Para el ejemplo concreto de integración con ASP.NET Razor (token anti-forgery en AJAX), ver `js-aspnet-mvc`.
 
 ---
 

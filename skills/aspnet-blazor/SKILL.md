@@ -518,43 +518,24 @@ protected override bool ShouldRender()
 
 ## Testing con bUnit
 
+Ejemplo mínimo de montaje de un componente Blazor:
+
 ```csharp
 // Paquete: bUnit
 [Fact]
 public void OrderCard_RendersCorrectly()
 {
-    // Arrange
     using var ctx = new TestContext();
-    ctx.Services.AddSingleton<NavigationManager>(new FakeNavigationManager());
-
     var order = new OrderDto { Id = Guid.NewGuid(), CustomerName = "Test", Total = 150m };
 
-    // Act
     var cut = ctx.RenderComponent<OrderCard>(parameters => parameters
         .Add(p => p.Order, order));
 
-    // Assert
     cut.Markup.Should().Contain("Test");
-    cut.Find(".total").TextContent.Should().Be("$150.00");
-}
-
-[Fact]
-public void OrderCard_OnClick_CallsEventCallback()
-{
-    using var ctx = new TestContext();
-    Guid? selectedId = null;
-
-    var order = new OrderDto { Id = Guid.NewGuid(), CustomerName = "Test", Total = 150m };
-
-    var cut = ctx.RenderComponent<OrderCard>(parameters => parameters
-        .Add(p => p.Order, order)
-        .Add(p => p.OnSelected, id => selectedId = id));
-
-    cut.Find("button").Click();
-
-    selectedId.Should().Be(order.Id);
 }
 ```
+
+> Para la guía completa de testing con bUnit (mocks, providers, snapshot testing), ver `aspnet-testing`.
 
 ---
 

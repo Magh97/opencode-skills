@@ -1,6 +1,6 @@
 ---
 name: git-branching
-description: "Estrategias de branching y versionado. Cubre GitFlow, GitHub Flow, Trunk-Based Development, Conventional Commits, semantic-release, y cuándo usar cada estrategia según el equipo y frecuencia de deploy. Actívala al definir la estrategia de branching del equipo, configurar semantic-release, o migrar entre flujos de trabajo."
+description: "Estrategias de branching y versionado. Cubre GitFlow, GitHub Flow y Trunk-Based Development en detalle (cuándo usar cada una, ramas, flujo completo), más semantic-release. Actívala al definir la estrategia de branching del equipo, configurar semantic-release, o migrar entre flujos de trabajo. Para commits atómicos, Conventional Commits y branch naming, ver `git-workflow`."
 disable-model-invocation: true
 ---
 

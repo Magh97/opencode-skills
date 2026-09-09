@@ -1,6 +1,7 @@
 ---
 name: flutter-state
 description: "State management en Flutter con Riverpod 3 y BLoC 9 (2026). Cubre StateNotifier, AsyncNotifier, FutureProvider, StreamProvider, BlocBuilder, Cubit, y cuándo elegir cada enfoque. Actívala al diseñar la arquitectura de estado, migrar de Provider a Riverpod, o implementar BLoC en apps enterprise."
+disable-model-invocation: true
 ---
 
 # Flutter State Management

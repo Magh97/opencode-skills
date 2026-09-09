@@ -1,6 +1,7 @@
 ---
 name: flutter-storage
 description: "Almacenamiento local en Flutter. Cubre SQLite con Drift (ORM), SharedPreferences para key-value, flutter_secure_storage para tokens, y Hive para datos no relacionales. Actívala al implementar persistencia offline, guardar preferencias, o almacenar datos sensibles."
+disable-model-invocation: true
 ---
 
 # Flutter Local Storage
@@ -134,6 +135,8 @@ await storage.deleteAll();
 ---
 
 ## Hive (datos no relacionales)
+
+> Nota: el paquete `hive` original tiene mantenimiento limitado; considera `hive_ce` (community edition) o Isar para proyectos nuevos.
 
 ```dart
 // Para caché de objetos complejos o datos no relacionales

@@ -1,6 +1,7 @@
 ---
 name: flutter-performance
 description: "Rendimiento en Flutter. Cubre const widgets, RepaintBoundary, lazy loading (ListView.builder), DevTools profiling, memory leaks, isolate para tareas pesadas, y reducción de rebuilds. Actívala al optimizar pantallas lentas, reducir jank, o perfilar la app."
+disable-model-invocation: true
 ---
 
 # Flutter Performance

@@ -7,6 +7,8 @@ set -euo pipefail
 #   ./install.sh            # solo agentes (skills via npx skills add)
 #   ./install.sh --global   # agentes + skills copiadas a ~/.config/opencode/skills
 #   ./install.sh -y         # no preguntar
+#   ./install.sh -y --global --kits dotnet,aspnet,sql-server,react,js,postgresql,flutter,git,planning,design,devops,agent,sputnik
+#   ./install.sh --list-kits   # ver los kits disponibles
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/opencode"
@@ -17,16 +19,57 @@ GLOBAL=0
 YES=0
 DO_AGENTS=0
 DO_SKILLS=0
+KITS=""
 
-for arg in "$@"; do
+ALL_KITS="agent aspnet design devops dotnet flutter git js nodejs planning ponytail postgresql productivity python-ai-intel python react security sputnik sql-server"
+
+while [[ $# -gt 0 ]]; do
+    arg="$1"
     case "$arg" in
         --global|-g) GLOBAL=1 ;;
         --yes|-y|-Y) YES=1 ;;
         --agents|-a) DO_AGENTS=1 ;;
         --skills|-s) DO_SKILLS=1 ;;
+        --kits=*) KITS="${arg#--kits=}" ;;
+        --kits|-k) shift; KITS="${1:-}" ;;
+        --list-kits) tr ' ' '\n' <<< "$ALL_KITS" | sort; exit 0 ;;
         *) echo "Argumento desconocido: $arg" >&2; exit 1 ;;
     esac
+    shift
 done
+
+# Devuelve 0 (exito) si $1 (nombre de carpeta de skill) pertenece a alguno de los
+# kits en $KITS (lista separada por comas). "python" excluye "python-ai-intel-*"
+# (que es su propio kit); "security" agrupa skills sueltas sin prefijo comun.
+skill_in_kits() {
+    local name="$1"
+    local kit
+    IFS=',' read -ra kit_list <<< "$KITS"
+    for kit in "${kit_list[@]}"; do
+        if ! grep -qw "$kit" <<< "$ALL_KITS"; then
+            echo "Kit desconocido: '$kit'. Usa --list-kits para ver los kits disponibles." >&2
+            exit 1
+        fi
+        case "$kit" in
+            security)
+                case "$name" in
+                    application-security|compliance-governance|cryptography-secrets|detection-response|devsecops|identity-access-management|infrastructure-security|secure-architecture|security-fundamentals|vulnerability-management)
+                        return 0 ;;
+                esac
+                ;;
+            python)
+                [[ "$name" == python-* && "$name" != python-ai-intel-* ]] && return 0
+                ;;
+            ponytail)
+                [[ "$name" == "ponytail" || "$name" == ponytail-* ]] && return 0
+                ;;
+            *)
+                [[ "$name" == "$kit" || "$name" == "$kit"-* ]] && return 0
+                ;;
+        esac
+    done
+    return 1
+}
 
 if [[ $DO_AGENTS -eq 0 && $DO_SKILLS -eq 0 ]]; then
     DO_AGENTS=1
@@ -68,8 +111,17 @@ if [[ $DO_SKILLS -eq 1 && $GLOBAL -eq 1 ]]; then
     fi
     if confirm "Copiar skills a $SKILL_DIR?"; then
         mkdir -p "$SKILL_DIR"
-        cp -r "$SRC_SKILLS"/* "$SKILL_DIR/"
-        echo "Skills instaladas en $SKILL_DIR"
+        TOTAL=0
+        COPIED=0
+        for dir in "$SRC_SKILLS"/*/; do
+            name="$(basename "$dir")"
+            TOTAL=$((TOTAL + 1))
+            if [[ -z "$KITS" ]] || skill_in_kits "$name"; then
+                cp -r "$dir" "$SKILL_DIR/"
+                COPIED=$((COPIED + 1))
+            fi
+        done
+        echo "Skills instaladas en $SKILL_DIR ($COPIED de $TOTAL)"
     else
         echo "Instalacion de skills cancelada."
         DO_SKILLS=0

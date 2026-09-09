@@ -1,6 +1,7 @@
 ---
 name: flutter-networking
 description: "Networking en Flutter con Dio. Cubre REST API calls, interceptors, autenticación (Bearer token), manejo de errores, caching de respuestas, WebSocket, y file upload. Actívala al implementar llamadas HTTP, configurar capa de red, o integrar con APIs REST."
+disable-model-invocation: true
 ---
 
 # Flutter Networking — Dio

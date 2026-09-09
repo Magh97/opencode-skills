@@ -1,6 +1,6 @@
 ---
 name: design-api
-description: "Diseño de APIs contract-first con OpenAPI como fuente de verdad. Cubre RESTful design, versionado, paginación, manejo de errores, security schemes y HATEOAS opcional. Actívala al diseñar una API nueva, definir contratos entre backend y frontend, o cuando el usuario diga 'diseñar API', 'API contract', 'OpenAPI first', 'diseñar endpoints', 'API REST'."
+description: "Diseño de APIs contract-first con OpenAPI como fuente de verdad. Cubre RESTful design, versionado, paginación, manejo de errores, security schemes y HATEOAS opcional. Actívala al diseñar una API nueva, definir contratos entre backend y frontend, o cuando el usuario diga 'diseñar API', 'API contract', 'OpenAPI first', 'diseñar endpoints', 'API REST'. Normalmente se usa junto con design-core y sus hermanas (design-data, design-adr, design-review) al hacer un diseño técnico completo."
 ---
 
 # Design API — Contratos API-First

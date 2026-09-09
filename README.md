@@ -13,6 +13,12 @@ Conjunto de **154 skills** y **22 agentes** para [opencode](https://opencode.ai)
 
 # Instalar agentes + skills (154) en ~/.config/opencode/
 ./install.ps1 -Yes -Global
+
+# Instalar solo los kits que te interesan (ej. stack .NET + React + SQL Server)
+./install.ps1 -Yes -Global -Kits dotnet,aspnet,sql-server,react,js,postgresql
+
+# Ver los kits disponibles
+./install.ps1 -ListKits
 ```
 
 **macOS / Linux:**
@@ -22,7 +28,15 @@ Conjunto de **154 skills** y **22 agentes** para [opencode](https://opencode.ai)
 
 # Instalar agentes + skills (154) con -Global
 ./install.sh -y --global
+
+# Instalar solo los kits que te interesan
+./install.sh -y --global --kits dotnet,aspnet,sql-server,react,js,postgresql
+
+# Ver los kits disponibles
+./install.sh --list-kits
 ```
+
+Kits disponibles: `agent`, `aspnet`, `design`, `devops`, `dotnet`, `flutter`, `git`, `js`, `nodejs`, `planning`, `ponytail`, `postgresql`, `productivity`, `python`, `python-ai-intel`, `react`, `security`, `sputnik`, `sql-server`. `-Kits`/`--kits` solo filtra skills; los agentes siempre se instalan completos.
 
 Esta vía es la **verificada**: copia exactamente lo que hay en el repo y garantiza sincronía entre repo y config. Puedes comprobar la instalación con el script del repo:
 
