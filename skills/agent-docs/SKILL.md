@@ -446,7 +446,7 @@ Applied to every output file, no exceptions:
 
 - No generating files outside `docs/agent-docs/`. Never modify existing human docs.
 - No prose explanations in output files. If a section would require a paragraph to explain, restructure it as a table or code block.
-- No Mermaid diagrams. Use text dependency graphs (`A → B → C`).
+- No Mermaid diagrams. Use text dependency graphs (`A → B → C`). (Esta restricción aplica solo a la salida agent-optimized (docs/agent-docs/); la documentación humana (README, ARCHITECTURE.md vía `productivity-docs`) sí debe usar Mermaid.)
 - No inventing data. If the source docs don't specify a version, write `?` not a guess.
 - No skipping the read order in CONTEXT.md. Every agent-docs folder must have a numbered read order.
 - No generating SCHEMA.md if there's no database. No generating API.md if there's no API.

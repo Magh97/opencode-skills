@@ -85,6 +85,7 @@ erDiagram
 | Dato | PostgreSQL | SQL Server | Nota |
 |------|-----------|-----------|------|
 | ID | `SERIAL` o `UUID` | `INT IDENTITY` o `UNIQUEIDENTIFIER` | UUID para sistemas distribuidos |
+| — | — | — | **Nota:** si usas UUID, prefiere **UUIDv7** (RFC 9562) sobre UUIDv4. UUIDv4 es aleatorio y fragmenta el índice B-tree en sistemas de alto volumen (mala localidad de escritura); UUIDv7 es ordenable por tiempo y mantiene mejor localidad de índice, siendo hoy la opción preferida para IDs distribuidos. |
 | Moneda | `NUMERIC(19,4)` | `DECIMAL(19,4)` | Nunca `FLOAT`/`REAL` para dinero |
 | Fecha/hora | `TIMESTAMPTZ` | `DATETIMEOFFSET` | Siempre con timezone |
 | Texto corto | `VARCHAR(N)` | `NVARCHAR(N)` | `N` según necesidad real |

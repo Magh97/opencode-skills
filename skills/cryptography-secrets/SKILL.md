@@ -201,6 +201,11 @@ Root Key (HSM, offline, split knowledge)
 - Verify not revoked (OCSP)
 - Pinning para mobile (con backup pin)
 
+### Criptografía post-cuántica (PQC)
+- **ML-KEM** (ex-CRYSTALS-Kyber, FIPS 203) y **ML-DSA** (ex-CRYSTALS-Dilithium, FIPS 204), más **SLH-DSA** (FIPS 205), estandarizados por NIST en 2024
+- Considerar para migración/TLS híbrido (clásico + post-cuántico, ej. X25519+ML-KEM) en sistemas con datos que deben permanecer confidenciales a largo plazo ("harvest now, decrypt later")
+- Aún no reemplazan a RSA/ECDSA de forma general; evaluar soporte de librerías (OpenSSL 3.x+, BoringSSL) antes de adoptar en producción
+
 ---
 
 ## Checklist de criptografía

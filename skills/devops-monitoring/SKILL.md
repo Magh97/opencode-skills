@@ -85,6 +85,32 @@ async def create_order(body: OrderCreate, service: OrderService = Depends()):
         return order
 ```
 
+### Continuous Profiling (el "cuarto pilar")
+
+Junto a traces, métricas y logs, el continuous profiling es el cuarto pilar de observabilidad: captura de forma continua y de bajo overhead qué líneas de código consumen CPU/memoria en producción, con soporte nativo en OpenTelemetry (`OTel profiling` en incubación) y en Grafana Pyroscope (parte del stack LGTM). Úsalo para diagnosticar hot paths y regresiones de performance que traces y métricas no explican por sí solos.
+
+```python
+# Instrumentación mínima con Pyroscope en Python
+import pyroscope
+
+pyroscope.configure(
+    application_name="miapp-api",
+    server_address="http://pyroscope:4040",
+    tags={"env": "production"},
+)
+```
+
+```typescript
+// Instrumentación mínima con Pyroscope en Node.js
+import Pyroscope from '@pyroscope/nodejs';
+
+Pyroscope.init({
+  serverAddress: 'http://pyroscope:4040',
+  appName: 'miapp-api',
+});
+Pyroscope.start();
+```
+
 ---
 
 ## Prometheus — Métricas

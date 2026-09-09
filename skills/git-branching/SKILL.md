@@ -45,6 +45,8 @@ git push origin feature/order-creation
 # - Feature flags para features incompletas
 ```
 
+> **Alternativa a feature flags: stacked PRs.** Para features grandes, en vez de acumular todo en una rama larga o esconderlo tras un flag, se divide el trabajo en una cadena de ramas/PRs pequeños y secuenciales (cada uno depende del anterior y se revisa por separado). Herramientas como [Graphite](https://graphite.dev) automatizan el rebase y sincronización de la pila; también se puede hacer manualmente con `gh` creando ramas encadenadas (`git checkout -b feature/orders-2 feature/orders-1`) y PRs con `--base` apuntando a la rama anterior.
+
 ---
 
 ## Trunk-Based Development

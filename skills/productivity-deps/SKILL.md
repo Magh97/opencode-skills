@@ -18,6 +18,7 @@ Si es monorepo, escanear cada paquete/proyecto por separado:
 | Stack | Comando | Formato |
 |-------|---------|---------|
 | **Node.js** | `npm outdated --json` | JSON |
+| **Node.js (Biome)** | `npm outdated --json` (incluye `@biomejs/biome` si el proyecto lo usa como alternativa unificada a ESLint/Prettier — más rápida, adopción creciente en 2026) | JSON |
 | **Python** | `uv pip list --outdated --format json` o `pip list --outdated --format json` | JSON |
 | **.NET** | `dotnet list package --outdated` | Texto parseable |
 | **Flutter** | `flutter pub outdated` | Texto parseable |

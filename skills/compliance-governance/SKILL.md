@@ -57,6 +57,7 @@ Guía de frameworks normativos, gestión de riesgos y gobernanza de cibersegurid
 - **LGPD**: Brasil (similar a GDPR)
 - **NIS2**: Directiva EU de ciberseguridad (2024)
 - **CIS Controls**: 18 controles prioritarios, práctico y accionable
+- **EU AI Act**: Marco regulatorio de IA de la UE (enfoque basado en riesgo: inaceptable, alto, limitado, mínimo); relevante para organizaciones que desarrollan o usan sistemas de IA, con obligaciones de transparencia, gestión de riesgo y supervisión humana
 
 ---
 

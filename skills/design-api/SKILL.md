@@ -127,6 +127,8 @@ GET /api/orders?cursor=eyJpZCI6NDJ9&limit=20
 
 **Regla:** Prefiere URL path. Es el más fácil de entender y debuggear.
 
+**Deprecación:** cuando una versión de API entra en fin de vida, comunícalo con los headers `Deprecation: true` (o fecha en formato HTTP-date) y `Sunset: <fecha>` (RFC 8594) en las respuestas de esa versión. Da a los clientes una ventana razonable entre `Deprecation` y `Sunset` antes de apagar el endpoint, y documenta la migración en el changelog de la API.
+
 ---
 
 ## HTTP Status Codes — los que realmente usarás
@@ -326,6 +328,8 @@ components:
                   field: { type: string }
                   reason: { type: string }
 ```
+
+> **Nota:** OpenAPI 3.2 ya existe (mejoras en serialización de query params, `additionalOperations`). 3.1.x y 3.2.x son intercambiables como fuente de verdad — la elección depende del soporte del tooling (Redoc/Swagger UI) usado en el proyecto.
 
 ---
 

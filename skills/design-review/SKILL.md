@@ -35,6 +35,7 @@ Antes de escribir código, valida que el diseño no explote en producción.
 - [ ] **CORS restringido a orígenes conocidos.** No `AllowAnyOrigin` en producción.
 - [ ] **Rate limiting en endpoints públicos** (login, registro, endpoints sin auth).
 - [ ] **Datos sensibles no se loguean** (passwords, tokens, PII).
+- [ ] **Supply chain de dependencias bajo control:** SBOM generado, escaneo de vulnerabilidades en dependencias (Dependabot/Snyk/`npm audit`), y verificación de proveniencia de paquetes antes de agregarlos.
 
 ### 4. Costos
 

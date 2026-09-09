@@ -50,6 +50,8 @@ Guía generalista de autenticación, autorización y gestión del ciclo de vida 
 | Kerberos | Red Windows interna | Tickets, NTLM deprecated |
 | FIDO2/WebAuthn | Passwordless / MFA | Phishing-resistant, preferido |
 
+> **Nota:** Microsoft está deprecando NTLM activamente (eliminación progresiva en Windows 11 y Windows Server 2025). Se recomienda migrar a Kerberos puro o a autenticación moderna (Entra ID) donde sea posible.
+
 ### Tokens
 - **Access Token**: Corta duración (5-15 min), contiene scopes/claims
 - **Refresh Token**: Larga duración (días/semanas), rotativo, almacenado seguro

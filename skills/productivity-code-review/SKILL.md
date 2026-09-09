@@ -35,7 +35,7 @@ Realizar una auditoría completa de código fuente cubriendo **5 categorías**: 
 4. Lee los archivos de configuración principales (`package.json`, `*.csproj`, `pom.xml`, `appsettings*.json`, `.env` files, `Dockerfile`, etc.)
 5. Lee los archivos de entrada (`Program.cs`, `index.js`, `main.py`, etc.)
 5. **Análisis estático automático**: Si el proyecto tiene linters/type-checkers configurados, ejecútalos y reporta hallazgos:
-   - Node.js: `npx eslint . --format json` (si `.eslintrc` existe), `npx tsc --noEmit` (errores de tipo)
+   - Node.js: `npx eslint . --format json` (si `.eslintrc` existe), `npx tsc --noEmit` (errores de tipo). Si el proyecto usa Biome en vez de ESLint/Prettier (`biome.json` presente), usar `npx @biomejs/biome check .` en su lugar — es una alternativa unificada de lint+format, más rápida, con adopción creciente en 2026.
    - Python: `uv run ruff check . --output-format json` (si `ruff` en deps), `uv run mypy src/ --no-error-summary` (errores de tipo)
    - .NET: `dotnet build --no-restore` (warnings de compilación), `dotnet format --verify-no-changes` (estilo)
    Los resultados se integran en las categorías Mejoras (lint) y Optimizaciones (type errors).

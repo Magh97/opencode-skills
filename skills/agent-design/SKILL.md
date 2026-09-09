@@ -179,7 +179,7 @@ table_name   idx_table_name_search   USING GIN(tsvector col)  GIN       full-tex
 - No C4 model explanations. No "Level 1 shows the system context, Level 2 shows containers..."
 - No REST conventions primer. No "use nouns for resources, HTTP methods for actions..."
 - No normalization theory. No "1NF requires atomic columns, 2NF requires..."
-- No Mermaid/PlantUML diagrams. Use text graphs only.
+- No Mermaid/PlantUML diagrams. Use text graphs only. (Esta restricción aplica solo a la salida agent-optimized (docs/agent-docs/); la documentación humana (README, ARCHITECTURE.md vía `productivity-docs`) sí debe usar Mermaid.)
 - No architectural style comparisons (monolith vs microservices vs event-driven).
 - No technology comparisons unless explicitly asked.
 - No generating all three sections if only one was requested.

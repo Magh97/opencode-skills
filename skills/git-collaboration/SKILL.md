@@ -126,6 +126,26 @@ Descripción: (vacía)
 
 ---
 
+## Flujo de PR vía GitHub CLI (`gh`)
+
+Alternativa terminal-first al flujo de UI descrito arriba, útil para no salir de la terminal:
+
+```bash
+# Crear PR (usa el título/cuerpo del último commit o abre editor)
+gh pr create --title "feat(orders): add cancellation endpoint" --body "Closes #1234"
+
+# Ver el estado de los checks de CI en el PR actual
+gh pr checks
+
+# Aprobar un PR (review)
+gh pr review --approve -b "LGTM, nice guard for shipped orders"
+
+# Mergear con squash (equivalente a "Squash and merge" en la UI)
+gh pr merge --squash --delete-branch
+```
+
+---
+
 ## Branch Protection Rules (GitHub)
 
 ```
@@ -147,6 +167,8 @@ Branch name pattern: main
 ✅ Require branches to be up to date before merging
 ❌ Do not allow bypassing the above settings
 ```
+
+> **Nota: Merge Queue como alternativa.** "Require branches to be up to date before merging" fuerza a cada PR a re-basear y re-ejecutar CI cada vez que main avanza, lo cual genera cuellos de botella en repos con alto volumen de PRs (colas de rebase interminables). **GitHub Merge Queue** (o **GitLab Merge Trains**) resuelve esto de forma más eficiente: encola los PRs aprobados, los prueba automáticamente contra el estado combinado y los mergea en orden sin que cada autor tenga que rebasear manualmente. Recomendado en lugar de ese requisito cuando el equipo mergea con frecuencia.
 
 ---
 

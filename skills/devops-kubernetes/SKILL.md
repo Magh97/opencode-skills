@@ -119,6 +119,44 @@ spec:
               number: 80
 ```
 
+### Gateway API (evolución recomendada sobre Ingress)
+
+Gateway API es el sucesor de Ingress (ya GA en Kubernetes), con routing más expresivo: weighted routing entre versiones, header/path matching avanzado y soporte nativo para mTLS entre servicios. Para casos nuevos, prefiérela sobre `Ingress`; mantén `Ingress` solo en clusters legacy o cuando el controlador actual no soporte Gateway API todavía.
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: miapp-gateway
+spec:
+  gatewayClassName: nginx  # o el controller disponible (Envoy, Istio, Cilium, etc.)
+  listeners:
+  - name: https
+    protocol: HTTPS
+    port: 443
+    tls:
+      certificateRefs:
+      - name: miapp-api-tls
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: miapp-api-route
+spec:
+  parentRefs:
+  - name: miapp-gateway
+  hostnames:
+  - "api.miapp.com"
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    backendRefs:
+    - name: miapp-api
+      port: 80
+```
+
 ---
 
 ## HPA (Horizontal Pod Autoscaler)
@@ -151,6 +189,35 @@ spec:
   behavior:
     scaleDown:
       stabilizationWindowSeconds: 300  # Esperar 5 min antes de escalar hacia abajo
+```
+
+### Karpenter (autoscaling de nodos)
+
+HPA/VPA/KEDA escalan pods; Karpenter escala los **nodos** del cluster. Reemplaza al Cluster Autoscaler clásico: en lugar de escalar grupos de nodos predefinidos (ASGs), aprovisiona directamente el tipo y tamaño de instancia óptimo para los pods pendientes, en segundos y con mejor bin-packing/costo. Es el estándar de facto en EKS y ya cuenta con providers para otros clouds. Úsalo junto con HPA (Karpenter provee capacidad para los pods que HPA crea); mantén Cluster Autoscaler solo si el provider no tiene un driver de Karpenter maduro.
+
+```yaml
+apiVersion: karpenter.sh/v1
+kind: NodePool
+metadata:
+  name: default
+spec:
+  template:
+    spec:
+      requirements:
+      - key: kubernetes.io/arch
+        operator: In
+        values: ["amd64"]
+      - key: karpenter.sh/capacity-type
+        operator: In
+        values: ["spot", "on-demand"]
+      nodeClassRef:
+        group: karpenter.k8s.aws
+        kind: EC2NodeClass
+        name: default
+  limits:
+    cpu: "1000"
+  disruption:
+    consolidationPolicy: WhenEmptyOrUnderutilized
 ```
 
 ---
