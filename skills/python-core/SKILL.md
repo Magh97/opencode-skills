@@ -118,7 +118,7 @@ class Order(BaseModel):
     status: str = "pending"
     total_amount: float
     currency: str = "MXN"
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(datetime.UTC))
 
 # Serialización
 order = Order(order_number=1001, customer_id="CUST-001", total_amount=150.00)
@@ -217,7 +217,7 @@ miapp/
 ## Template strings (Python 3.14)
 
 ```python
-# Template string literal (PEP tbd — Python 3.14)
+# Template string literal (PEP 750 — Python 3.14)
 from string.templatelib import Template
 
 name = "World"

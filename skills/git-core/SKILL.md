@@ -22,6 +22,7 @@ git config --global core.editor "code --wait"  # VS Code
 git config --global help.autocorrect 20  # Ejecuta automáticamente después de 2s
 
 # Push por defecto (solo rama actual)
+# (ya es el comportamiento por defecto desde Git 2.0, no hace falta configurarlo)
 git config --global push.default simple
 
 # Rebase por defecto al pull (evita merge commits innecesarios)
@@ -191,18 +192,14 @@ git push origin main
 
 ---
 
-## Git 2.54 novedades
+## Hooks compartidos
 
 ```bash
-# git history — reescritura interactiva de historial (experimental)
-git history reword HEAD~3    # Cambiar mensaje de commit antiguo
-git history split HEAD~2     # Dividir un commit en varios
-
-# Hooks definidos en config (en vez de scripts en .git/hooks/)
+# Apuntar a un directorio de scripts versionado (en vez de .git/hooks/, que no se versiona)
 git config core.hooksPath .githooks
-# O definir hooks inline:
-git config hook.pre-commit.command "npm run lint-staged"
 ```
+
+Para reescribir historial (reword, split, squash) usa `git rebase -i` (ver `git-rewriting`).
 
 ---
 

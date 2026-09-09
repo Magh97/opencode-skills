@@ -188,16 +188,22 @@ settings = Settings()
 
 ## Hash de passwords
 
-```python
-from passlib.context import CryptContext
+> `passlib` está sin mantenimiento activo (repo archivado) y tiene incompatibilidades conocidas con versiones recientes de `bcrypt` (>=4.1). Usa `argon2-cffi` (Argon2id, hoy preferido por OWASP) en su lugar.
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+```python
+from argon2 import PasswordHasher
+from argon2.exceptions import VerifyMismatchError
+
+ph = PasswordHasher()
 
 def hash_password(password: str) -> str:
-    return pwd_context.hash(password)
+    return ph.hash(password)
 
 def verify_password(plain: str, hashed: str) -> bool:
-    return pwd_context.verify(plain, hashed)
+    try:
+        return ph.verify(hashed, plain)
+    except VerifyMismatchError:
+        return False
 ```
 
 ---
@@ -250,5 +256,5 @@ async def security_headers(request: Request, call_next):
 - [ ] Secrets en Pydantic Settings, nunca en código
 - [ ] HTTPS en producción con HSTS
 - [ ] Security headers configurados
-- [ ] Passwords hasheados con bcrypt
+- [ ] Passwords hasheados con Argon2id (argon2-cffi) o bcrypt directo — no passlib
 - [ ] Sin `except Exception: pass` — loggear y manejar

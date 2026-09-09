@@ -163,10 +163,11 @@ git merge --abort                 # Si el merge está en progreso
 git reset --hard HEAD~1           # Deshacer merge commit (local)
 
 # 6. "Commiteé un archivo con secrets"
-git filter-branch --force --index-filter \
-  "git rm --cached --ignore-unmatch .env" \
-  --prune-empty --tag-name-filter cat -- --all
+# git filter-branch está desaconsejado oficialmente (lento, propenso a errores).
+# Usar git-filter-repo en su lugar:
+git filter-repo --path .env --invert-paths
 # ⚠️ Rotar todos los secrets expuestos DE INMEDIATO
+# Ver git-advanced para más detalle sobre filter-repo
 ```
 
 ---

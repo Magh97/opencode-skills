@@ -12,7 +12,7 @@ Guía canónica de JavaScript en el navegador sin frameworks ni bundlers. ES6+ n
 ## DOM — Selectores y manipulación
 
 ```javascript
-// ✅ querySelector / querySelectorAll — el estándar 2026 (55.8% del código analizado)
+// ✅ querySelector / querySelectorAll — el estándar recomendado hoy
 const form = document.querySelector('#order-form');
 const rows = document.querySelectorAll('.order-row');
 const submitBtn = document.querySelector('button[type="submit"]');

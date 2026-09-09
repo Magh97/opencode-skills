@@ -1,6 +1,6 @@
 ---
 name: devops-security
-description: "Seguridad DevOps (DevSecOps). Cubre Sigstore Cosign 3.0 para image signing, HashiCorp Vault para secrets management, Trivy para vulnerability scanning, RBAC en Kubernetes, network policies, y SBOM (Software Bill of Materials). Actívala al asegurar pipelines, gestionar secrets, o implementar supply chain security."
+description: "Seguridad DevOps (DevSecOps). Cubre Sigstore Cosign (última versión estable, línea 2.x o superior) para image signing, HashiCorp Vault para secrets management, Trivy para vulnerability scanning, RBAC en Kubernetes, network policies, y SBOM (Software Bill of Materials). Actívala al asegurar pipelines, gestionar secrets, o implementar supply chain security."
 disable-model-invocation: true
 ---
 
@@ -21,7 +21,7 @@ Source Code → Build → Sign → Attest → Verify → Deploy
 
 ---
 
-## Cosign 3.0 — Image Signing
+## Cosign (última versión estable, línea 2.x o superior) — Image Signing
 
 ```bash
 # Keyless signing con OIDC (GitHub Actions)

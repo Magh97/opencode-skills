@@ -5,7 +5,7 @@ description: "jQuery 4.0 en proyectos legacy ASP.NET MVC. Cubre selectores, AJAX
 
 # JavaScript + jQuery 4.0
 
-Guía de jQuery 4.0 (Ene 2026) para proyectos legacy ASP.NET MVC. jQuery sigue mantenido por OpenJS Foundation.
+Guía de jQuery 4.x (última versión estable de la rama 4) para proyectos legacy ASP.NET MVC. jQuery sigue mantenido por OpenJS Foundation.
 
 ---
 

@@ -289,12 +289,12 @@ test.describe('Orders E2E', () => {
     await expect(page.getByText('100.00')).toBeVisible();
   });
 
-  // AI assertion (Playwright 2026 agent mode)
+  // Matcher de accesibilidad basado en snapshot ARIA (determinista, no IA)
   test('validates required fields', async ({ page }) => {
     await page.goto('/orders/new');
     await page.getByRole('button', { name: 'Create' }).click();
 
-    // AI-powered assertion
+    // Compara el árbol de accesibilidad (roles/nombres ARIA) contra el snapshot esperado
     await expect(page).toMatchAriaSnapshot(`
       - text: Customer ID is required
       - text: Amount must be positive

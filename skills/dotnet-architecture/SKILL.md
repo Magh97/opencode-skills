@@ -196,7 +196,7 @@ builder.Services
 
 ```
 HTTP Request → Api/Endpoints/CreateOrder.cs
-    → MediatR → Application/Orders/CreateOrderHandler.cs
+    → MediatR (nota: desde v13 requiere licencia de pago para uso comercial; alternativas gratuitas: `Mediator` de martinothamar o CQRS manual) → Application/Orders/CreateOrderHandler.cs
         → Domain/IOrderRepository.cs (abstracción)
         → Infrastructure/Repositories/OrderRepository.cs (implementación concreta, inyectada por DI)
         → Domain/Order.cs (entidad de negocio)

@@ -172,7 +172,7 @@ Las protecciones permiten definir una **allow list** de quién y qué eventos pu
 
 ---
 
-## Agentic Workflows (GitHub 2026 preview)
+## Agentic Workflows (GitHub, feature en evolución — verificar si esta feature ya salió de preview al momento de usar esta guía)
 
 ```markdown
 # .github/agents/triage.md

@@ -1,6 +1,6 @@
 ---
 name: productivity-refactor
-description: Refactors automatizados y seguros en cualquier lenguaje. Soporta renombrar símbolos en todo el proyecto, extraer funciones/métodos, mover archivos entre módulos actualizando imports, y eliminar código muerto. AST-aware para TypeScript (tsgo/ts-morph), Python (libcst/ast), y C# (Roslyn/dotnet-format). Úsala durante code review cuando un hallazgo requiera refactor, o cuando el usuario diga "renombra X a Y", "extrae esta función", "mueve este archivo", "elimina código muerto".
+description: Refactors automatizados y seguros en cualquier lenguaje. Soporta renombrar símbolos en todo el proyecto, extraer funciones/métodos, mover archivos entre módulos actualizando imports, y eliminar código muerto. AST-aware para TypeScript (tsserver/ts-morph), Python (libcst/ast), y C# (Roslyn Workspaces vía IDE). Úsala durante code review cuando un hallazgo requiera refactor, o cuando el usuario diga "renombra X a Y", "extrae esta función", "mueve este archivo", "elimina código muerto".
 requires-devkits: auto-detect
 ---
 
@@ -132,9 +132,9 @@ export function deprecatedHelper(x: number): number {
 
 | Lenguaje | Herramienta | Disponibilidad |
 |----------|------------|----------------|
-| **TypeScript** | `tsgo --findAllReferences` + `tsgo --rename` | TypeScript 7 built-in |
+| **TypeScript** | Language Server de TypeScript (tsserver, vía IDE) para rename/find-references; `ts-morph` para scripts de refactor; `tsgo` solo para type-checking rápido (TS7, no expone rename/find-references por CLI) | tsserver vía IDE / `npm i -D ts-morph` |
 | **Python** | `libcst` (si instalado) o `ast` (stdlib) | `uv add libcst` o stdlib |
-| **C#** | `dotnet-format` + Roslyn | .NET SDK built-in |
+| **C#** | IDE con Roslyn Workspaces (Visual Studio/Rider/OmniSharp) o script custom con la API de Roslyn Workspaces para rename real; `dotnet format` solo aplica estilo/formato (whitespace, usings, analyzers), no renombra símbolos | IDE con Roslyn / script custom (no es un comando simple de SDK) |
 | **JavaScript** | `tsgo` (si tiene jsconfig) o regex con verificación | — |
 
 Si la herramienta AST no está disponible, usar regex con verificación manual y pedir confirmación.

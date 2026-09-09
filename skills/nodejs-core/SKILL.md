@@ -13,7 +13,7 @@ Guía canónica para desarrollo Node.js moderno. Node 24 LTS y 26 Current. TypeS
 |---------|------|------------|-----------|-----|-----------------|
 | Node 22 | LTS | Abr 2024 | Abr 2027 | 12.7 | ESM estable, `require(esm)` |
 | Node 24 | LTS | Oct 2024 | Abr 2028 | 13.x | `randomUUIDv7()`, `node:sqlite` |
-| **Node 26** | **Current** | May 2026 | Oct 2029 (LTS) | **14.6** | **Temporal API default**, **Undici 8**, test runner snapshots |
+| **Node 26** | **Current** | May 2026 | ~Abr 2029 (LTS) | **14.6** | **Temporal API default**, **Undici 8**, test runner snapshots |
 
 - **Proyectos nuevos** → Node 24 LTS en producción, Node 26 para features como Temporal API.
 - **Migraciones** → 22 → 24 directo. 24 → 26 en Oct 2026 cuando entre a LTS.
@@ -90,8 +90,9 @@ const __dirname = dirname(__filename);
 ## TypeScript 7 (Project Corsa — Go Compiler)
 
 ```bash
-# Instalar RC
-npm install -D typescript@rc
+# Instalar la versión estable más reciente
+# (verifica si TypeScript 7 ya salió de RC al momento de instalar)
+npm install -D typescript@latest
 
 # Compilar con Go compiler (tsgo)
 npx tsgo --noEmit           # Type-check 10x más rápido

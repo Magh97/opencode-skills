@@ -136,8 +136,8 @@ void _heavyTask(SendPort sendPort) {
 
 ```bash
 flutter run --profile  # Modo perfil (cercano a producción)
-# Abrir DevTools en el navegador
-flutter pub global run devtools
+# flutter run ya imprime automáticamente un link a DevTools en la consola
+# (o ábrelo desde el IDE: botón "Open DevTools" en VS Code/Android Studio)
 ```
 
 En DevTools:

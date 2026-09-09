@@ -313,10 +313,10 @@ ORDER BY ct.RANK DESC;
 
 ---
 
-## Vector Search (SQL Server 2025 Preview)
+## Vector Search (SQL Server 2025)
 
 ```sql
--- Requiere SQL Server 2025 (Preview, GA ~Nov 2025)
+-- Requiere SQL Server 2025 (GA desde Nov 2025)
 -- Almacenar vector
 ALTER TABLE Catalog.Products
 ADD DescriptionEmbedding VECTOR(1536);
@@ -336,14 +336,12 @@ ORDER BY Distance ASC;
 -- VECTOR_DISTANCE tipos: 'cosine', 'euclidean', 'dot'
 ```
 
-⚠️ Feature en preview. Sujeto a cambios antes de GA.
-
 ---
 
-## Regex (SQL Server 2025 Preview)
+## Regex (SQL Server 2025)
 
 ```sql
--- T-SQL regex nativo (2025 Preview)
+-- T-SQL regex nativo (SQL Server 2025)
 SELECT *
 FROM Sales.Orders
 WHERE CustomerId REGEXP_LIKE '^CUST-\d{3}$';

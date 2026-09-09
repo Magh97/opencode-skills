@@ -137,7 +137,7 @@ Pregunta al usuario en un solo mensaje (no uno por uno):
 4. **Nombre de quien autoriza** (`Autoriza:`)
 5. **Responsable** del proyecto
 6. **Nombre del trabajo** (descripción general, ej. `Validación de Ingresos en Smartket`)
-7. **Precio por hora** (default: 25 USD). Stack sugerido: .NET + SQL Server → 30 USD/hr; Node.js/React → 25 USD/hr; Python → 25 USD/hr. El precio se ajusta según el dev-kit del proyecto si está identificado.
+7. **Precio por hora**. Nota: estas tarifas son un ejemplo de referencia histórica — SIEMPRE confirmar las tarifas vigentes con el usuario/equipo antes de generar la cotización, no asumir que siguen siendo correctas. (default: 25 USD). Stack sugerido como referencia: .NET + SQL Server → 30 USD/hr; Node.js/React → 25 USD/hr; Python → 25 USD/hr. El precio se ajusta según el dev-kit del proyecto si está identificado.
 8. **Nombre del archivo de salida** (default: `Cotización - {Nombre del trabajo}.xlsx`)
 
 Si el usuario ya proporcionó alguno de estos datos en el contexto, no lo preguntes de nuevo.

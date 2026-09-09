@@ -99,7 +99,9 @@ LocalDatabase localDatabase(LocalDatabaseRef ref) {
 
 ```dart
 // Preferencias de usuario (tema, idioma, columnas visibles)
-final prefs = await SharedPreferences.getInstance();
+// API moderna: SharedPreferencesAsync (mejor soporte multiplataforma que la
+// instancia singleton legacy SharedPreferences.getInstance()).
+final prefs = SharedPreferencesAsync();
 
 // Escribir
 await prefs.setString('theme', 'dark');
@@ -108,8 +110,15 @@ await prefs.setInt('selectedTab', 0);
 await prefs.setStringList('visibleColumns', ['orderNumber', 'status', 'total']);
 
 // Leer
-final theme = prefs.getString('theme') ?? 'light';
-final notifications = prefs.getBool('notifications') ?? false;
+final theme = await prefs.getString('theme') ?? 'light';
+final notifications = await prefs.getBool('notifications') ?? false;
+
+// Si necesitas lecturas síncronas tras la carga inicial (ej. mostrar el tema
+// sin esperar un Future), usa SharedPreferencesWithCache en su lugar:
+final cachedPrefs = await SharedPreferencesWithCache.create(
+  cacheOptions: const SharedPreferencesWithCacheOptions(),
+);
+final cachedTheme = cachedPrefs.getString('theme') ?? 'light';
 ```
 
 ---

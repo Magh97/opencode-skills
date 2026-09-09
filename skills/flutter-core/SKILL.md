@@ -1,20 +1,20 @@
 ---
 name: flutter-core
-description: "Guía principal de Flutter 3.44 y Dart 3.12 (2026). Cubre widgets, composición, stateful/stateless, hot reload, temas, null safety, records, patterns y fundamentos del framework. Actívala para cualquier tarea Flutter: nuevas pantallas, diseño de widgets, o migración de versiones. Las sub-skills del kit profundizan en dominios específicos."
+description: "Guía principal de Flutter y Dart. Cubre widgets, composición, stateful/stateless, hot reload, temas, null safety, records, patterns y fundamentos del framework. Actívala para cualquier tarea Flutter: nuevas pantallas, diseño de widgets, o migración de versiones. Las sub-skills del kit profundizan en dominios específicos."
 ---
 
 # Flutter Core Guide
 
-Guía canónica de Flutter 3.44 + Dart 3.12 (Mayo 2026). Stack móvil del equipo Sputnik: Flutter + SQL Server + .NET 10.
+Guía canónica de Flutter (última versión estable) + Dart (última versión estable). Stack móvil del equipo Sputnik: Flutter + SQL Server + .NET 10.
 
 ---
 
 ## Versiones
 
-| Versión | Fecha | Novedades clave |
-|---------|-------|-----------------|
-| Flutter 3.44 | Mayo 2026 | Agentic Hot Reload, GenUI preview, Swift Package Manager default, Vulkan para Impeller |
-| Dart 3.12 | Mayo 2026 | Private named parameters, primary constructors (experimental) |
+| Versión | Novedades clave |
+|---------|-----------------|
+| Flutter (última versión estable) | Revisa el changelog oficial (docs.flutter.dev/release/release-notes) para las features más recientes antes de asumir disponibilidad |
+| Dart (última versión estable) | Private named parameters; primary constructors en evaluación por el equipo de Dart (ver más abajo) |
 
 ---
 
@@ -121,10 +121,10 @@ class _OrderFormState extends State<OrderForm> {
 
 ---
 
-## Dart 3.12 — Novedades
+## Dart — Novedades recientes
 
 ```dart
-// ✅ Private named parameters (Dart 3.12) — parámetros nombrados privados
+// ✅ Private named parameters — parámetros nombrados privados
 class OrderService {
   final String _apiKey;
   final Duration _timeout;
@@ -134,7 +134,7 @@ class OrderService {
       : _apiKey = apiKey;
 }
 
-// ✅ Primary constructors (experimental en Dart 3.12)
+// ✅ Primary constructors (propuesta en evaluación por el equipo de Dart, sin versión de llegada confirmada)
 // class OrderRepository(Database db);
 
 // ✅ Records (Dart 3.0+)

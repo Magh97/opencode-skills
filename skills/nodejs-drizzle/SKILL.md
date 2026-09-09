@@ -6,20 +6,23 @@ disable-model-invocation: true
 
 # Drizzle ORM — TypeScript ORM SQL-first
 
-Guía de Drizzle ORM v1.0-rc (2026). Thin typed layer sobre SQL. Sin deps, serverless-ready, bundle mínimo (~7.4KB). Soporte nativo PostgreSQL, SQL Server (MSSQL), MySQL, SQLite, Turso/LibSQL, CockroachDB.
+Guía de Drizzle ORM (2026; verifica si la v1.0 ya está estable o sigue en RC al momento de usar). Thin typed layer sobre SQL. Sin deps, serverless-ready, bundle mínimo (~7.4KB). Soporte nativo PostgreSQL, SQL Server (MSSQL), MySQL, SQLite, Turso/LibSQL, CockroachDB.
 
 ---
 
 ## Setup
 
 ```bash
+# Verifica si Drizzle 1.0 ya salió estable al momento de instalar;
+# usa @latest en lugar de fijarte a un tag @rc que puede quedar obsoleto.
+
 # PostgreSQL
-npm i drizzle-orm@rc pg
-npm i -D drizzle-kit@rc @types/pg
+npm i drizzle-orm@latest pg
+npm i -D drizzle-kit@latest @types/pg
 
 # SQL Server
-npm i drizzle-orm@rc mssql
-npm i -D drizzle-kit@rc @types/mssql
+npm i drizzle-orm@latest mssql
+npm i -D drizzle-kit@latest @types/mssql
 ```
 
 ```typescript

@@ -517,7 +517,7 @@ public class CreateCustomerRequest
 | Complejidad | Alternativa KISS |
 |-------------|-----------------|
 | Clean Architecture con 4 proyectos | 2 proyectos (Api + App) hasta que duela |
-| CQRS con MediatR | Llamada directa a servicio |
+| CQRS con MediatR (nota: desde v13 requiere licencia de pago para uso comercial; alternativas gratuitas: `Mediator` de martinothamar o CQRS manual) | Llamada directa a servicio |
 | Microservicios | Modular Monolith |
 | Event Sourcing | CRUD con historial de cambios en una tabla de auditoría |
 | Kubernetes para un monolito | App Service / VM |

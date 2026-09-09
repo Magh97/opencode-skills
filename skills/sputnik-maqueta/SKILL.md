@@ -16,8 +16,8 @@ Analiza una maqueta (imagen, PDF, Figma, ClaudeAI Design) y genera la tabla de e
 ### Paso 1: Recibir la maqueta
 
 Formatos soportados:
-- **Imagen**: PNG, JPG, WebP → usar `analyze_image` para análisis detallado
-- **PDF**: extraer páginas como imágenes → analizar cada página
+- **Imagen**: PNG, JPG, WebP → usar la tool `Read` directamente sobre el archivo de imagen (es multimodal) para análisis detallado
+- **PDF**: usar la tool `Read` sobre el archivo, indicando el parámetro `pages` para analizar cada página (o rango de páginas)
 - **Figma**: si el usuario comparte link, pedir export o screenshot
 - **ClaudeAI Design**: link a `https://claude.ai/design/p/{uuid}` → ver sección específica abajo
 - **Video/screenshare**: si el usuario muestra una UI en video, extraer frames
@@ -34,17 +34,18 @@ Preguntar en un solo mensaje:
 
 **Procedimiento de extracción**:
 
-1. **Abrir con agent_browser**:
+1. **Cargar la skill `claude-in-chrome` primero** (es prerequisito antes de usar cualquier tool `mcp__claude-in-chrome__*`), y luego usar sus tools MCP reales para abrir y capturar el diseño:
    ```
-   agent_browser open "https://claude.ai/design/p/{uuid}"
-   agent_browser snapshot -i   # capturar estado interactivo
-   agent_browser screenshot --path diseno.png  # screenshot del diseño visible
+   mcp__claude-in-chrome__tabs_create_mcp   # abrir una pestaña nueva
+   mcp__claude-in-chrome__navigate          # navegar a "https://claude.ai/design/p/{uuid}"
+   mcp__claude-in-chrome__read_page         # capturar el estado/estructura interactiva de la página
+   mcp__claude-in-chrome__computer          # tomar screenshot y/o interactuar (clicks, scroll) con la página
    ```
 
-2. **Navegar el diseño**: Si el diseño tiene tabs, secciones colapsables, o múltiples pantallas, identificarlas desde el snapshot y navegar cada vista:
-   - Buscar elementos clickeables en el snapshot (tabs, botones, enlaces internos)
-   - Usar `agent_browser` para hacer clic en tabs/secciones y re-snapshotear
-   - Tomar screenshot de cada pantalla/variante del diseño
+2. **Navegar el diseño**: Si el diseño tiene tabs, secciones colapsables, o múltiples pantallas, identificarlas con `read_page` y navegar cada vista:
+   - Buscar elementos clickeables en la lectura de la página (tabs, botones, enlaces internos)
+   - Usar `mcp__claude-in-chrome__computer` para hacer clic en tabs/secciones y volver a leer/capturar
+   - Tomar screenshot de cada pantalla/variante del diseño con `mcp__claude-in-chrome__computer`
 
 3. **Analizar componentes visibles**: Una vez capturadas todas las vistas, aplicar el mismo análisis que para Figma:
    - Tablas de datos → `Se crea Tabla FrontEnd`
@@ -57,7 +58,7 @@ Preguntar en un solo mensaje:
    - Alternativamente, pedir que exporte el diseño como PDF/imagen
    - No asumir contenido que no se pueda verificar
 
-5. **Si el diseño incluye especificaciones técnicas** (tablas de BD, endpoints sugeridos, reglas de negocio en texto): el HTML suele contener `<pre>`, `<code>`, o tablas con esta información. Extraerla con `eval` en agent_browser.
+5. **Si el diseño incluye especificaciones técnicas** (tablas de BD, endpoints sugeridos, reglas de negocio en texto): el HTML suele contener `<pre>`, `<code>`, o tablas con esta información. Extraerla con `mcp__claude-in-chrome__read_page` (o `mcp__claude-in-chrome__javascript_tool` si se necesita evaluar JS en la página).
 
 ### Paso 2: Analizar la maqueta
 

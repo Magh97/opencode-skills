@@ -1,12 +1,12 @@
 ---
 name: devops-iac
-description: "Infrastructure as Code con OpenTofu 1.12, Terraform y Pulumi. Cubre estado remoto, modules, workspaces, providers cloud (AWS/GCP/Azure), Bicep para Azure, y mejores prácticas de IaC. Actívala al definir infraestructura como código, migrar de Terraform a OpenTofu, o gestionar cloud resources."
+description: "Infrastructure as Code con OpenTofu (última versión 1.x estable), Terraform y Pulumi. Cubre estado remoto, modules, workspaces, providers cloud (AWS/GCP/Azure), Bicep para Azure, y mejores prácticas de IaC. Actívala al definir infraestructura como código, migrar de Terraform a OpenTofu, o gestionar cloud resources."
 disable-model-invocation: true
 ---
 
 # Infrastructure as Code
 
-Guía de IaC 2026. **OpenTofu 1.12 como default.** Terraform y Pulumi como alternativas.
+Guía de IaC. **OpenTofu (última versión 1.x estable) como default.** Terraform y Pulumi como alternativas.
 
 ---
 
@@ -14,14 +14,14 @@ Guía de IaC 2026. **OpenTofu 1.12 como default.** Terraform y Pulumi como alter
 
 | Herramienta | Licencia | Mejor para |
 |-------------|----------|------------|
-| **OpenTofu 1.12** | MPL 2.0 (open source) | ✅ Default 2026. Vendor-neutral, state encryption nativo |
+| **OpenTofu (última versión 1.x estable)** | MPL 2.0 (open source) | ✅ Default recomendado. Vendor-neutral, state encryption nativo |
 | **Terraform** | BSL (cambió en 2023) | Equipos atados a HCP/Terraform Enterprise |
 | **Pulumi** | Apache 2.0 | Infraestructura en lenguajes de propósito general (TS, Python, Go) |
 | **Bicep** | MIT | Solo Azure. DSL nativo de Microsoft. |
 
 ---
 
-## OpenTofu 1.12
+## OpenTofu (última versión 1.x estable)
 
 ### Estructura de proyecto
 

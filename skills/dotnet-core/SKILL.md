@@ -549,6 +549,8 @@ Cada sub-skill profundiza en su dominio:
 | Propósito          | Herramienta               | Paquete NuGet                          |
 |--------------------|---------------------------|----------------------------------------|
 | Testing            | xUnit + FluentAssertions  | `xunit` + `FluentAssertions`           |
+
+> Nota: FluentAssertions v8+ requiere licencia comercial de pago (Xceed) para uso empresarial con fines de lucro; alternativa gratuita: `Shouldly`, o usar las aserciones nativas de xUnit.
 | Mocking            | NSubstitute               | `NSubstitute`                          |
 | ORM                | EF Core 10                | `Microsoft.EntityFrameworkCore`        |
 | Logging            | Serilog                    | `Serilog.AspNetCore`                   |
@@ -558,3 +560,5 @@ Cada sub-skill profundiza en su dominio:
 | Caching            | HybridCache               | `Microsoft.Extensions.Caching.Hybrid`  |
 | OpenAPI            | Microsoft.AspNetCore.OpenApi | `Microsoft.AspNetCore.OpenApi`      |
 | Mediator (opcional)| MediatR                   | `MediatR`                              |
+
+> Nota: desde MediatR v13 el uso comercial requiere licencia de pago; alternativas gratuitas: `Mediator` (martinothamar, source generators) o CQRS manual sin librería.

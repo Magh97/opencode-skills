@@ -36,10 +36,11 @@ from langchain_core.messages import HumanMessage, SystemMessage
 
 # Inicializar modelo
 llm = ChatOpenAI(
-    model="gpt-5",  # GPT-5 en 2026
+    model=settings.OPENAI_MODEL,  # leer de config, no hardcodear el nombre del modelo
     temperature=0.7,
     max_tokens=4096,
 )
+# Verifica el modelo vigente en el catálogo de OpenAI al momento de implementar.
 
 # Chat simple
 messages = [
@@ -58,16 +59,16 @@ async for chunk in llm.astream(messages):
 
 ```python
 from langgraph.prebuilt import create_react_agent
-from langchain_community.tools import TavilySearchResults
+from langchain_tavily import TavilySearch
 from langchain_openai import ChatOpenAI
 
 # Agente con herramientas
 tools = [
-    TavilySearchResults(max_results=3),
+    TavilySearch(max_results=3),
 ]
 
 agent = create_react_agent(
-    model=ChatOpenAI(model="gpt-5"),
+    model=ChatOpenAI(model=settings.OPENAI_MODEL),
     tools=tools,
 )
 
@@ -81,7 +82,7 @@ result = await agent.ainvoke({
 
 ```python
 from langchain_openai import OpenAIEmbeddings
-from langchain_community.vectorstores import PGVector
+from langchain_postgres import PGVector
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 
@@ -93,7 +94,7 @@ CONNECTION_STRING = "postgresql+psycopg://user:pass@localhost:5432/miapp"
 
 # Crear vector store (o cargar existente)
 vectorstore = PGVector(
-    connection_string=CONNECTION_STRING,
+    connection=CONNECTION_STRING,
     embedding_function=embeddings,
     collection_name="order_documents",
 )
@@ -122,7 +123,7 @@ prompt = ChatPromptTemplate.from_messages([
     ("human", "{question}"),
 ])
 
-llm = ChatOpenAI(model="gpt-5")
+llm = ChatOpenAI(model=settings.OPENAI_MODEL)
 chain = prompt | llm
 response = await chain.ainvoke({"context": context, "question": "What was shipped on June 15?"})
 ```

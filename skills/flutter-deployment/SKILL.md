@@ -132,9 +132,13 @@ flutter build ipa --release
 ### Subir a App Store Connect
 
 ```bash
-# Usar altool o Transporter
-xcrun altool --upload-app -f build/ios/ipa/miapp.ipa \
-  -t ios -u "apple@email.com" -p "@keychain:app-specific-password"
+# altool fue deprecado por Apple en 2023. Usa notarytool (o Xcode Organizer /
+# Transporter como alternativa gráfica) para subir a App Store Connect.
+xcrun notarytool submit build/ios/ipa/miapp.ipa \
+  --apple-id "apple@email.com" \
+  --team-id "TEAMID1234" \
+  --password "@keychain:app-specific-password" \
+  --wait
 ```
 
 ---

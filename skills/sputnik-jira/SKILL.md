@@ -20,7 +20,7 @@ Las filas de SUBTOTAL y TOTAL GENERAL se ignoran al crear issues.
 
 ### Paso 1: Validar herramientas disponibles
 
-Confirma que tienes acceso a las herramientas de Jira: `search_jira_issues`, `get_visible_jira_projects`, `get_jira_issue`, `get_jira_issue_type_fields`. Si no están disponibles, dile al usuario que instale la extensión Atlassian MCP (`~/.pi/agent/extensions/atlassian-mcp/`) y configure las variables de entorno `ATLASSIAN_BASE_URL`, `ATLASSIAN_USERNAME`, `ATLASSIAN_API_TOKEN`.
+Confirma que tienes acceso a las herramientas MCP nativas del conector Atlassian Rovo (prefijo `mcp__claude_ai_Atlassian_Rovo__`): `createJiraIssue`, `editJiraIssue`, `createIssueLink`, `getIssueLinkTypes`, `addCommentToJiraIssue`, `searchJiraIssuesUsingJql`, `getVisibleJiraProjects`, `getJiraIssue`, `getJiraIssueTypeMetaWithFields`. Si no están disponibles, dile al usuario que active el conector de Atlassian en el entorno (Claude Code / opencode con MCP de Atlassian Rovo).
 
 ### Paso 2: Resolver destino (en orden)
 
@@ -29,13 +29,13 @@ Pregunta al usuario lo siguiente (en un solo mensaje, no uno por uno):
 1. **Cloud ID o URL del site de Jira** — si no lo sabe, usa la herramienta `getAccessibleAtlassianResources` para listar los sites disponibles y déjalo elegir.
 2. **Project key** destino (ej. `SPK`, `ITSEG`) — si no lo sabe, usa `get_visible_jira_projects` para listar.
 3. **Tipo de issue** (default: `Task`). Pregunta si prefieren `Story` o algún tipo custom.
-4. **Campo para los puntos**: por default `customfield_10016` (Story Points en muchas instancias). Si el usuario sabe el ID custom de su workspace, úsalo. Si no, usa `get_jira_issue_type_fields` para encontrar el campo correcto en su proyecto.
+4. **Campo para los puntos**: por default `customfield_10016` (Story Points en muchas instancias). Si el usuario sabe el ID custom de su workspace, úsalo. Si no, usa `getJiraIssueTypeMetaWithFields` para encontrar el campo correcto en su proyecto.
 5. **¿Agrupar bajo una épica?** Si hay 5+ tareas para un mismo módulo/proyecto, sugiere crear una épica padre y las tareas como issues hijos (campo `parent`). Si el usuario acepta, primero crea la épica, luego cada tarea con `parent: { key: "EPIC-KEY" }`.
 6. **¿Vincular issues relacionados entre capas?** Sugiere crear `issuelinks` tipo `relates to` entre el SP de SQL, su endpoint de Backend y su pantalla de Frontend que comparten la misma Estructura Descriptiva. Esto da trazabilidad en Jira.
 
 ### Paso 3: Verificar duplicados y Confirmar
 
-Antes de crear, busca en Jira si ya existen issues con el mismo summary o estructura descriptiva:
+Antes de crear, usa `searchJiraIssuesUsingJql` para buscar en Jira si ya existen issues con el mismo summary o estructura descriptiva, con un JQL como:
 
 ```
 project = [PROJECT_KEY] AND summary ~ "[estructura_descriptiva]"
@@ -71,20 +71,11 @@ Para cada fila de datos (omitiendo subtotales/total):
 - **Story Points**: el valor de la columna Puntos, en el campo custom elegido.
 - **Project**: el project key elegido.
 
-Crea los issues uno por uno usando directo la Jira REST API (POST `/rest/api/3/issue`) vía axios o fetch. Si una creación falla, anótalo pero sigue con las demás — no abortes todo.
+Crea los issues uno por uno usando la herramienta MCP nativa `createJiraIssue` (proyecto, tipo de issue, summary, description, labels y el campo de puntos como parámetros). Si el issue debe ir bajo una épica, pasa el `parent` correspondiente. Si una creación falla, anótalo pero sigue con las demás — no abortes todo.
 
 ### Paso 5: Vincular issues entre capas
 
-Si el usuario aceptó vinculación en Paso 2, para cada grupo de issues que comparten la misma Estructura Descriptiva (SP SQL → Endpoint Backend → Pantalla Frontend):
-
-```json
-POST /rest/api/3/issueLink
-{
-  "type": { "name": "Relates" },
-  "inwardIssue": { "key": "SPK-100" },
-  "outwardIssue": { "key": "SPK-105" }
-}
-```
+Si el usuario aceptó vinculación en Paso 2, para cada grupo de issues que comparten la misma Estructura Descriptiva (SP SQL → Endpoint Backend → Pantalla Frontend), usa la herramienta MCP nativa `createIssueLink` pasando el tipo de vínculo (usa `getIssueLinkTypes` si necesitas confirmar el nombre exacto, típicamente "Relates") y las keys de los issues de entrada y salida (equivalente a `inwardIssue`/`outwardIssue`).
 
 Esto crea una relación visible en ambos issues, dando trazabilidad completa de la feature a través de las capas.
 
@@ -106,8 +97,8 @@ Si el usuario pide explícitamente que las `[DIVISION]` sean subtasks de un issu
 
 ## Errores comunes y cómo manejarlos
 
-- **Campo de story points no encontrado**: el ID varía por instancia. Usa `get_jira_issue_type_fields` para listar campos del tipo de issue elegido y busca uno con nombre "Story Points" o "Puntos de historia". Pide al usuario que confirme el ID antes de continuar.
-- **Project key inválido**: lista los proyectos disponibles con `get_visible_jira_projects` y pide que elija.
+- **Campo de story points no encontrado**: el ID varía por instancia. Usa `getJiraIssueTypeMetaWithFields` para listar campos del tipo de issue elegido y busca uno con nombre "Story Points" o "Puntos de historia". Pide al usuario que confirme el ID antes de continuar.
+- **Project key inválido**: lista los proyectos disponibles con `getVisibleJiraProjects` y pide que elija.
 - **Permisos insuficientes**: reporta al usuario qué permiso falta (típicamente "Create Issues" en ese proyecto) y detente.
 
 ## Lo que NO debes hacer

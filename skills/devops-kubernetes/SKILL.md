@@ -1,12 +1,12 @@
 ---
 name: devops-kubernetes
-description: "Kubernetes 1.36 (Haru) para producción. Cubre pods, deployments, services, ingress, Helm v9, ArgoCD v3.4 para GitOps, HPA, resource limits, namespaces, y ConfigMaps/Secrets. Actívala al desplegar aplicaciones en Kubernetes, configurar auto-scaling, o implementar GitOps con ArgoCD."
+description: "Kubernetes (última versión estable) para producción. Cubre pods, deployments, services, ingress, Helm 3.x (última versión estable), ArgoCD para GitOps, HPA, resource limits, namespaces, y ConfigMaps/Secrets. Actívala al desplegar aplicaciones en Kubernetes, configurar auto-scaling, o implementar GitOps con ArgoCD."
 disable-model-invocation: true
 ---
 
-# Kubernetes 1.36
+# Kubernetes (última versión estable)
 
-Guía de Kubernetes 1.36 (Abr 2026) con Helm y ArgoCD. Enfoque en aplicaciones, no en administración de cluster.
+Guía de Kubernetes con Helm y ArgoCD. Enfoque en aplicaciones, no en administración de cluster.
 
 > **Nota de alcance:** usa `devops-kubernetes` para desplegar y gestionar cargas de trabajo DENTRO de un cluster ya existente (Deployments, Services, Ingress, Helm). Para provisionar/crear infraestructura de cluster gestionado (EKS/GKE/AKS, IAM, costos, FinOps), ve a `devops-cloud`.
 
@@ -304,7 +304,7 @@ stringData:
 
 ---
 
-## K8s 1.36 novedades clave
+## K8s novedades clave (verificar versión vigente)
 
 - **User Namespaces** (stable): mejor aislamiento de contenedores.
 - **AI/ML workload maduration**: soporte mejorado para GPUs y trabajos batch.

@@ -1,6 +1,6 @@
 ---
 name: git-advanced
-description: "Git avanzado. Cubre hooks (Husky 9, config-based hooks Git 2.54), worktrees (múltiples ramas simultáneas), submodules y subtrees, git-lfs para archivos grandes, monorepo patterns, y filter-repo para limpieza de historial. Actívala al configurar hooks avanzados, trabajar en monorepos, o gestionar archivos binarios."
+description: "Git avanzado. Cubre hooks (Husky 9, core.hooksPath para hooks compartidos/versionados), worktrees (múltiples ramas simultáneas), submodules y subtrees, git-lfs para archivos grandes, monorepo patterns, y filter-repo para limpieza de historial. Actívala al configurar hooks avanzados, trabajar en monorepos, o gestionar archivos binarios."
 disable-model-invocation: true
 ---
 
@@ -41,20 +41,19 @@ npm test
 }
 ```
 
-### Git 2.54 — Config-based hooks
+### Hooks compartidos con `core.hooksPath` (desde Git 2.9)
 
 ```bash
-# Definir hooks en config global o del repo (sin scripts en .git/hooks/)
+# Apuntar Git a un directorio de scripts versionado en el repo,
+# en vez de usar .git/hooks/ (que no se versiona ni se comparte)
 git config core.hooksPath .githooks
 
-# O definir inline:
-git config hook.pre-commit.command "npm run lint-staged"
-git config hook.commit-msg.command "npx commitlint --edit $1"
-git config hook.pre-push.command "npm test"
-
-# En Git 2.55 (próximo): hooks paralelos
-git config hook.pre-commit.parallel true
+# .githooks/pre-commit (con permisos de ejecución: chmod +x)
+#!/bin/sh
+npm run lint-staged
 ```
+
+Con esto todo el equipo comparte los mismos hooks al clonar el repo, siempre que `.githooks/` esté en el repositorio y cada script tenga permiso de ejecución.
 
 ---
 

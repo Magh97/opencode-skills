@@ -141,18 +141,27 @@ git cherry-pick --abort  # Cancelar
 
 ---
 
-## Git 2.54 — `git history` (experimental)
+## Reword y split de commits con herramientas reales
 
 ```bash
-# Reword commit antiguo sin rebase completo del rango
-git history reword a1b2c3d
+# Reword de un commit antiguo sin editar todo el rango a mano
+git rebase -i HEAD~3   # marcar el commit como "reword" en el editor
 
-# Dividir un commit grande en varios
-git history split e4f5g6h
-# Git pausa y permite crear múltiples commits desde los cambios de e4f5g6h
+# Fixup rápido: crear un commit que se fusionará automáticamente
+git commit --fixup a1b2c3d
+git rebase -i --autosquash a1b2c3d~1
+
+# Dividir un commit grande en varios (marcar "edit" en el rebase interactivo)
+git rebase -i e4f5g6h~1
+git reset HEAD~1        # deshace el commit marcado, deja los cambios en staging
+git add -p              # armar commits parciales
+git commit
+git rebase --continue
+
+# Alternativa: la herramienta externa git-absorb autogenera commits --fixup
+# a partir del diff actual, buscando a qué commit pertenece cada hunk.
+git absorb --and-rebase
 ```
-
-⚠️ Experimental en 2.54. Puede cambiar. Alternativa estable: `git rebase -i`.
 
 ---
 

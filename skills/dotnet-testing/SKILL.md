@@ -8,6 +8,8 @@ disable-model-invocation: true
 
 Guía completa de testing moderno en .NET 9/10. Stack por defecto: **xUnit + NSubstitute + FluentAssertions + Testcontainers**.
 
+> Nota: FluentAssertions v8+ requiere licencia comercial de pago (Xceed) para uso empresarial con fines de lucro (gratis solo para OSS/no comercial); alternativa gratuita: `Shouldly`, o usar las aserciones nativas de xUnit.
+
 ---
 
 ## Stack y setup
@@ -21,7 +23,7 @@ Guía completa de testing moderno en .NET 9/10. Stack por defecto: **xUnit + NSu
   <PrivateAssets>all</PrivateAssets>
 </PackageReference>
 <PackageReference Include="NSubstitute" Version="*" />
-<PackageReference Include="FluentAssertions" Version="*" />
+<PackageReference Include="FluentAssertions" Version="[7.*]" /> <!-- pin a v7: v8+ requiere licencia comercial de pago (Xceed) -->
 <PackageReference Include="coverlet.collector" Version="*">
   <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
   <PrivateAssets>all</PrivateAssets>

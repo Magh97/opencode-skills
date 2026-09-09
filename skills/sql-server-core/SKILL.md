@@ -1,11 +1,11 @@
 ---
 name: sql-server-core
-description: "Guía principal de SQL Server (2019/2022/2025). Cubre T-SQL, arquitectura del motor, tipos de datos, DDL/DML, ediciones, herramientas (SSMS, Azure Data Studio, sqlcmd), bases de datos de sistema, y fundamentos del motor. Actívala para cualquier tarea SQL Server: nuevos desarrollos, revisión de queries, migraciones o diseño de base de datos. Las sub-skills del kit profundizan en dominios específicos."
+description: "Guía principal de SQL Server (2019/2022/2025). Cubre T-SQL, arquitectura del motor, tipos de datos, DDL/DML, ediciones, herramientas (SSMS, MSSQL para VS Code, sqlcmd), bases de datos de sistema, y fundamentos del motor. Actívala para cualquier tarea SQL Server: nuevos desarrollos, revisión de queries, migraciones o diseño de base de datos. Las sub-skills del kit profundizan en dominios específicos."
 ---
 
 # SQL Server Core Development Guide
 
-Guía canónica para desarrollo en SQL Server. Cubre 2019, 2022 y 2025 (preview, GA Nov 2025). Todo código T-SQL generado sigue estas reglas salvo indicación contraria del usuario.
+Guía canónica para desarrollo en SQL Server. Cubre 2019, 2022 y 2025 (GA desde Nov 2025). Todo código T-SQL generado sigue estas reglas salvo indicación contraria del usuario.
 
 ## Versiones y compatibilidad
 
@@ -13,9 +13,9 @@ Guía canónica para desarrollo en SQL Server. Cubre 2019, 2022 y 2025 (preview,
 |------------------|-------|-------------|-------------------|-----------------|
 | SQL Server 2019  | 150   | Nov 2019    | Hasta Feb 2025    | UTF-8, `STRING_AGG`, Big Data Clusters |
 | SQL Server 2022  | 160   | Nov 2022    | Hasta Ene 2033    | Ledger, `GREATEST`/`LEAST`, `IS [NOT] DISTINCT FROM`, Query Store en réplicas |
-| SQL Server 2025  | 170   | Nov 2025    | —                 | **Vector type**, **regex**, T-SQL regex, PREVIEW_FEATURES |
+| SQL Server 2025  | 170   | Nov 2025 (GA) | —              | **Vector type**, **regex**, T-SQL regex nativo |
 
-- **Proyectos nuevos** → SQL Server 2022 (LTS estable). Adoptar 2025 cuando esté GA si se necesita vector/regex.
+- **Proyectos nuevos** → SQL Server 2022 (LTS estable) o SQL Server 2025 (GA) si se necesita vector/regex nativo.
 - **Migraciones** → 2019 → 2022 es seguro. 2019 → 2025 directo posible (compat level).
 - **Azure SQL** → DB única o Managed Instance. Compatibilidad casi total con 2022.
 
@@ -100,7 +100,7 @@ Guía canónica para desarrollo en SQL Server. Cubre 2019, 2022 y 2025 (preview,
 | `XML` | Datos XML con esquema. Menos común, usar JSON |
 | `GEOMETRY` / `GEOGRAPHY` | Datos espaciales |
 | `HIERARCHYID` | Jerarquías (org charts, árboles) |
-| `VECTOR(n)` | ⚠️ SQL 2025 preview — embeddings vectoriales |
+| `VECTOR(n)` | SQL Server 2025 (GA) — embeddings vectoriales |
 
 ---
 
@@ -246,10 +246,7 @@ TRUNCATE TABLE Staging.ImportBuffer;
 
 ### Azure Data Studio
 
-- Multi-plataforma (Win, Mac, Linux).
-- Extensible (extensiones: PostgreSQL, MySQL).
-- Notebooks SQL integrados.
-- Charts integrados desde resultados.
+⚠️ **Discontinuado.** Azure Data Studio fue deprecado por Microsoft (anuncio 2025). Usar la extensión **MSSQL para VS Code** o **SSMS** en su lugar.
 
 ### Sqlcmd
 
@@ -488,7 +485,7 @@ DECLARE @OrderIds TABLE (Id UNIQUEIDENTIFIER PRIMARY KEY);
 
 | Propósito | Herramienta | Notas |
 |-----------|-------------|-------|
-| IDE | Azure Data Studio o SSMS | ADS para multi-plataforma, SSMS para Windows |
+| IDE | SSMS o extensión MSSQL para VS Code | SSMS para Windows, MSSQL/VS Code para multi-plataforma. Azure Data Studio está discontinuado — no usar. |
 | ORM (desde .NET) | EF Core + `Microsoft.EntityFrameworkCore.SqlServer` | Provider oficial |
 | Micro-ORM | Dapper + `Microsoft.Data.SqlClient` | Alto rendimiento, queries manuales |
 | Migraciones | EF Core Migrations o Flyway | Flyway para control absoluto del SQL |

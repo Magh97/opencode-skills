@@ -1,12 +1,12 @@
 ---
 name: flutter-state
-description: "State management en Flutter con Riverpod 3 y BLoC 9 (2026). Cubre StateNotifier, AsyncNotifier, FutureProvider, StreamProvider, BlocBuilder, Cubit, y cuándo elegir cada enfoque. Actívala al diseñar la arquitectura de estado, migrar de Provider a Riverpod, o implementar BLoC en apps enterprise."
+description: "State management en Flutter con Riverpod 3 y la última versión mayor estable del paquete bloc. Cubre StateNotifier, AsyncNotifier, FutureProvider, StreamProvider, BlocBuilder, Cubit, y cuándo elegir cada enfoque. Actívala al diseñar la arquitectura de estado, migrar de Provider a Riverpod, o implementar BLoC en apps enterprise."
 disable-model-invocation: true
 ---
 
 # Flutter State Management
 
-Guía de state management en Flutter 2026. **Riverpod 3 por defecto, BLoC 9 para enterprise.**
+Guía de state management en Flutter. **Riverpod 3 por defecto, la última versión mayor estable de BLoC para enterprise.**
 
 ---
 
@@ -15,7 +15,7 @@ Guía de state management en Flutter 2026. **Riverpod 3 por defecto, BLoC 9 para
 | Herramienta | Mejor para | Curva | Ejemplo Sputnik |
 |-------------|-----------|-------|-----------------|
 | **Riverpod 3** | Nuevos proyectos, equipos pequeños/medios | Media | App de órdenes con 3-5 pantallas |
-| **BLoC 9** | Enterprise, equipos grandes, auditoría | Alta | App multi-módulo con 20+ pantallas |
+| **BLoC (última versión mayor estable)** | Enterprise, equipos grandes, auditoría | Alta | App multi-módulo con 20+ pantallas |
 | **Cubit** | Pantallas simples, lógica mínima | Baja | Formulario de login, settings |
 
 ---
@@ -81,7 +81,7 @@ class OrdersListScreen extends ConsumerWidget {
 
 ---
 
-## BLoC 9
+## BLoC (última versión mayor estable)
 
 ```dart
 // blocs/order/order_event.dart
@@ -178,7 +178,7 @@ class OrdersListScreen extends StatelessWidget {
 
 ## Checklist state
 
-- [ ] Riverpod 3 por defecto, BLoC 9 para enterprise
+- [ ] Riverpod 3 por defecto, última versión mayor estable de BLoC para enterprise
 - [ ] Estado async con `AsyncValue` (loading, data, error)
 - [ ] Providers declarados con `@riverpod` (código generado)
 - [ ] `ref.invalidate()` para refrescar datos después de mutación

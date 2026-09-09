@@ -593,6 +593,8 @@ public class CsvOrderImporter : DataImporter
 
 **En .NET moderno**: Commands + Handlers (CQRS) o `IRequest<T>` de MediatR.
 
+> Nota: desde MediatR v13 el uso comercial requiere licencia de pago; alternativas gratuitas: `Mediator` (martinothamar, source generators) o CQRS manual sin librería.
+
 ```csharp
 // Command (inmutable)
 public record CreateOrderCommand(

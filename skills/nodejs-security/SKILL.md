@@ -210,15 +210,19 @@ const orders = await db.execute(sql`
 
 ## CSRF Protection
 
+> **Nota:** `csurf` está **deprecado y sin mantenimiento** desde 2022 (advertencia oficial en su propio README). No lo uses en proyectos nuevos. Usa `csrf-csrf` (mantenido, patrón double-submit-cookie) o implementa el patrón manualmente.
+
 ```typescript
-import csrf from 'csurf';
+import { doubleCsrf } from 'csrf-csrf';
 import cookieParser from 'cookie-parser';
 
 // Para apps con cookies (no APIs stateless con JWT Bearer)
 app.use(cookieParser());
 
-const csrfProtection = csrf({
-  cookie: {
+const { doubleCsrfProtection, generateToken } = doubleCsrf({
+  getSecret: () => process.env.CSRF_SECRET!,
+  cookieName: '__Host-csrf-token',
+  cookieOptions: {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',
@@ -226,12 +230,12 @@ const csrfProtection = csrf({
 });
 
 // Ruta que expone el token
-app.get('/api/csrf-token', csrfProtection, (req, res) => {
-  res.json({ csrfToken: req.csrfToken() });
+app.get('/api/csrf-token', (req, res) => {
+  res.json({ csrfToken: generateToken(req, res) });
 });
 
 // Proteger mutaciones
-app.post('/api/orders', csrfProtection, createOrder);
+app.post('/api/orders', doubleCsrfProtection, createOrder);
 ```
 
 ---

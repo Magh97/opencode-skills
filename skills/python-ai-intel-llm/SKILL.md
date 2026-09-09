@@ -18,7 +18,7 @@ Large Language Models en hardware Intel: llama.cpp, OpenVINO GenAI, vLLM, y opti
 | **llama.cpp + OpenVINO** | CPU, GPU | Compatibilidad GGUF + inference Intel |
 | **optimum-intel** | CPU, GPU | HuggingFace transformers → OpenVINO |
 | **vLLM** | GPU Arc | Serving alta concurrencia |
-| **ollama + OpenVINO** | CPU, GPU | Experiencia local estilo Ollama |
+| **ollama + OpenVINO** (integración no oficial, verificar compatibilidad) | CPU, GPU | Experiencia local estilo Ollama |
 
 ```bash
 uv add openvino-genai optimum-intel transformers

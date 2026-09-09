@@ -10,7 +10,9 @@ Guía de secure coding y protección de aplicaciones web, móviles y APIs. Stack
 
 ---
 
-## OWASP Top 10 (2021 → 2025)
+## OWASP Top 10 (edición 2021)
+
+> Nota: verificar si ya existe una edición más reciente publicada por OWASP y actualizar las categorías si aplica.
 
 | Rank | Riesgo | Descripción | Mitigación clave |
 |------|--------|-------------|------------------|
