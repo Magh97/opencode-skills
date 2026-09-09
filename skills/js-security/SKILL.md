@@ -20,10 +20,27 @@ document.querySelector('#output').innerHTML = userInput;  // Ejecuta el script
 document.querySelector('#output').textContent = userInput;  // Muestra el texto literal
 
 // ✅ innerHTML con sanitización (DOMPurify)
-import DOMPurify from 'dompurify';  // o cargar vía CDN
+// Sin bundler: el bare specifier 'dompurify' no resuelve solo — necesita un import map
+// (ver bloque HTML abajo) o importar la URL completa del CDN directamente:
+import DOMPurify from 'https://cdn.jsdelivr.net/npm/dompurify@3.1.0/dist/purify.es.mjs';
 const clean = DOMPurify.sanitize(userInput);
 document.querySelector('#output').innerHTML = clean;
+```
 
+```html
+<!-- ✅ Alternativa: import map, para poder usar el bare specifier 'dompurify' en el JS -->
+<script type="importmap">
+{
+  "imports": {
+    "dompurify": "https://cdn.jsdelivr.net/npm/dompurify@3.1.0/dist/purify.es.mjs"
+  }
+}
+</script>
+<script type="module" src="/js/app.js"></script>
+<!-- En app.js: import DOMPurify from 'dompurify'; ya resuelve correctamente -->
+```
+
+```javascript
 // ✅ Crear elementos manualmente (más seguro que innerHTML)
 const div = document.createElement('div');
 div.textContent = userInput;

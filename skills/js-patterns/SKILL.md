@@ -90,6 +90,26 @@ OrderForm.init('#order-form');
 
 ---
 
+## Campos/métodos privados de clase (alternativa moderna a IIFE)
+
+Cuando el código ya usa clases, los campos y métodos privados (`#privado`, ES2022, baseline) dan encapsulación real sin necesidad de IIFE ni de migrar a módulos:
+
+```javascript
+class OrderForm {
+  #form = null;          // privado: inaccesible fuera de la clase
+  #isSubmitting = false;
+
+  init(selector) {
+    this.#form = document.querySelector(selector);
+    this.#form?.addEventListener('submit', (e) => this.#handleSubmit(e));
+  }
+
+  #handleSubmit(e) { /* privado, no expuesto en la API pública */ }
+}
+```
+
+---
+
 ## ES Modules nativos
 
 ```javascript
@@ -283,6 +303,7 @@ App.EventBus.emit('order:created', { orderId: '123' });
 
 - [ ] ES Modules (`type="module"`) para código nuevo
 - [ ] IIFE/Revealing Module para código legacy que no puede migrarse aún
+- [ ] Campos/métodos privados de clase (`#privado`) si el código ya usa clases
 - [ ] Un entry point (`app.js`) que inicializa solo lo necesario para la página actual
 - [ ] Custom events para comunicación entre módulos (sin acoplarlos)
 - [ ] `wwwroot/js/` organizado por módulo, no por tipo de archivo

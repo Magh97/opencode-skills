@@ -14,11 +14,11 @@ Guía de frameworks HTTP en Node.js 2026. Express 5, Fastify y Hono como opcione
 
 ## Elección de framework
 
-| Framework | Mejor para | Bundle (min) | Throughput | Ecosistema |
-|-----------|-----------|--------------|------------|------------|
-| **Express 5** | Compatibilidad, ecosistema, equipos grandes | Medio | Bueno | ⭐⭐⭐⭐⭐ Enorme |
-| **Fastify** | Rendimiento Node puro, schema validation nativo | Bajo | ⭐⭐⭐⭐⭐ Excelente | ⭐⭐⭐ Creciente |
-| **Hono** | Multi-runtime (Node/Bun/Deno/Workers), ultra-ligero | ~14KB | ⭐⭐⭐⭐ Muy bueno | ⭐⭐ Emergente |
+| Framework | Versión mayor vigente | Mejor para | Bundle (min) | Throughput | Ecosistema |
+|-----------|-----------------------|-----------|--------------|------------|------------|
+| **Express** | 5.x | Compatibilidad, ecosistema, equipos grandes | Medio | Bueno | ⭐⭐⭐⭐⭐ Enorme |
+| **Fastify** | 5.x | Rendimiento Node puro, schema validation nativo | Bajo | ⭐⭐⭐⭐⭐ Excelente | ⭐⭐⭐ Creciente |
+| **Hono** | Proyecto activo, sin major fija relevante (semver 4.x en evolución continua) | Multi-runtime (Node/Bun/Deno/Workers), ultra-ligero | ~14KB | ⭐⭐⭐⭐ Muy bueno | ⭐⭐ Emergente |
 
 **Regla 2026**: proyecto nuevo Node-only → **Fastify**. Necesitas ecosistema gigante / equipo grande → **Express 5**. Serverless / Edge / Multi-runtime → **Hono**.
 

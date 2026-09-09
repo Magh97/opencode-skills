@@ -226,8 +226,10 @@ jobs:
           POSTGRES_PASSWORD: test
         ports: [5432:5432]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      # Usa siempre el major más reciente de actions/checkout y actions/setup-node
+      # (revisar el GitHub Actions Marketplace; v5 es la última conocida al momento de escribir esto).
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with: { node-version: '24' }
       - run: npm ci
       - run: npm run typecheck
@@ -240,7 +242,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Build Docker image
         run: docker build -t ghcr.io/mi-org/miapp:${{ github.sha }} -f Dockerfile.prod .
       - name: Push to registry

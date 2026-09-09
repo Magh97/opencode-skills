@@ -75,10 +75,32 @@ window.addEventListener('scroll', throttle(() => {
 
 ---
 
-## IntersectionObserver — Lazy Loading
+## Lazy loading de imágenes: nativo primero
+
+Para el caso general de `<img>`, usa el atributo nativo `loading="lazy"` (baseline desde 2020) antes de escribir JS con IntersectionObserver — cero código, soportado por el navegador:
+
+```html
+<img src="/images/product.jpg" loading="lazy" alt="Producto">
+```
+
+Reserva `IntersectionObserver` manual para casos que `loading="lazy"` no cubre: infinite scroll, contenido no-`<img>` (video, iframes con lógica custom, componentes que cargan datos al entrar en viewport), o cuando necesitas controlar el `rootMargin`/umbral de carga con precisión.
+
+Complementa `loading="lazy"` con `decoding="async"` (evita que la decodificación de la imagen bloquee el hilo principal) y `fetchpriority` para Core Web Vitals (LCP): usa `fetchpriority="high"` en la imagen principal above-the-fold (LCP candidate) y `fetchpriority="low"` en imágenes secundarias no críticas. No combines `loading="lazy"` con `fetchpriority="high"` en la misma imagen — son señales contradictorias.
+
+```html
+<!-- Imagen LCP (hero, above the fold) -->
+<img src="/images/hero.jpg" decoding="async" fetchpriority="high" alt="Hero">
+
+<!-- Imágenes below the fold -->
+<img src="/images/product.jpg" loading="lazy" decoding="async" alt="Producto">
+```
+
+---
+
+## IntersectionObserver — Lazy Loading (casos no cubiertos por `loading="lazy"`)
 
 ```javascript
-// ✅ Lazy load de imágenes
+// ✅ Lazy load de imágenes con lógica custom (ej. srcset dinámico por breakpoint)
 const imageObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -250,7 +272,9 @@ document.querySelector('#reports-tab').addEventListener('click', async () => {
 - [ ] DOM batching: lecturas agrupadas antes de escrituras
 - [ ] Debounce en inputs de búsqueda (300ms)
 - [ ] Throttle en scroll/resize (100ms)
-- [ ] IntersectionObserver para imágenes y infinite scroll
+- [ ] `loading="lazy"` en `<img>` below-the-fold (por defecto, antes que IntersectionObserver)
+- [ ] `decoding="async"` en `<img>`, y `fetchpriority="high"` en la imagen LCP / `"low"` en secundarias
+- [ ] IntersectionObserver para infinite scroll y contenido no-`<img>`
 - [ ] Event delegation (1 listener para N elementos)
 - [ ] Listeners removidos al eliminar elementos del DOM
 - [ ] AbortController para cancelar fetch obsoletos

@@ -86,6 +86,35 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 ---
 
+## Identity API endpoints (API-first, .NET 8+)
+
+Para escenarios API-first (SPA, mobile, sin UI Razor) existe una alternativa rápida a montar todo el flujo manual: `AddIdentityApiEndpoints<TUser>()` + `MapIdentityApi<TUser>()` exponen endpoints nativos de Identity (`/register`, `/login`, `/refresh`, `/confirmEmail`, `/resendConfirmationEmail`, `/forgotPassword`, `/resetPassword`, `/manage/2fa`, `/manage/info`) sin necesidad de escribir controladores o Razor Pages custom.
+
+```csharp
+builder.Services.AddDbContext<AppIdentityDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Identity")));
+
+builder.Services.AddAuthorization();
+builder.Services.AddIdentityApiEndpoints<ApplicationUser>(options =>
+{
+    options.Password.RequiredLength = 12;
+    options.SignIn.RequireConfirmedEmail = true;
+})
+.AddEntityFrameworkStores<AppIdentityDbContext>();
+
+var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+// Registra automáticamente /register, /login, /refresh, /confirmEmail, /2fa, etc.
+app.MapIdentityApi<ApplicationUser>();
+```
+
+Esto es ideal cuando el frontend es una SPA/mobile app y solo se necesita un backend de auth funcional rápido (login/register/2FA "out of the box", con cookies o tokens Bearer vía `/login?useCookies=true`). El setup manual (`AddIdentity` + `SignInManager`/`UserManager` en Razor Pages, cookies custom, páginas de login propias) sigue siendo necesario cuando hay UI Razor con vistas de login/registro personalizadas, flujos de autenticación no estándar, o control fino sobre cada paso (por ejemplo, páginas de branding propio, lógica adicional en el registro, o combinación con external providers vía UI propia).
+
+---
+
 ## Registro y Login
 
 ### Razor Pages con Identity

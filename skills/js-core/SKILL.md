@@ -266,6 +266,9 @@ history.pushState({ page: 'orders' }, '', '/orders');
 window.addEventListener('popstate', (e) => {
   if (e.state?.page === 'orders') loadOrdersPage();
 });
+
+// ✅ structuredClone (clonado profundo nativo, reemplaza JSON.parse(JSON.stringify()))
+const cloned = structuredClone(order);  // soporta Date, Map, Set, arrays, etc. (no funciones)
 ```
 
 ---

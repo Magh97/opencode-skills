@@ -303,6 +303,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: openvino/ubuntu22_runtime:2026.2.0
+      # Nota: fijar solo major.minor (ej. `2026.2`) o revisar periódicamente si hay un release más nuevo; evitar depender indefinidamente de un patch exacto.
     steps:
       - uses: actions/checkout@v4
 

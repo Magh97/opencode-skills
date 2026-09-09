@@ -43,6 +43,41 @@ builder.Services.AddStackExchangeRedisOutputCache(options =>
 public IActionResult Index() => View();
 ```
 
+### HybridCache (recomendado para proyectos nuevos)
+
+`HybridCache` (API estable desde .NET 9) reemplaza la combinación manual de `IMemoryCache` + Redis: unifica una caché L1 en memoria y una L2 distribuida (Redis) detrás de una sola API, y resuelve automáticamente el problema de "cache stampede" (múltiples requests concurrentes recalculando el mismo valor) con locking interno por clave.
+
+```csharp
+// Registro (usa IDistributedCache/Redis como L2 si está configurado)
+builder.Services.AddHybridCache();
+
+// Con Redis como backend L2
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+});
+builder.Services.AddHybridCache(options =>
+{
+    options.DefaultEntryOptions = new HybridCacheEntryOptions
+    {
+        Expiration = TimeSpan.FromMinutes(5),
+        LocalCacheExpiration = TimeSpan.FromMinutes(1)
+    };
+});
+
+// Uso: GetOrCreateAsync evita cache stampede automáticamente
+public class ProductService(HybridCache cache, AppDbContext db)
+{
+    public async Task<Product?> GetProductAsync(int id, CancellationToken ct) =>
+        await cache.GetOrCreateAsync(
+            $"product:{id}",
+            async token => await db.Products.FindAsync([id], token),
+            cancellationToken: ct);
+}
+```
+
+Preferir `HybridCache` sobre combinar `IMemoryCache` + `IDistributedCache`/Redis manualmente: menos código, sin duplicar lógica de invalidación entre capas, y protección de stampede sin implementarla a mano.
+
 ### Static files caching
 
 ```csharp

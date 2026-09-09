@@ -43,6 +43,8 @@ export default defineConfig({
 });
 ```
 
+> **Cuando el layout/CSS real importa:** jsdom no renderiza layout, no aplica CSSOM real, y no soporta `IntersectionObserver`/`ResizeObserver` completos. Para tests donde el posicionamiento, dimensiones, visibilidad o comportamiento CSS son parte de lo que se prueba, usa **Vitest Browser Mode** (`@vitest/browser`), que ejecuta los tests en un navegador real vía Playwright o WebdriverIO en vez de simularlo. Es más fiel que jsdom pero más lento — resérvalo para esos casos, y sigue usando jsdom como entorno por defecto para lógica pura y DOM básico.
+
 ```javascript
 // js/modules/orders/list.js
 export function canCancel(status) {

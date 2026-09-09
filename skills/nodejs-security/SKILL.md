@@ -85,6 +85,39 @@ app.post('/api/auth/login', authLimiter, loginHandler);
 
 ## JWT — Autenticación
 
+> **Nota:** `jsonwebtoken` es CJS legado y está en modo mantenimiento (sin features nuevas). Para proyectos Node nuevos se recomienda **`jose`** — ESM nativo, soporta JWK/JWKS y algoritmos modernos como EdDSA. `jsonwebtoken` sigue siendo una opción válida en proyectos existentes o con dependencias que ya lo requieren.
+
+### Opción recomendada: `jose`
+
+```typescript
+import { SignJWT, jwtVerify } from 'jose';
+
+const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
+
+// Firmar
+async function signToken(userId: string, role: string): Promise<string> {
+  return new SignJWT({ role })
+    .setProtectedHeader({ alg: 'HS256' })
+    .setSubject(userId)
+    .setIssuer('miapp-api')
+    .setIssuedAt()
+    .setExpirationTime('15m')
+    .sign(secret);
+}
+
+// Verificar
+async function verifyToken(token: string) {
+  const { payload } = await jwtVerify(token, secret, {
+    issuer: 'miapp-api',
+  });
+  return payload; // { sub, role, iat, exp, iss }
+}
+```
+
+`jose` también soporta EdDSA (Ed25519) y verificación contra un JWKS remoto (`createRemoteJWKSet`) para escenarios OAuth2/OIDC sin gestionar llaves manualmente.
+
+### Opción legada: `jsonwebtoken`
+
 ```typescript
 import jwt from 'jsonwebtoken';
 import { z } from 'zod';

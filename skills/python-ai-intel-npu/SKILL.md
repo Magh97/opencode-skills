@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Intel Core Ultra NPU Guide
 
-La NPU (Neural Processing Unit) integrada en procesadores Intel Core Ultra (Meteor Lake, Arrow Lake, Lunar Lake) permite inferencia de bajo consumo para modelos pequeños directamente en el chip.
+La NPU (Neural Processing Unit) integrada en procesadores Intel Core Ultra (Meteor Lake, Arrow Lake, Lunar Lake, Panther Lake — esta última con NPU mejorada; verificar TOPS exactos en la ficha técnica de Intel) permite inferencia de bajo consumo para modelos pequeños directamente en el chip.
 
 ---
 
