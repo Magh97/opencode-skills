@@ -9,19 +9,34 @@ set -euo pipefail
 #   ./install.sh -y         # no preguntar
 #   ./install.sh -y --global --kits dotnet,aspnet,sql-server,react,js,postgresql,flutter,git,planning,design,devops,agent,sputnik
 #   ./install.sh --list-kits   # ver los kits disponibles
+#   ./install.sh -y --global --target opencode,agents,pi   # instalar skills en varios destinos
+#   ./install.sh --list-targets   # ver los destinos disponibles
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/opencode"
 AGENT_DIR="$CONFIG_DIR/agent"
-SKILL_DIR="$CONFIG_DIR/skills"
 
 GLOBAL=0
 YES=0
 DO_AGENTS=0
 DO_SKILLS=0
 KITS=""
+TARGETS="opencode"
 
 ALL_KITS="agent aspnet design devops dotnet flutter git js nodejs planning ponytail postgresql productivity python-ai-intel python react security sputnik sql-server"
+
+# Devuelve la carpeta de skills para un destino ("opencode", "agents" o "pi").
+# "opencode" es el destino de siempre; "agents" y "pi" son directorios
+# universales que otros clientes (npx skills / Eve / PromptScript, y el
+# cliente "pi") tambien leen.
+target_path() {
+    case "$1" in
+        opencode) echo "$CONFIG_DIR/skills" ;;
+        agents)   echo "$HOME/.agents/skills" ;;
+        pi)       echo "$HOME/.pi/agent/skills" ;;
+        *) echo "Destino desconocido: '$1'. Usa --list-targets para ver los destinos disponibles." >&2; exit 1 ;;
+    esac
+}
 
 while [[ $# -gt 0 ]]; do
     arg="$1"
@@ -33,6 +48,9 @@ while [[ $# -gt 0 ]]; do
         --kits=*) KITS="${arg#--kits=}" ;;
         --kits|-k) shift; KITS="${1:-}" ;;
         --list-kits) tr ' ' '\n' <<< "$ALL_KITS" | sort; exit 0 ;;
+        --target=*) TARGETS="${arg#--target=}" ;;
+        --target|-t) shift; TARGETS="${1:-}" ;;
+        --list-targets) for t in opencode agents pi; do echo "$t -> $(target_path "$t")"; done; exit 0 ;;
         *) echo "Argumento desconocido: $arg" >&2; exit 1 ;;
     esac
     shift
@@ -109,19 +127,26 @@ if [[ $DO_SKILLS -eq 1 && $GLOBAL -eq 1 ]]; then
         echo "Error: no existe $SRC_SKILLS" >&2
         exit 1
     fi
-    if confirm "Copiar skills a $SKILL_DIR?"; then
-        mkdir -p "$SKILL_DIR"
-        TOTAL=0
-        COPIED=0
-        for dir in "$SRC_SKILLS"/*/; do
-            name="$(basename "$dir")"
-            TOTAL=$((TOTAL + 1))
-            if [[ -z "$KITS" ]] || skill_in_kits "$name"; then
-                cp -r "$dir" "$SKILL_DIR/"
-                COPIED=$((COPIED + 1))
-            fi
+    IFS=',' read -ra target_list <<< "$TARGETS"
+    TARGET_DIRS=()
+    for t in "${target_list[@]}"; do
+        TARGET_DIRS+=("$(target_path "$t")")
+    done
+    if confirm "Copiar skills a ${TARGET_DIRS[*]}?"; then
+        for SKILL_DIR in "${TARGET_DIRS[@]}"; do
+            mkdir -p "$SKILL_DIR"
+            TOTAL=0
+            COPIED=0
+            for dir in "$SRC_SKILLS"/*/; do
+                name="$(basename "$dir")"
+                TOTAL=$((TOTAL + 1))
+                if [[ -z "$KITS" ]] || skill_in_kits "$name"; then
+                    cp -r "$dir" "$SKILL_DIR/"
+                    COPIED=$((COPIED + 1))
+                fi
+            done
+            echo "Skills instaladas en $SKILL_DIR ($COPIED de $TOTAL)"
         done
-        echo "Skills instaladas en $SKILL_DIR ($COPIED de $TOTAL)"
     else
         echo "Instalacion de skills cancelada."
         DO_SKILLS=0

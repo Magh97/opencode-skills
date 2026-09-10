@@ -19,6 +19,12 @@ Conjunto de **154 skills** y **22 agentes** para [opencode](https://opencode.ai)
 
 # Ver los kits disponibles
 ./install.ps1 -ListKits
+
+# Instalar las skills tambien en directorios universales de otros clientes de agentes
+./install.ps1 -Yes -Global -Target opencode,agents,pi
+
+# Ver los destinos disponibles
+./install.ps1 -ListTargets
 ```
 
 **macOS / Linux:**
@@ -34,9 +40,25 @@ Conjunto de **154 skills** y **22 agentes** para [opencode](https://opencode.ai)
 
 # Ver los kits disponibles
 ./install.sh --list-kits
+
+# Instalar las skills tambien en directorios universales de otros clientes de agentes
+./install.sh -y --global --target opencode,agents,pi
+
+# Ver los destinos disponibles
+./install.sh --list-targets
 ```
 
 Kits disponibles: `agent`, `aspnet`, `design`, `devops`, `dotnet`, `flutter`, `git`, `js`, `nodejs`, `planning`, `ponytail`, `postgresql`, `productivity`, `python`, `python-ai-intel`, `react`, `security`, `sputnik`, `sql-server`. `-Kits`/`--kits` solo filtra skills; los agentes siempre se instalan completos.
+
+Destinos disponibles para `-Target`/`--target` (solo afecta a dónde van las **skills**; los agentes siempre van a `~/.config/opencode/agent`, específico de opencode):
+
+| Destino | Ruta | Uso |
+|---|---|---|
+| `opencode` (default) | `~/.config/opencode/skills` | opencode |
+| `agents` | `~/.agents/skills` | Directorio universal usado por otros clientes (Eve, PromptScript, etc.) |
+| `pi` | `~/.pi/agent/skills` | Cliente pi |
+
+Puedes pasar varios a la vez separados por coma. Nota: `agents`/`pi` son directorios *globales* del usuario (`~/.agents/`, `~/.pi/`) — no tienen relación con el bug del CLI `npx skills` descrito abajo, que crea una carpeta `.agents/` *dentro del repo* por error.
 
 Esta vía es la **verificada**: copia exactamente lo que hay en el repo y garantiza sincronía entre repo y config. Puedes comprobar la instalación con el script del repo:
 

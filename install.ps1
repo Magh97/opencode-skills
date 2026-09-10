@@ -15,6 +15,9 @@
 .EXAMPLE
     # Solo instalar los kits de tu stack (skills + agentes)
     ./install.ps1 -Yes -Global -Kits dotnet,aspnet,sql-server,react,js,postgresql,flutter,git,planning,design,devops,agent,sputnik
+.EXAMPLE
+    # Instalar las skills tambien en los directorios universales de otros clientes
+    ./install.ps1 -Yes -Global -Target opencode,agents,pi
 #>
 [CmdletBinding()]
 param(
@@ -23,10 +26,26 @@ param(
     [switch]$Skills,
     [switch]$Yes,
     [string[]]$Kits,
-    [switch]$ListKits
+    [switch]$ListKits,
+    [string[]]$Target = @("opencode"),
+    [switch]$ListTargets
 )
 
 $ErrorActionPreference = "Stop"
+
+# Mapa de destino -> carpeta de skills. "opencode" es el destino de siempre;
+# "agents" y "pi" son directorios universales que otros clientes de agentes
+# (npx skills / Eve / PromptScript, y el cliente "pi") tambien leen.
+$TargetMap = [ordered]@{
+    "opencode" = (Join-Path $HOME ".config\opencode\skills")
+    "agents"   = (Join-Path $HOME ".agents\skills")
+    "pi"       = (Join-Path $HOME ".pi\agent\skills")
+}
+
+if ($ListTargets) {
+    $TargetMap.Keys | ForEach-Object { Write-Host "$_ -> $($TargetMap[$_])" }
+    exit 0
+}
 
 # Mapa de kit -> prefijo(s) de carpeta en skills/. "python" excluye "python-ai-intel-*"
 # (que es su propio kit) y "security" agrupa las skills sueltas de seguridad que no
@@ -87,12 +106,18 @@ function Confirm-Action {
 $repo = Split-Path -Parent $MyInvocation.MyCommand.Path
 $configDir = Join-Path $HOME ".config\opencode"
 $agentDir = Join-Path $configDir "agent"
-$skillDir = Join-Path $configDir "skills"
 
-# Kits admite comas dentro de un solo valor: -Kits dotnet,aspnet,react
+# Kits y Target admiten comas dentro de un solo valor: -Kits dotnet,aspnet,react
 if ($Kits) {
     $Kits = $Kits | ForEach-Object { $_ -split ',' } | Where-Object { $_ }
 }
+$Target = $Target | ForEach-Object { $_ -split ',' } | Where-Object { $_ }
+foreach ($t in $Target) {
+    if (-not $TargetMap.Contains($t)) {
+        throw "Destino desconocido: '$t'. Usa -ListTargets para ver los destinos disponibles."
+    }
+}
+$targetPaths = $Target | ForEach-Object { $TargetMap[$_] }
 
 $doAgents = $Agents -or (-not $Skills)
 $doSkills = $Skills -or (-not $Agents)
@@ -113,7 +138,7 @@ if ($doSkills -and $Global) {
     if (-not (Test-Path -LiteralPath $sourceSkills)) {
         throw "No se encontro $sourceSkills"
     }
-    if (-not (Confirm-Action "Copiar skills a $skillDir ?")) {
+    if (-not (Confirm-Action "Copiar skills a $($targetPaths -join ', ') ?")) {
         Write-Host "Instalacion de skills cancelada."
         $doSkills = $false
     }
@@ -134,15 +159,18 @@ if ($doAgents) {
 }
 
 if ($doSkills) {
-    New-Item -ItemType Directory -Path $skillDir -Force | Out-Null
     $skillDirs = Get-ChildItem -Path $sourceSkills -Directory
     if ($Kits) {
         $skillDirs = $skillDirs | Where-Object { Test-SkillInKits -Name $_.Name -SelectedKits $Kits }
     }
-    $skillDirs | ForEach-Object {
-        Copy-Item -Path $_.FullName -Destination $skillDir -Recurse -Force
+    $total = (Get-ChildItem -Path $sourceSkills -Directory).Count
+    foreach ($dest in $targetPaths) {
+        New-Item -ItemType Directory -Path $dest -Force | Out-Null
+        $skillDirs | ForEach-Object {
+            Copy-Item -Path $_.FullName -Destination $dest -Recurse -Force
+        }
+        Write-Host "Skills instaladas en $dest ($($skillDirs.Count) de $total)"
     }
-    Write-Host "Skills instaladas en $skillDir ($($skillDirs.Count) de $((Get-ChildItem -Path $sourceSkills -Directory).Count))"
 }
 
 Write-Host ""
