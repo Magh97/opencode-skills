@@ -1,6 +1,7 @@
 ---
 name: js-patterns
 description: "Patrones de JavaScript vanilla en el navegador. Cubre IIFE, Revealing Module, ES Modules nativos, namespaces, organización de archivos en wwwroot, incremental modernization (vanilla → módulos → Vite), y patrones de inicialización por página. Actívala al organizar código JavaScript en proyectos ASP.NET MVC sin bundler o al definir la estructura de wwwroot."
+disable-model-invocation: true
 ---
 
 # JavaScript Patterns (Navegador)

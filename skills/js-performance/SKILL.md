@@ -1,6 +1,7 @@
 ---
 name: js-performance
 description: "Rendimiento en JavaScript vanilla en el navegador. Cubre DOM batching (lecturas separadas de escrituras), debounce/throttle, IntersectionObserver para lazy loading, requestAnimationFrame, event delegation, memory leaks (listeners huérfanos), y bundle optimization (minificación, tree shaking con ES Modules). Actívala al optimizar páginas lentas, reducir re-renders, o mejorar Core Web Vitals."
+disable-model-invocation: true
 ---
 
 # JavaScript Performance (Navegador)

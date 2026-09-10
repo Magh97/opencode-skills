@@ -1,6 +1,7 @@
 ---
 name: js-security
 description: "Seguridad en JavaScript vanilla en el navegador. Cubre XSS prevention (sanitización, textContent sobre innerHTML, DOMPurify), CSRF via anti-forgery tokens, Content Security Policy, sanitización de input, secure storage (sessionStorage vs cookies), y mejores prácticas de seguridad en el frontend. Actívala al asegurar formularios, prevenir XSS, o implementar CSP en proyectos ASP.NET MVC + vanilla JS."
+disable-model-invocation: true
 ---
 
 # JavaScript Security (Navegador)

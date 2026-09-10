@@ -35,7 +35,7 @@ Antes de hacer suposiciones técnicas, identifica el stack del proyecto:
 
 3. Las suposiciones técnicas (autenticación, API design, esquema de BD) se basan en el dev-kit cargado.
    Ej: si el stack es .NET + SQL Server, las suposiciones sobre auth usan `dotnet-security` (JWT Bearer con OAuth2).
-   Si es Node.js + PostgreSQL, usan `nodejs-security` (JWT con jsonwebtoken).
+   Si es Node.js + PostgreSQL, usan `nodejs-security` (JWT con `jose`).
 
 ### Fase 1: Recepción de la Historia de Usuario
 

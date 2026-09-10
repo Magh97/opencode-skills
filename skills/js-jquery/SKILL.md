@@ -1,6 +1,7 @@
 ---
 name: js-jquery
 description: "jQuery 4.0 en proyectos legacy ASP.NET MVC. Cubre selectores, AJAX, plugins, Migrate plugin para modernización incremental, cuándo usar jQuery vs vanilla JS, y estrategias de migración a ES Modules. Actívala cuando el proyecto use jQuery (especialmente apps enterprise con 50k+ líneas de Razor + jQuery), al mantener código legacy, o al planear migración a vanilla JS."
+disable-model-invocation: true
 ---
 
 # JavaScript + jQuery 4.0

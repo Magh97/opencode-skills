@@ -1,6 +1,7 @@
 ---
 name: js-testing
 description: "Testing de JavaScript vanilla en el navegador y con Node. Cubre testing manual con console.assert, testing automatizado con Vitest + jsdom, testing de componentes vanilla (fetch mock, eventos, DOM assertions), y testing de módulos ES. Actívala al escribir tests para código vanilla JS, configurar un entorno de testing, o agregar pruebas a módulos existentes."
+disable-model-invocation: true
 ---
 
 # JavaScript Testing (Vanilla)

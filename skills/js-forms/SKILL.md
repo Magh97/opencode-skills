@@ -1,6 +1,7 @@
 ---
 name: js-forms
 description: "Formularios en JavaScript vanilla. Cubre FormData + fetch(), validación HTML5 (required, pattern, setCustomValidity), Constraint Validation API, validación custom, feedback visual de errores, file upload, y formularios dinámicos (agregar/quitar filas). Actívala al implementar formularios en proyectos ASP.NET MVC sin React Hook Form, o al reemplazar jQuery Validation por vanilla JS."
+disable-model-invocation: true
 ---
 
 # JavaScript Forms & Validation

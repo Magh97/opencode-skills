@@ -1,6 +1,7 @@
 ---
 name: js-aspnet-mvc
 description: "Integración de JavaScript con ASP.NET MVC y Razor. Cubre bundles, sections, anti-forgery tokens en AJAX, ViewBag/ViewData a JS, partial views con AJAX, Import Maps en Razor, y convenciones de wwwroot. Actívala en proyectos ASP.NET MVC + vanilla JS o jQuery, al implementar AJAX con Razor, o al migrar scripts a módulos ES."
+disable-model-invocation: true
 ---
 
 # JavaScript + ASP.NET MVC Integration
