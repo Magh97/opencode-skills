@@ -16,7 +16,8 @@
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
-const YAML = require("yaml");
+// Sin dependencias externas: el frontmatter se parsea por lineas (ver parseFrontmatter).
+// Un require("yaml") aqui rompia el script en un repo sin package.json.
 
 // ── Configuración ────────────────────────────────────────────────
 const REPO = __dirname; // .opencode/
@@ -46,7 +47,41 @@ const summary = {
 };
 
 function md5(file) {
-  return crypto.createHash("md5").update(fs.readFileSync(file)).digest("hex");
+  // Normalizar CRLF -> LF antes de hashear. Un archivo de texto identico con
+  // finales de linea distintos entre repo y config daria un falso "distinta",
+  // y en Windows con core.autocrlf=true eso pasa con facilidad.
+  const buf = fs.readFileSync(file);
+  const normalized = buf.toString("latin1").replace(/\r\n/g, "\n");
+  return crypto.createHash("md5").update(normalized, "latin1").digest("hex");
+}
+
+// Un skill puede incluir subdirectorios (references/, scripts/). Hashear solo
+// SKILL.md dejaria esos archivos fuera de la verificacion de sincronia, que es
+// precisamente donde la deriva pasa desapercibida.
+function dirFiles(dir) {
+  const out = [];
+  const walk = (d, prefix) => {
+    for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+      const rel = prefix ? `${prefix}/${e.name}` : e.name;
+      if (e.isDirectory()) walk(path.join(d, e.name), rel);
+      else if (e.isFile()) out.push(rel);
+    }
+  };
+  walk(dir, "");
+  return out.sort();
+}
+
+function dirDiff(repoDir, cfgDir) {
+  const all = new Set([...dirFiles(repoDir), ...dirFiles(cfgDir)]);
+  const diff = [];
+  for (const rel of [...all].sort()) {
+    const r = path.join(repoDir, rel);
+    const c = path.join(cfgDir, rel);
+    if (!fs.existsSync(c)) diff.push(`${rel} (falta)`);
+    else if (!fs.existsSync(r)) diff.push(`${rel} (sobra)`);
+    else if (md5(r) !== md5(c)) diff.push(`${rel} (distinto)`);
+  }
+  return diff;
 }
 
 function parseFrontmatter(file) {
@@ -183,16 +218,19 @@ function compareTree(repoDir, cfgDir, label) {
     const cfgDirs = listDirs(cfgDir);
     summary.skills.config = cfgDirs.length;
     for (const name of skillDirs) {
-      const r = path.join(repoDir, name, "SKILL.md");
-      const c = path.join(cfgDir, name, "SKILL.md");
-      if (!fs.existsSync(c)) {
+      const rDir = path.join(repoDir, name);
+      const cDir = path.join(cfgDir, name);
+      if (!fs.existsSync(path.join(cDir, "SKILL.md"))) {
         summary.skills.missing++;
         issues.push(`[SYNC] Skill no instalada en config: ${name}`);
-      } else if (md5(r) === md5(c)) {
+        continue;
+      }
+      const diff = dirDiff(rDir, cDir);
+      if (diff.length === 0) {
         summary.skills.ok++;
       } else {
         summary.skills.missing++;
-        issues.push(`[SYNC] Skill distinta entre repo y config: ${name}`);
+        issues.push(`[SYNC] Skill distinta entre repo y config: ${name} -> ${diff.join(", ")}`);
       }
     }
   } else {

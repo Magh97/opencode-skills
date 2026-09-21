@@ -23,7 +23,7 @@ DO_SKILLS=0
 KITS=""
 TARGETS="opencode"
 
-ALL_KITS="agent aspnet design devops dotnet flutter git js nodejs planning ponytail postgresql productivity python-ai-intel python react security sputnik sql-server"
+ALL_KITS="agent aspnet design devops docs dotnet flutter git js nodejs planning ponytail postgresql productivity python-ai-intel python react security sputnik sql-server"
 
 # Devuelve la carpeta de skills para un destino ("opencode", "agents" o "pi").
 # "opencode" es el destino de siempre; "agents" y "pi" son directorios

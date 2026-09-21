@@ -55,6 +55,7 @@ $KitMap = [ordered]@{
     "aspnet"          = @{ Prefix = "aspnet-" }
     "design"          = @{ Prefix = "design-" }
     "devops"          = @{ Prefix = "devops-" }
+    "docs"            = @{ Prefix = "docs-" }
     "dotnet"          = @{ Prefix = "dotnet-" }
     "flutter"         = @{ Prefix = "flutter-" }
     "git"             = @{ Prefix = "git-" }

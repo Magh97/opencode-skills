@@ -1,6 +1,6 @@
 # opencode-skills
 
-Conjunto de **154 skills** y **22 agentes** para [opencode](https://opencode.ai), agrupados por kits: .NET, ASP.NET Core, SQL Server, PostgreSQL, Python, Node.js, React, Flutter, JavaScript, seguridad, DevOps, Git, planeación, diseño y más.
+Conjunto de **155 skills** y **22 agentes** para [opencode](https://opencode.ai), agrupados por kits: .NET, ASP.NET Core, SQL Server, PostgreSQL, Python, Node.js, React, Flutter, JavaScript, seguridad, DevOps, Git, planeación, diseño, documentación y más.
 
 ## Instalación
 
@@ -11,7 +11,7 @@ Conjunto de **154 skills** y **22 agentes** para [opencode](https://opencode.ai)
 # Instalar agentes (21) en ~/.config/opencode/agent/
 ./install.ps1 -Yes
 
-# Instalar agentes + skills (154) en ~/.config/opencode/
+# Instalar agentes + skills (155) en ~/.config/opencode/
 ./install.ps1 -Yes -Global
 
 # Instalar solo los kits que te interesan (ej. stack .NET + React + SQL Server)
@@ -32,7 +32,7 @@ Conjunto de **154 skills** y **22 agentes** para [opencode](https://opencode.ai)
 # Instalar agentes (21)
 ./install.sh -y
 
-# Instalar agentes + skills (154) con -Global
+# Instalar agentes + skills (155) con -Global
 ./install.sh -y --global
 
 # Instalar solo los kits que te interesan
@@ -48,7 +48,7 @@ Conjunto de **154 skills** y **22 agentes** para [opencode](https://opencode.ai)
 ./install.sh --list-targets
 ```
 
-Kits disponibles: `agent`, `aspnet`, `design`, `devops`, `dotnet`, `flutter`, `git`, `js`, `nodejs`, `planning`, `ponytail`, `postgresql`, `productivity`, `python`, `python-ai-intel`, `react`, `security`, `sputnik`, `sql-server`. `-Kits`/`--kits` solo filtra skills; los agentes siempre se instalan completos.
+Kits disponibles: `agent`, `aspnet`, `design`, `devops`, `docs`, `dotnet`, `flutter`, `git`, `js`, `nodejs`, `planning`, `ponytail`, `postgresql`, `productivity`, `python`, `python-ai-intel`, `react`, `security`, `sputnik`, `sql-server`. `-Kits`/`--kits` solo filtra skills; los agentes siempre se instalan completos.
 
 Destinos disponibles para `-Target`/`--target` (solo afecta a dónde van las **skills**; los agentes siempre van a `~/.config/opencode/agent`, específico de opencode):
 
@@ -110,8 +110,8 @@ Para afinar permisos de delegación a nivel global, copia el patrón de `opencod
 ## Estructura
 
 ```
-skills/               # 154 skills (<nombre>/SKILL.md)
-.opencode/agent/      # 21 agentes opencode (<nombre>.md)
+skills/               # 155 skills (<nombre>/SKILL.md)
+.opencode/agent/      # 22 agentes opencode (<nombre>.md)
 install.ps1           # Instalador de agentes (Windows)
 install.sh            # Instalador de agentes (macOS/Linux)
 opencode.example.json # Ejemplo de config global (permisos de delegación)
@@ -120,5 +120,6 @@ opencode.example.json # Ejemplo de config global (permisos de delegación)
 ## Desarrollo
 
 - Las skills se definen en `skills/<nombre>/SKILL.md` con frontmatter YAML (`name` + `description`).
+- Una skill puede incluir subdirectorios opcionales: `references/` para documentacion de apoyo y `scripts/` para utilidades ejecutables. El instalador copia la carpeta completa (`Copy-Item -Recurse` / `cp -R`), y `verify-install.js` hashea **todos** los archivos del skill, no solo `SKILL.md`, para que la deriva en un `references/` o un `scripts/` no pase desapercibida.
 - Los agentes se definen en `.opencode/agent/<nombre>.md` con frontmatter (`description`, `mode`).
 - Para validar el frontmatter de todas las skills, cualquier SKILL.md que no empiece con `---` ni tenga `name`/`description` no será descubrible.
