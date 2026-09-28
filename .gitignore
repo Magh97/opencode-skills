@@ -1,0 +1,31 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor swap and local files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.tmp
+
+# Local test installs (users sometimes run installers inside the repo)
+.agents/
+.claude/
+skills-lock.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Node
+node_modules/
+package-lock.json
+
+# CI / temp
+*.log
+coverage/

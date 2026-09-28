@@ -1,6 +1,6 @@
 ---
 name: sql-server-integration
-description: "Integración de SQL Server con .NET y aplicaciones. Cubre Entity Framework Core con SQL Server (configuración, connection resiliency, pooling), Dapper para queries de alto rendimiento, ADO.NET con Microsoft.Data.SqlClient, connection strings, Azure SQL, manejo de transacciones distribuidas, y mejores prácticas de conexión. Actívala al configurar la capa de datos en aplicaciones .NET, optimizar el acceso a datos, o migrar el CÓDIGO de acceso a datos (ej. de ADO.NET a EF Core/Dapper) — no de esquema, para eso ver `sql-server-deployment`."
+description: "Integración de SQL Server con .NET: EF Core, Dapper, ADO.NET, connection strings, Azure SQL, transacciones distribuidas y mejores prácticas de conexión. Actívala al configurar la capa de datos en apps .NET, optimizar acceso a datos, o migrar código de ADO.NET a EF Core/Dapper. No para migración de esquema (ver sql-server-deployment)."
 disable-model-invocation: true
 ---
 

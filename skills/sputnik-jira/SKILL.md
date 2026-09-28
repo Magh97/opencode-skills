@@ -1,6 +1,6 @@
 ---
 name: sputnik-jira
-description: Sube una tabla de cotización del equipo Sputnik a Jira como issues, usando los conectores de Atlassian disponibles. Toma como entrada una tabla con columnas Capa / Nombre Proyecto / Req. / Nombre Actividad / Estructura Descriptiva / Puntos / Justificación (generada por sputnik-core) y crea un issue por cada fila respetando proyecto destino, tipo de issue y campo de puntos (story points). Soporta agrupación en épicas, vinculación entre capas y detección de duplicados. Úsala cuando tras una estimación con sputnik-core el usuario diga "sube los issues a Jira", "crea los tickets", "pasa la estimación a Jira", o "carga la cotización a Jira". Pregunta siempre proyecto destino y confirma antes de crear masivamente.
+description: "Sube una tabla de cotización Sputnik a Jira como issues. Toma la salida de sputnik-core y crea un issue por fila, respetando proyecto destino, tipo de issue y story points. Soporta agrupación en épicas y detección de duplicados. Úsala cuando tras una estimación el usuario diga 'sube los issues a Jira', 'crea los tickets', o 'carga la cotización a Jira'."
 disable-model-invocation: true
 ---
 

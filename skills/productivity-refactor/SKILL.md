@@ -1,6 +1,6 @@
 ---
 name: productivity-refactor
-description: Refactors automatizados y seguros en cualquier lenguaje. Soporta renombrar símbolos en todo el proyecto, extraer funciones/métodos, mover archivos entre módulos actualizando imports, y eliminar código muerto. AST-aware para TypeScript (tsserver/ts-morph), Python (libcst/ast), y C# (Roslyn Workspaces vía IDE). Úsala durante code review cuando un hallazgo requiera refactor, o cuando el usuario diga "renombra X a Y", "extrae esta función", "mueve este archivo", "elimina código muerto".
+description: "Refactors automatizados y seguros en cualquier lenguaje. Renombrar símbolos, extraer funciones, mover archivos actualizando imports, eliminar código muerto. AST-aware para TypeScript, Python y C#. Úsala durante code review cuando un hallazgo requiera refactor, o cuando el usuario diga 'renombra X a Y', 'extrae esta función', o 'elimina código muerto'."
 requires-devkits: auto-detect
 ---
 

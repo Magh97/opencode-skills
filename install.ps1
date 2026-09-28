@@ -120,6 +120,11 @@ foreach ($t in $Target) {
 }
 $targetPaths = $Target | ForEach-Object { $TargetMap[$_] }
 
+# -Kits implica -Global: el filtro solo aplica a skills copiadas localmente
+if ($Kits -and -not $Global) {
+    $Global = $true
+}
+
 $doAgents = $Agents -or (-not $Skills)
 $doSkills = $Skills -or (-not $Agents)
 

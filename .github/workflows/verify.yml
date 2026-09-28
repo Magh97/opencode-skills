@@ -1,0 +1,24 @@
+name: Verify
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run verify-install.js
+        run: node .opencode/verify-install.js
+
+      - name: Run verify-install.js on a clean config
+        run: node .opencode/verify-install.js --config /tmp/fake-config

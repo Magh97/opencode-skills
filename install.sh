@@ -89,6 +89,11 @@ skill_in_kits() {
     return 1
 }
 
+# --kits implica --global: el filtro solo aplica a skills copiadas localmente
+if [[ -n "$KITS" && $GLOBAL -eq 0 ]]; then
+    GLOBAL=1
+fi
+
 if [[ $DO_AGENTS -eq 0 && $DO_SKILLS -eq 0 ]]; then
     DO_AGENTS=1
     if [[ $GLOBAL -eq 1 ]]; then DO_SKILLS=1; fi

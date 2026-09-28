@@ -1,6 +1,6 @@
 ---
 name: productivity-onboard
-description: Genera ONBOARDING.md para un proyecto a partir de su especificación (productivity-spec) y scaffolding (productivity-scaffold). Incluye quick start (<5 min), stack con enlaces a dev-kits, arquitectura explicada por módulo, setup manual, cómo testear, cómo deployar, y recursos. Úsala después de productivity-scaffold, al entregar un proyecto, o cuando un dev nuevo se une al equipo. Dispara con "genera onboarding", "guía para nuevo dev", "cómo levantar el proyecto", "README de arquitectura", "onboarding doc".
+description: "Genera ONBOARDING.md a partir de la spec y el scaffolding del proyecto. Incluye quick start, stack, arquitectura por módulo, setup, testing, deploy y recursos. Úsala después de scaffolding, al entregar un proyecto, o cuando un dev nuevo se une al equipo. Dispara con 'genera onboarding', 'guía para nuevo dev', o 'cómo levantar el proyecto'."
 requires-devkits: auto-detect
 ---
 

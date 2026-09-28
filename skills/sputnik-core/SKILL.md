@@ -1,6 +1,6 @@
 ---
 name: sputnik-core
-description: Estimador de tareas de desarrollo del equipo Sputnik usando escala Fibonacci 0/1/2/3 con división obligatoria a más de 3 puntos. Genera una tabla de issues por capa (SQL + Backend + Frontend) con puntos y justificación, lista para revisar y opcionalmente subir a Jira o exportar a Excel vía sputnik-excel y sputnik-jira. Úsala SIEMPRE que el usuario pida cotizar, estimar, puntuar o desglosar un proyecto, sprint, módulo, requerimiento o maqueta; cuando mencione "puntos Fibonacci", "escala Sputnik", "tabla de estimación" o "armar issues con puntos"; cuando suba un Figma/PDF/imagen/ClaudeAI Design de maqueta y pida desglose de tareas; o cuando hable de planeación de sprint con Backend .NET / SQL Server / React (web) o Flutter (móvil). Dispara incluso si no menciona "Fibonacci" explícitamente — basta con que pida estimar tareas de desarrollo para Sputnik.
+description: "Estimador de tareas del equipo Sputnik con escala Fibonacci 0/1/2/3. Genera tabla de issues por capa (SQL + Backend + Frontend) lista para Jira o Excel. Úsala cuando el usuario pida cotizar, estimar, puntuar o desglosar un proyecto, sprint o módulo; al subir una maqueta y pedir desglose de tareas; o para planeación de sprint con .NET/SQL Server/React o Flutter."
 requires-devkits: auto-detect
 ---
  

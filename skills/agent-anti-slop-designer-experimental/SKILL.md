@@ -1,6 +1,6 @@
 ---
 name: agent-anti-slop-designer-experimental
-description: Diseño de productos digitales vanguardistas que NO parecen hechos por IA. Cuestionario de descubrimiento visual arriesgado (movimiento artístico, navegación, tipografía, materialidad, color, interacción, estructura, sonido, luz, tempo, cursor + opcionales de fricción y ancla temporal), exploración con mockups de imagen, y generación de design-system.md experimental con prohibiciones anti-slop. Usa cuando el usuario diga "no quiero que parezca hecho por AI", "diseño experimental", "design system vanguardista", "hazme algo memorable", "rompe convenciones", "cuestionario de estilo arriesgado", o quiera un producto visualmente distintivo.
+description: "Diseño de productos digitales vanguardistas que NO parecen hechos por IA. Cuestionario de descubrimiento visual arriesgado, exploración con mockups y design-system.md experimental con prohibiciones anti-slop. Úsala cuando el usuario diga 'no quiero que parezca hecho por AI', 'diseño experimental', 'rompe convenciones', o quiera un producto visualmente distintivo."
 ---
 
 # Skill: Anti-Slop Design Architect — Edición Experimental

@@ -1,6 +1,6 @@
 ---
 name: productivity-spec
-description: Guía al usuario a través de un proceso estructurado para transformar una historia de usuario en una especificación técnica completa. Incluye Fase 0 de clasificación de stack (carga automática de dev-kits), identificación de suposiciones, validación iterativa con detección de contradicciones, y generación de especificación final con estructura de proyecto y checklist de pendientes. Usar cuando el usuario proporcione una historia de usuario o necesite crear una especificación técnica a partir de requisitos ambiguos.
+description: "Guía estructurada para transformar una historia de usuario en especificación técnica completa. Clasifica stack, identifica suposiciones, valida iterativamente y genera spec con estructura de proyecto y checklist. Úsala cuando el usuario proporcione una historia de usuario o requisitos ambiguos que necesiten convertirse en spec técnica."
 requires-devkits: auto-detect
 ---
 

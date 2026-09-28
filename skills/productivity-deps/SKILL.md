@@ -1,6 +1,6 @@
 ---
 name: productivity-deps
-description: "Mantenimiento de dependencias. Escanea paquetes outdated en Node.js (npm outdated), Python (pip list --outdated), .NET (dotnet list package --outdated) y Flutter (flutter pub outdated). Clasifica updates por riesgo (patch = seguro, minor = revisar, major = planificar), genera changelog de cada update desde GitHub releases, y sugiere agrupar en PRs separados. Úsala al inicio de cada sprint, el lunes por la mañana, o cuando el usuario diga 'actualizar dependencias', 'dependency check', 'qué paquetes están desactualizados', 'npm outdated'."
+description: "Mantenimiento de dependencias. Escanea paquetes outdated en Node.js, Python, .NET y Flutter. Clasifica updates por riesgo, genera changelog desde GitHub releases y sugiere agrupar en PRs separados. Úsala al inicio de cada sprint, el lunes por la mañana, o cuando el usuario diga 'actualizar dependencias' o 'dependency check'."
 ---
 
 # Productivity Deps — Mantenimiento de Dependencias

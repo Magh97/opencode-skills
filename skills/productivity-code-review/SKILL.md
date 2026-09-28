@@ -1,6 +1,6 @@
 ---
 name: productivity-code-review
-description: Realiza una revisión exhaustiva de código en cualquier proyecto. Analiza seguridad, mejoras, optimizaciones, sugerencias y críticas — usando los dev-kits del stack para reglas específicas. Ejecuta escaneo automático de dependencias (npm audit, pip-audit, dotnet list package) y análisis estático (eslint, ruff, mypy). Genera un reporte en formato tabla con checkboxes (✅/⬜) como archivo CODE_REVIEW.md en la raíz del proyecto, con sección Quick Wins para arreglos de <30 min. Usar cuando el usuario pida "review", "analizar el proyecto", "auditar código", "code review", "revisa el proyecto", "security review", o quiera evaluar la calidad de su código.
+description: "Revisión exhaustiva de código en cualquier proyecto. Analiza seguridad, mejoras, optimizaciones y críticas usando dev-kits del stack. Incluye escaneo de dependencias y análisis estático. Genera CODE_REVIEW.md con checkboxes y sección Quick Wins. Úsala cuando el usuario pida 'review', 'auditar código', 'code review', 'security review', o evaluar calidad de código."
 requires-devkits: auto-detect
 ---
 

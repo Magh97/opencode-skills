@@ -1,6 +1,6 @@
 ---
 name: design-core
-description: "Guía principal de diseño técnico de sistemas. Cubre design-first, C4 model (System Context → Container → Component), diagramas como código (Mermaid/PlantUML), estilos de arquitectura y cuándo usar cada uno. Actívala al diseñar un sistema nuevo, documentar arquitectura existente, evaluar trade-offs arquitectónicos, o cuando el usuario diga 'diseñar sistema', 'diseño técnico', 'design doc', 'C4 model', 'diagrama de arquitectura'. Las sub-skills del kit profundizan en ADR, datos, API y design review."
+description: "Guía principal de diseño técnico de sistemas. Cubre design-first, C4 model, diagramas como código, estilos de arquitectura y cuándo usar cada uno. Actívala al diseñar un sistema nuevo, documentar arquitectura existente, evaluar trade-offs, o cuando el usuario diga 'diseñar sistema', 'C4 model', o 'diagrama de arquitectura'."
 ---
 
 # Design Core — Diseño Técnico de Sistemas

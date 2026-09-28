@@ -1,6 +1,6 @@
 ---
 name: agent-business-planning
-description: 'Genera la estructura teorica de un sistema de negocio: plan de negocio completo de 12 secciones (vision, objetivos, alcance, actores, modulos, casos de uso, entidades, roadmap, no-funcionales, stack, hardware, glosario, historial) y orquesta la delegacion a planeacion (charter, roadmap), diseño (arquitectura, API, schema) y documentacion (README, onboarding, agent-docs). Opcional: spec tecnica (productivity-spec), validacion con design-review y scaffold del proyecto (productivity-scaffold). Uso cuando el usuario diga "planea el sistema", "documento de planeacion", "plan de negocio", "estructura teorica del proyecto", "sistema de inventario", "sistema de ventas", "arranca el proyecto desde cero". Doc human-facing (stakeholders y desarrolladores).'
+description: "Genera el plan de negocio completo de 12 secciones y orquesta delegación a planeación (charter, roadmap), diseño (arquitectura, API, schema) y documentación (README, onboarding). Opcional: spec técnica, validación y scaffold. Úsala cuando el usuario diga 'planea el sistema', 'plan de negocio', 'estructura teórica del proyecto', o 'arranca el proyecto desde cero'."
 requires-devkits: auto-detect
 ---
 

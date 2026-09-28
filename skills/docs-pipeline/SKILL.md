@@ -1,6 +1,6 @@
 ---
 name: docs-pipeline
-description: "Generates and verifies a complete design documentation set for a software project: premise audit, decision register, planning and design documents, the fourteen document classes, traceability, and mechanical verification with three gating scripts. Use when the user says 'documenta este proyecto', 'genera la documentación de diseño', 'completar la documentación', 'documentación en regla', 'plan de proyecto completo', 'design docs for this project', 'requirements with stable IDs', 'traceability matrix', 'NFR with measurable targets', or when a project idea needs to become a verified design document set before any code is written. Also use to audit an existing document set for gaps."
+description: "Genera y verifica un set completo de documentación de diseño: premise audit, decision register, 14 clases de documento, trazabilidad y verificación mecánica con 3 scripts. Úsala cuando el usuario diga 'documenta este proyecto', 'genera la documentación de diseño', 'plan de proyecto completo', 'traceability matrix', o para auditar un document set existente."
 ---
 
 # Docs Pipeline

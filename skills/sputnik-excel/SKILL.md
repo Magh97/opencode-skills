@@ -1,6 +1,6 @@
 ---
 name: sputnik-excel
-description: Toma una estimación generada por sputnik-core (o issues desde Jira vía Atlassian MCP) y genera una cotización en Excel siguiendo el formato de la plantilla "Cotización - Validacion Ingresos Smartket.xlsx". Convierte puntos a horas de desarrollo y produce un .xlsx con membrete, tabla de tareas (cliente), hoja de resumen técnico (equipo), subtotal, IVA y total. Úsala cuando tras una estimación con sputnik-core el usuario pida el archivo Excel, o cuando comparta issues de Jira y pida cotizarlos a Excel.
+description: "Genera cotización en Excel desde una estimación Sputnik o issues de Jira. Convierte puntos a horas y produce .xlsx con membrete, tabla de tareas, resumen técnico, subtotal, IVA y total. Úsala cuando tras una estimación el usuario pida 'archivo Excel', 'cotización en Excel', o al compartir issues de Jira para cotizarlos."
 disable-model-invocation: true
 ---
 

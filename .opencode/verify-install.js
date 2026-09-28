@@ -26,6 +26,7 @@ const REPO_AGENTS = path.join(REPO, "agent");
 // --config <dir> permite verificar contra un HOME/config limpio (emulación)
 const args = process.argv.slice(2);
 const cfgIdx = args.indexOf("--config");
+const jsonFlag = args.includes("--json");
 const CFG = cfgIdx !== -1 && args[cfgIdx + 1]
   ? path.resolve(args[cfgIdx + 1])
   : path.join(require("os").homedir(), ".config", "opencode");
@@ -268,6 +269,16 @@ for (const agent of BP_DELEGATES) {
 }
 
 // ── Reporte ──────────────────────────────────────────────────────
+if (jsonFlag) {
+  console.log(JSON.stringify({
+    config: CFG,
+    summary,
+    issues,
+    ok: issues.length === 0,
+  }, null, 2));
+  process.exit(issues.length === 0 ? 0 : 1);
+}
+
 console.log("=".repeat(62));
 console.log("VERIFICACIÓN DE INSTALACIÓN — opencode-skills");
 console.log("=".repeat(62));
