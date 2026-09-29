@@ -1,27 +1,84 @@
 ---
 name: agent-anti-slop-designer-experimental
-description: "Diseño de productos digitales vanguardistas que NO parecen hechos por IA. Cuestionario de descubrimiento visual arriesgado, exploración con mockups y design-system.md experimental con prohibiciones anti-slop. Úsala cuando el usuario diga 'no quiero que parezca hecho por AI', 'diseño experimental', 'rompe convenciones', o quiera un producto visualmente distintivo."
+description: "Diseño de productos digitales vanguardistas que NO parecen hechos por IA. Arqueología del dominio, cuestionario de estilo arriesgado, exploración con mockups, design-system.md experimental con prohibiciones anti-slop, voz y microcopy, matriz de estados, accesibilidad/degradación/performance, artefactos machine-readable y auditoría con check-slop.py. Úsala cuando el usuario diga 'no quiero que parezca hecho por AI', 'diseño experimental', 'design system vanguardista', 'rompe convenciones', 'auditar anti-slop', o quiera un producto visualmente distintivo."
 ---
 
 # Skill: Anti-Slop Design Architect — Edición Experimental
-## Versión: 2.1 | 2026-08-11
+## Versión: 2.3 | 2026-09-25
 ### Propósito
 Transformar ideas de aplicaciones en productos digitales que **no parezcan hechos por IA**. Esta skill prioriza el riesgo visual, la experimentación y la vanguardia sobre la seguridad. No busca "usable"; busca **memorable**. Si el resultado no hace que alguien diga "¿cómo hicieron esto?", no hemos terminado.
 
 ---
 
+## Anatomía del Slop
+
+El slop no es "feo": es **la mediana**. Un modelo generativo colapsa hacia lo más probable de su corpus de entrenamiento, y el resultado son las mismas decisiones: Inter, un gradiente púrpura, un hero centrado con tres tarjetas, un spinner, un empty state que dice "No data found". No es un error de un diseñador: es un sesgo estadístico.
+
+De ahí salen las tres formas de slop que esta skill intenta evitar:
+
+| Slop | Por qué ocurre | Antídoto |
+|---|---|---|
+| **De plantilla** | El corpus converge a los mismos componentes | Derivar del dominio (Fase 0.5) y prohibir explícitamente (§11) |
+| **De vanguardia** | Los tokens experimentales se usan como checklist: "puse glitch, cumplí" | Derivar, no elegir; la vanguardia es consecuencia, no receta |
+| **De ejecución** | El sistema se aprueba y la primera pantalla lo ignora | `check-slop.py` (Fase 6) y matriz de estados (§9.5) |
+
+> La lista de prohibiciones no está para decorar: cada entrada existe porque es la salida por defecto de un modelo. **Lo que no se prohíbe, se genera.**
+
+---
+
 ## Fase 0: Diagnóstico Rápido (30 segundos)
 
-- **Si el usuario trae una idea clara** → Salta a Fase 2 (Refinamiento de Supuestos Experimentales).
-- **Si el usuario trae una idea vaga** → Entra a Fase 1 (Cuestionario de Descubrimiento Vanguardista).
-- **Si el usuario solo dice "hazme algo que no parezca AI"** → Entra a Fase 1 completa + Fase 1.5 (Exploración Visual con Imágenes).
+- **Si el usuario trae una idea clara** → Fase 0.5 (Arqueología del Dominio) → Fase 2 (Refinamiento de Supuestos Experimentales).
+- **Si el usuario trae una idea vaga** → Fase 0.5 → Fase 1 (Cuestionario de Descubrimiento Vanguardista).
+- **Si el usuario solo dice "hazme algo que no parezca AI"** → Fase 0.5 → Fase 1 completa + Fase 1.5 (Exploración Visual con Imágenes).
+
+> La Fase 0.5 es **BLOQUEANTE y no se salta**. Un movimiento elegido de una tabla es tan de catálogo como el gradiente púrpura; la diferencia está en si se **deriva** del producto o se **elige** de una lista.
+
+---
+
+## Fase 0.5: Arqueología del Dominio · BLOQUEANTE
+
+Sin código y sin cuestionario todavía. El menú de la Fase 1 es un **vocabulario**, no una solución. Antes de elegir un estilo, inventariar el material real del oficio.
+
+Responder por escrito:
+
+1. **¿Qué artefactos produce este dominio?** No las pantallas: los objetos reales del oficio.
+   Tickets térmicos, manifiestos de carga, códigos de barras, recetas, waveforms, logs de servidor, sellos, mapas de ruta, formularios oficiales, hojas de cálculo, radiografías, partituras, planos, tickets de bolsa, actas.
+2. **¿Cuáles de esos artefactos tienen una estética propia y reconocible?** Tipografía, retícula, color, tinta, textura, ancho de banda, ruido.
+3. **¿Qué material o señal domina la experiencia real del usuario?** Calor, luz, sonido, peso, presión, humedad, vibración, velocidad.
+4. **¿Qué se puede extraer como token?** De cada artefacto: un color, una textura, una regla tipográfica, un comportamiento, un sonido.
+5. **¿Qué es decorativo y debe descartarse?** El dominio también trae ruido sin significado.
+
+**Salida — `domain-artifacts`:**
+
+| Artefacto real | Rasgo extraíble | Token / regla propuesta | Verdadero o decorativo |
+|---|---|---|---|
+| [artefacto] | [tipografía / retícula / color / textura / sonido / ritmo] | [`--token` o regla] | verdadero / decorativo |
+
+**Regla de derivación (aplica a cada eje de la Fase 1):**
+> Todo eje elegido debe poder trazarse a una fila de `domain-artifacts`. Si no puede, se marca como **importado** y se justifica explícitamente. La app tiene permiso de importar un máximo de **dos** ejes ajenos al dominio: son la firma de autoría, no la base.
+
+**Gate:** presentar `domain-artifacts` y las derivaciones propuestas. No iniciar la Fase 1 sin confirmación del usuario.
 
 ---
 
 ## Fase 1: Cuestionario de Descubrimiento Vanguardista
 > Regla de oro: Una pregunta a la vez. Barra de progreso. 4 alternativas + "Otra". Las alternativas deben ser visualmente **arriesgadas**, no seguras.
+> **Filtro de derivación:** cada opción que el usuario elija debe trazarse a `domain-artifacts` (Fase 0.5). Cuando la respuesta natural no se derive de nada, ofrecer la alternativa derivada y registrar el eje como importado.
 
-### Paso 1.1: Voz y Personalidad (1/11)
+### Modos de entrada (elegir uno antes de empezar)
+> El cuestionario completo son 12 preguntas. No todos los usuarios quieren responderlas.
+
+| Modo | Cuándo | Cómo funciona |
+|---|---|---|
+| **Cuestionario completo** | El usuario quiere decidir cada eje | Pasos 1.1–1.12, una pregunta a la vez |
+| **Fast track** | Hay prisa o no hay criterio visual | 3 preguntas (1.1 movimiento, 1.12 voz, 1.5 paleta). El agente **deriva** el resto del dominio y lo propone en Fase 2 |
+| **Sorpréndeme** | "Hazme algo memorable, tú decides" | El agente propone un concepto completo desde `domain-artifacts` (0.5) y el usuario reacciona en Fase 2/3 |
+| **Siembra por referencias** | El usuario trae 3 URLs o imágenes | Derivar los 12 ejes de las referencias, marcar los importados y presentarlos en Fase 2 |
+
+**Normalizar "Otra":** cuando el usuario elige "Otra", traducir su respuesta a un eje con **3 keywords + 1 técnica dominante + su artefacto de origen**. Una respuesta libre sin normalizar no entra al design system.
+
+### Paso 1.1: Movimiento Artístico (1/12)
 **Pregunta:** Si tu app fuera un movimiento artístico, ¿cuál sería?
 
 | # | Opción | Descripción | Keywords de diseño |
@@ -34,7 +91,7 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 
 > Guardar como `personality_axis`.
 
-### Paso 1.2: Espacio y Navegación (2/11)
+### Paso 1.2: Espacio y Navegación (2/12)
 **Pregunta:** ¿Cómo se MUEVE el usuario por tu app?
 
 | # | Opción | Descripción | Técnica |
@@ -47,7 +104,7 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 
 > Guardar como `navigation_pattern`.
 
-### Paso 1.3: Tipografía como Arquitectura (3/11)
+### Paso 1.3: Tipografía como Arquitectura (3/12)
 **Pregunta:** La letra en tu app no es solo texto. Es...
 
 | # | Opción | Descripción | Fuentes / Técnicas |
@@ -60,7 +117,7 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 
 > Guardar como `typography_architecture`.
 
-### Paso 1.4: Materialidad Digital Extrema (4/11)
+### Paso 1.4: Materialidad Digital Extrema (4/12)
 **Pregunta:** ¿De qué material imposible está hecha tu app?
 
 | # | Opción | Descripción | Técnica |
@@ -73,7 +130,7 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 
 > Guardar como `materiality`.
 
-### Paso 1.5: Color como Emoción (5/11)
+### Paso 1.5: Color como Emoción (5/12)
 **Pregunta:** Elige una escena cinematográfica que represente la paleta de tu app:
 
 | # | Opción | Paleta base | Mood |
@@ -86,7 +143,7 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 
 > Guardar como `palette_mood`.
 
-### Paso 1.6: Interacción como Performance (6/11)
+### Paso 1.6: Interacción como Performance (6/12)
 **Pregunta:** ¿Qué pasa cuando el usuario TOCA algo?
 
 | # | Opción | Descripción | Técnica |
@@ -99,7 +156,7 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 
 > Guardar como `interaction_pattern`.
 
-### Paso 1.7: Estructura de Información (7/11)
+### Paso 1.7: Estructura de Información (7/12)
 **Pregunta:** ¿Cómo se organiza el contenido?
 
 | # | Opción | Descripción | Layout |
@@ -112,7 +169,7 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 
 > Guardar como `information_structure`.
 
-### Paso 1.8: Sonido como Atmósfera (8/11)
+### Paso 1.8: Sonido como Atmósfera (8/12)
 **Pregunta:** Si tu app sonara, ¿qué escucharías al usarla?
 
 | # | Opción | Descripción | Técnica |
@@ -124,7 +181,7 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 
 > Guardar como `sound_identity`.
 
-### Paso 1.9: Luz y Atmósfera (9/11)
+### Paso 1.9: Luz y Atmósfera (9/12)
 **Pregunta:** ¿Cómo ilumina tu app?
 
 | # | Opción | Descripción | Técnica |
@@ -136,7 +193,7 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 
 > Guardar como `lighting_profile`.
 
-### Paso 1.10: Ritmo y Tempo (10/11)
+### Paso 1.10: Ritmo y Tempo (10/12)
 **Pregunta:** ¿Cuál es el pulso de tu app?
 
 | # | Opción | Descripción | Técnica |
@@ -148,7 +205,7 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 
 > Guardar como `tempo_rhythm`.
 
-### Paso 1.11: Cursor como Personaje (11/11)
+### Paso 1.11: Cursor como Personaje (11/12)
 **Pregunta:** ¿Qué hace el puntero cuando el usuario toca tu mundo?
 
 | # | Opción | Descripción | Técnica |
@@ -162,8 +219,33 @@ Transformar ideas de aplicaciones en productos digitales que **no parezcan hecho
 
 ---
 
-### Paso 1.12: Preguntas Avanzadas Opcionales (Bonus)
-> Después del paso 1.11, ofrecer: *"Ya tienes las bases. ¿Quieres refinar 2 dimensiones más? (Opcional)"*.
+### Paso 1.12: Voz y Copy (12/12)
+**Pregunta:** Cuando algo pasa (un error, una espera, un logro), ¿cómo habla tu app?
+
+| # | Opción | Descripción | Regla de copy |
+|---|--------|-------------|---------------|
+| 1 | **Oráculo seco** | Frases cortas, sentenciosas, sin cortesía. La app no pide permiso. | ≤4 palabras, sin "por favor", sin exclamaciones |
+| 2 | **Narrador de campo** | Técnico y preciso, habla la jerga del dominio como un operador. | Vocabulario del oficio, datos antes que adjetivos |
+| 3 | **Personaje con carácter** | Primera persona, opinión, humor seco. La app tiene punto de vista. | "Yo", juicios, nada de neutralidad corporativa |
+| 4 | **Documento oficial** | Protocolo, formulario, sin emoción. El sistema habla en tercera persona. | Pasiva, folio/fecha/estado, cero calidez |
+| O | **Otra** | El usuario describe su voz | Anotar palabras clave exactas |
+
+> Guardar como `voice_profile`.
+> **Ficha de voz (obligatoria; alimenta los estados especiales de 9.4 y el copy de todo el producto):**
+
+| Campo | Decisión |
+|---|---|
+| Persona gramatical | [1ª / 2ª / 3ª / impersonal] |
+| Longitud máxima | [n palabras por mensaje] |
+| Humor | [sí seco / no] |
+| Vocabulario prohibido | ["por favor", "lo sentimos", "exitosamente", "Oops"...] |
+| Error | [ejemplo exacto] |
+| Empty | [ejemplo exacto] |
+| Espera / loading | [ejemplo exacto] |
+| Éxito | [ejemplo exacto] |
+
+### Paso 1.13: Preguntas Avanzadas Opcionales (Bonus)
+> Después del paso 1.12, ofrecer: *"Ya tienes las bases. ¿Quieres refinar 2 dimensiones más? (Opcional)"*.
 > Si el usuario acepta, hacer estas DOS preguntas una a la vez con barra de progreso. Si no, saltar directo a Fase 1.5.
 > Si el usuario responde las opcionales, sus keys (`friction_profile`, `temporal_anchor`) se integran a la Fase 2.
 
@@ -219,6 +301,29 @@ Estilo: UI/UX design mockup, high fidelity, experimental, avant-garde.
 
 > Mostrar los 4 mockups al usuario. Pedir que elija uno o que combine elementos de varios.
 > Extraer del mockup elegido: paleta exacta, tipografía dominante, layout pattern, texturas visibles, tratamiento de luz y comportamiento de cursor si son visibles.
+
+---
+
+## Fase 1.6: Coherencia de Ejes · BLOQUEANTE
+
+Los ejes se eligieron como si fueran independientes. Algunos se contradicen, y la contradicción no se resuelve en código: se resuelve aquí.
+
+Revisar los pares conocidos y **declarar la resolución**:
+
+| Combinación | Conflicto | Resolución posible |
+|---|---|---|
+| Caja de sorpresas + Cero fricción | Descubrir requiere esfuerzo; cero fricción lo elimina | La sorpresa vive en la forma, no en el acceso |
+| Mano invisible + Realidad aumentada digital | El rastro necesita un puntero visible | El rastro ocurre sin cursor (ondas, calor) |
+| Silencio curado + Interfaz percusiva | Silencio total vs. sonido en cada toque | Solo los eventos críticos suenan; el resto es visual |
+| Silencio curado + Sinestesia audio-visual | El color/motion no puede seguir a un audio mudo | La sinestesia se invierte: manda el color y el audio sigue |
+| Maximalismo controlado + Luz de día plano | La densidad necesita profundidad | Jerarquía por escala y color, no por luz |
+| Cine lento + Edición frenética | Un solo tempo base | Tempo por fases (§1.10 opción 4) |
+| Scroll como viaje + Mano invisible | El viaje necesita orientación | Indicadores persistentes que no dependen del cursor |
+| Brutalismo + Materialidad líquida | Rigidez estructural vs. superficie fluida | "Aceite sobre hormigón": fluido contenido por bordes duros |
+
+> Los pares no listados también cuentan: cualquier cruce que exija una decisión se declara aquí. **Un conflicto no resuelto reaparece como inconsistencia en la tercera pantalla.**
+
+**Gate:** presentar el mapa de coherencia con las resoluciones antes de la Fase 2.
 
 ---
 
@@ -280,6 +385,10 @@ Basado en tu selección, propongo lo siguiente para tu app:
 
 16. ANCLA TEMPORAL: [temporal_anchor o "no definida"] → La estética referencia [época].
     [Referencias concretas de la época si aplica].
+
+17. VOZ: [voice_profile] → La app habla como [oráculo / operador / personaje / documento].
+    Persona [1ª/2ª/3ª], máximo [n] palabras, humor [sí/no]. Vocabulario prohibido: [lista].
+    Error: "[copy]". Empty: "[copy]". Espera: "[copy]". Éxito: "[copy]".
 ```
 
 > Pedir al usuario: "¿Hay algún supuesto que NO te guste? Responde con los números (ej: 2, 5, 9) o di 'todo bien' para continuar."
@@ -316,6 +425,15 @@ Generar `design-system.md` con estructura expandida para diseño vanguardista.
 # Design System Experimental: [Nombre del Proyecto]
 ## Última actualización: [fecha]
 ## Versión: Experimental v1
+
+---
+
+## 0. Arqueología y Materiales del Dominio
+| Artefacto real | Rasgo extraíble | Token / regla | Origen |
+|---|---|---|---|
+| [artefacto] | [tipografía / retícula / color / textura / sonido / ritmo] | [`--token`] | dominio / importado |
+
+> Los ejes marcados "importado" no pueden ser más de dos. Si lo son, el sistema es un collage, no una identidad.
 
 ---
 
@@ -444,12 +562,30 @@ Generar `design-system.md` con estructura expandida para diseño vanguardista.
 - **Floating:** [estructura]
 
 ### 9.4 Estados Especiales (Zona de Personalidad Máxima)
-- **Empty State:** [Copy exacto + descripción visual + animación]
+> Todo copy de esta sección sale de la ficha de voz (§21). Prohibido inventarlo aquí.
+
+- **Empty State:** [Copy exacto (voz aplicada) + descripción visual + animación]
 - **Error State:** [Copy exacto + descripción visual + animación]
 - **Loading State:** [Copy exacto + secuencia narrativa de carga + animación]
 - **Success State:** [Copy exacto + celebración visual + animación]
 - **Onboarding:** [Copy paso a paso + flujo de introducción]
 - **404 / Not Found:** [Copy + experiencia visual memorable]
+
+### 9.5 Matriz de Estados (obligatoria)
+> Ningún componente está listo sin la matriz completa. El patrón típico es sobre-indexar en hover y olvidar `focus-visible`, `disabled` y `error`.
+
+| Componente | default | hover | focus-visible | active | disabled | loading | error |
+|---|---|---|---|---|---|---|---|
+| Botón primario | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| Botón ghost | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| Input de texto | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| Select | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| Checkbox / radio | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| Card | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| Tag / chip | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| Nav item | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+
+> Cada estado declara, además: cambio visual, duración (token §16), sonido (§14) y comportamiento con `prefers-reduced-motion` (§19).
 
 ## 10. Assets Visuales y Texturas
 - **Icon set:** [estilo: hand-drawn / geometric brutal / organic / glitch / custom]
@@ -461,6 +597,9 @@ Generar `design-system.md` con estructura expandida para diseño vanguardista.
 
 ## 11. Prohibiciones Explícitas (Anti-Slop Manifesto)
 Esta app NUNCA usará:
+
+> Auditado por `scripts/check-slop.py` (Fase 6). Un hallazgo es una señal para mirar, no un veredicto final.
+
 - [ ] Gradiente púrpura/azul genérico de AI
 - [ ] Inter o Roboto como fuente principal sin modificación extrema
 - [ ] Hero centrado con un solo CTA y tres tarjetas debajo
@@ -484,6 +623,14 @@ Esta app NUNCA usará:
 - [ ] Todas las transiciones con la misma duración (tempo uniforme = cadáver rítmico)
 - [ ] Iluminación plana sin dirección ni drama cuando la personalidad pide profundidad
 - [ ] Silencio total cuando el sonido es parte de la identidad (y viceversa: sonido genérico cuando el silencio es la estética)
+- [ ] Bento grid como layout por defecto (cliché 2023–2026)
+- [ ] "Liquid glass" / glassmorphism copiado sin derivación
+- [ ] Blobs de gradiente como decoración de fondo
+- [ ] Emoji como sustituto de un sistema de iconos
+- [ ] Cliché brutalista-portfolio (Helvetica gigante + grain + mono labels) por defecto
+- [ ] Usar los tokens experimentales como checklist en vez de derivarlos del dominio
+- [ ] Copy genérico de sistema operativo ("OK", "Cancelar", "Aceptar", "Error") sin voz propia
+- [ ] Inventar el copy de un estado sin pasar por la ficha de voz
 
 ## 12. Referencias y Moodboard
 [Sugerir 3-5 referencias reales que capturen la esencia]
@@ -541,7 +688,141 @@ Esta app NUNCA usará:
 
 > Especificar: ¿El cursor respeta touch devices (desaparece en móvil)? ¿Deja rastros persistentes?
 > Si es "mano invisible": documentar los tooltips contextuales que lo reemplazan.
+
+## 18. Accesibilidad — Piso No Negociable
+> La personalidad se diseña POR ENCIMA de este piso, nunca en lugar de él.
+
+| Dimensión arriesgada | Piso obligatorio | Cómo se preserva la personalidad |
+|---|---|---|
+| Cursor custom (tinta, láser, ser vivo, invisible) | `:focus-visible` siempre visible y con contraste; el cursor nunca es la única señal de foco | El foco también puede ser un efecto propio (glow, expansión), no el outline por defecto |
+| Scroll como viaje / scroll hijacking | Paginación por teclado (`PageUp/PageDown`, `Home/End`), escape de la sección pinned, desactivado con `prefers-reduced-motion` | El viaje se conserva como composición estática por secciones |
+| Tipografía a 30vw / texto en contornos | Zoom 200% sin pérdida de contenido; cuerpo ≥16px | Escalas fluidas `clamp()` en vez de `vw` puro |
+| Color glitch / blend modes | Contraste texto-fondo ≥ 4.5:1 (3:1 en ≥24px o 18.66px bold); el color nunca es el único portador de significado | El glitch se aplica a decoración, no al texto funcional |
+| Fricción deliberada / obstáculo | Nunca en el único camino; siempre un bypass accesible y documentado | El ritual queda como opción por defecto; el bypass es discreto |
+| Animación / tempo | `prefers-reduced-motion` documentado por eje (ver 19) | La composición estática mantiene el gesto |
+| Audio generativo / percusivo | Mute visible siempre; opt-in; `AudioContext.resume()` tras gesto; alternativa visual | El ritmo visual puede sustituir al sonido |
+| Mano invisible / `cursor: none` | Todos los targets alcanzables con teclado; foco visible | Los tooltips contextuales se vuelven el "cursor" narrativo |
+
+## 19. Modos de Degradación
+> Diseñar la degradación ES diseñar. No se "apagan animaciones": se define qué se convierte la app.
+
+| Condición | Qué se convierte | Qué NUNCA se pierde |
+|---|---|---|
+| `prefers-reduced-motion: reduce` | [composición estática por sección, corte en vez de transición, sin scroll hijacking] | Jerarquía, contraste, identidad tipográfica y color |
+| `prefers-contrast: more` | [paleta de alto contraste, sin blend modes sobre texto] | La personalidad cromática en superficies decorativas |
+| `forced-colors: active` (Windows HCM) | [tokens del sistema, bordes visibles, sin gradients] | Todas las funciones y estados |
+| `prefers-reduced-transparency` | [superficies opacas equivalentes] | Jerarquía de capas |
+| `prefers-reduced-data` | [sin video/audio ambiente, fuentes ya cargadas, imágenes comprimidas] | El layout y la lectura |
+| Sin WebGL / GPU débil | [escalera de fallback de la sección 20] | El mensaje visual, aunque simplificado |
+| Tier bajo (móvil económico) | [menos capas, blend modes off, DPR limitado] | Interacción y contenido |
+
+> Documentar también: qué se degrada primero cuando no hay presupuesto y qué es intocable.
+
+## 20. Presupuesto de Performance y Escalera de Fallback
+| Métrica | Objetivo | Límite duro | Cómo se mide |
+|---|---|---|---|
+| JS inicial | [KB gzip] | [KB gzip] | [bundle analyzer] |
+| LCP | [ms] | [ms] | [Lighthouse / RUM] |
+| CLS | < 0.1 | 0.25 | [Lighthouse] |
+| Frame budget en scroll | [ms/frame] | 16.6 ms | [DevTools performance] |
+| DPR máximo para shaders | [1.5 / 2] | 2 | [device tier] |
+
+| Efecto | 1ª opción | 2ª opción (sin WebGL) | 3ª opción (tier bajo) |
+|---|---|---|---|
+| [materialidad / shader] | [WebGL] | [CSS filter / SVG] | [textura estática] |
+| [blend modes] | [CSS mix-blend-mode] | [imagen precompuesta] | [color plano] |
+| [partículas / cursor] | [canvas] | [CSS] | [estático] |
+| [tipografía animada] | [variable font axis] | [transform] | [sin animación] |
+
+> Cada efecto experimental declara su escalera. Un efecto sin fallback es una bomba de performance, no una decisión de diseño.
+
+## 21. Voz y Microcopy
+| Campo | Decisión |
+|---|---|
+| Persona gramatical | [1ª / 2ª / 3ª / impersonal] |
+| Longitud máxima | [n palabras] |
+| Humor | [sí seco / no] |
+| Vocabulario prohibido | [lista] |
+| Error | [copy exacto] |
+| Empty | [copy exacto] |
+| Loading | [copy exacto] |
+| Success | [copy exacto] |
+| Onboarding | [copy exacto] |
+
+> El copy es un token: se define una vez y se reutiliza. Si un estado necesita copy nuevo, se agrega aquí primero.
+
+## 22. Entrega y Artefactos
+| Artefacto | Formato | Consumidor |
+|---|---|---|
+| `design-tokens.json` | DTCG | build, agentes de código |
+| `motion.tokens.json` | duración / easing | implementación de motion |
+| `prohibitions.lint.json` | reglas para `check-slop.py` | auditoría |
+| `DESIGN.agent.md` | token sheet compacto | `agent-docs` / docs-pipeline Fase 6 |
+| `design-decisions.md` | ADR con alternativas rechazadas | equipo, `design-adr` |
+
+> La entrega no es el `.md`: es el sistema en formato consumible. Un design system que solo existe en prosa se reescribe mal en la primera pantalla.
 ```
+
+---
+
+## Fase 4.5: Artefactos Machine-Readable, Decisiones y Entrega
+
+El `design-system.md` es la fuente de verdad narrativa; estos archivos son la fuente de verdad **ejecutable**. Se generan en el mismo paso, no después.
+
+### 4.5.1 `design-tokens.json` (DTCG)
+```json
+{
+  "color": {
+    "primary":  { "$value": "#XXXXXX", "$type": "color" },
+    "glitch-1": { "$value": "#XXXXXX", "$type": "color" }
+  },
+  "motion": {
+    "duration-base":   { "$value": "640ms", "$type": "duration" },
+    "easing-climax":   { "$value": "cubic-bezier(.2,.8,.2,1)", "$type": "cubicBezier" }
+  },
+  "radius": { "card": { "$value": "14px", "$type": "dimension" } },
+  "type": {
+    "display-hero": {
+      "$type": "typography",
+      "$value": { "fontFamily": "...", "fontSize": "18vw", "fontWeight": 800 }
+    }
+  }
+}
+```
+
+### 4.5.2 `prohibitions.lint.json`
+Reglas extra que `check-slop.py` carga del proyecto, además de las de fábrica. Es la forma de que el design system gobierne la auditoría:
+```json
+{
+  "rules": [
+    {
+      "id": "NO-BRAND-GLOW",
+      "severity": "gate",
+      "pattern": "box-shadow:\\s*0 0 40px",
+      "message": "glow genérico fuera de la paleta",
+      "why": "la luz tiene dirección (regla 17)"
+    }
+  ]
+}
+```
+> `severity` es `gate` o `advisory`. Una regla malformada es un gate, no un aviso.
+
+### 4.5.3 `DESIGN.agent.md`
+Token sheet compacto para agentes de código: paleta, tipografía, spacing, motion, matriz de estados, prohibiciones y la ficha de voz. Sin mermaid, sin prosa. Es el archivo que `docs-pipeline` (Fase 6) espera en `agent-docs/DESIGN.md`.
+
+### 4.5.4 `design-decisions.md`
+Un ADR por decisión, con **alternativas rechazadas**. Una decisión sin alternativas rechazadas es una nota, no un decision record.
+
+| # | Decisión | Alternativas rechazadas | Por qué | Fecha |
+|---|---|---|---|---|
+| 1 | [eje = valor] | [A, B] | [razón] | [fecha] |
+
+### 4.5.5 Handoff
+| Cuando | Skill | Qué le pasas |
+|---|---|---|
+| El sistema es estable | `agent-docs` / `docs-pipeline` Fase 6 | `DESIGN.agent.md` → `agent-docs/DESIGN.md` |
+| Hay que registrar una decisión | `design-adr` | las filas de `design-decisions.md` |
+| Se necesita arquitectura de front | `design-core` / `react-architecture` | tokens + matriz de estados |
 
 ---
 
@@ -564,6 +845,14 @@ Tu app tiene ahora una identidad visual ÚNICA basada en:
 - Cursor: [cursor_identity]
 - [Fricción: friction_profile — si respondió la opcional]
 - [Ancla temporal: temporal_anchor — si respondió la opcional]
+- Arqueología: [n] artefactos, [n] ejes importados (máximo 2)
+- Accesibilidad: piso documentado por cada dimensión arriesgada
+- Degradación: [n] condiciones cubiertas
+- Performance: presupuesto definido y escalera de fallback por efecto
+- Voz: [voice_profile] con ficha de voz completa (§21)
+- Matriz de estados: [n] componentes × 7 estados (§9.5)
+- Artefactos: `design-tokens.json`, `prohibitions.lint.json`, `DESIGN.agent.md`, `design-decisions.md`
+- Auditoría: `python scripts/check-slop.py <project-dir>` → 0 gates
 
 El documento `design-system.md` está listo y servirá como fuente de verdad
 para TODA la generación de código posterior.
@@ -577,6 +866,42 @@ pueden requerir técnicas avanzadas (WebGL, shaders, animaciones complejas).
 [No, quiero ajustar algo] → Volver a Fase 3.
 [Muéstrame el design system completo] → Mostrar markdown completo.
 ```
+
+---
+
+## Fase 6: Auditoría Anti-Slop · BLOQUEANTE
+
+Las prohibiciones no son una lista de intenciones: se ejecutan.
+
+```bash
+python scripts/check-slop.py <project-dir>            # gates
+python scripts/check-slop.py <project-dir> --strict   # gates + advisories
+python scripts/check-slop.py <project-dir> --json     # salida machine-readable
+python scripts/check-slop.py --list-rules
+```
+
+El script revisa dos cosas:
+1. **El documento** `design-system.md`: que declare las 20 secciones requeridas (0–20). Un sistema incompleto no se audita.
+2. **El código generado**: firmas de slop en el source (CSS/SCSS/JS/TS/JSX/TSX/Vue/Svelte/Astro/HTML).
+
+**Modelo de severidad** — no todo gatea; un check con falsos positivos se ignora, que es peor que no tener check:
+
+| Familia | Severidad | Regla |
+|---|---|---|
+| `transition: all` / `transition-all` | GATE | `SLOP-TRANSITION-ALL` |
+| Spinner genérico (`animate-spin`, `.spinner`, `Loader2`) | GATE | `SLOP-SPINNER` |
+| Copy genérico de empty ("No data found") | GATE | `SLOP-EMPTY-COPY` |
+| Copy genérico de error ("Something went wrong") | GATE | `SLOP-ERROR-COPY` |
+| Gradiente púrpura→azul de AI | GATE | `SLOP-AI-GRADIENT` |
+| Secciones faltantes del design system | GATE | (documento) |
+| Inter/Roboto sin modificar | Advisory | `SLOP-INTER-ROBOTO` |
+| Radio único / duración única / cursor por defecto | Advisory | `SLOP-UNIFORM-RADIUS`, `SLOP-UNIFORM-DURATION`, `SLOP-CURSOR-DEFAULT` |
+| Grid 12-col por defecto, Material Icons, gris Tailwind | Advisory | `SLOP-GRID12`, `SLOP-MATERIAL-ICONS`, `SLOP-GRAY-PALETTE` |
+| Emoji como icono | Advisory | `SLOP-EMOJI-ICON` |
+
+**Regla:** si un check falla, o el diseño está mal o existe una clase de falso positivo documentada. **Nunca se debilita el check para que pase.**
+
+> Salida esperada antes de generar la primera pantalla: `PASS 0 gate(s)`.
 
 ---
 
@@ -602,6 +927,44 @@ pueden requerir técnicas avanzadas (WebGL, shaders, animaciones complejas).
 18. **El tempo define la emoción.** Una misma animación con otra duración cambia el significado. La duración es un token, no un capricho.
 19. **El cursor es parte de la escena.** No un puntero que flota sobre tu mundo: un personaje dentro de él.
 20. **Las opcionales son palanca, no relleno.** Fricción y ancla temporal son preguntas que solo valen si el usuario quiere más profundidad; nunca forzarlas.
+21. **Deriva, no elijas.** Un estilo elegido de una tabla es slop con otro vocabulario. Cada eje se traza a un artefacto del dominio; importar es una excepción declarada, nunca la base.
+22. **La accesibilidad es piso, no tope.** La personalidad se diseña por encima del piso: foco visible, zoom, contraste, teclado y bypass de la fricción.
+23. **La degradación es diseño.** `prefers-reduced-motion`, `forced-colors`, sin WebGL y tier bajo tienen una composición definida, no un "apagado".
+24. **Un efecto sin fallback es una deuda.** Cada shader, blend mode y partícula declara su escalera y su costo.
+25. **Lo verifica un script.** El design system se audita con `check-slop.py` antes de la primera pantalla.
+26. **La voz es un token.** El copy no se inventa por pantalla: sale de la ficha de voz, con persona, longitud y vocabulario prohibido.
+27. **Sin matriz de estados, no hay componente.** `focus-visible`, `disabled`, `loading` y `error` no son opcionales.
+28. **El sistema se entrega en formato consumible.** `design-tokens.json`, `DESIGN.agent.md` y `design-decisions.md` son parte del diseño, no un extra.
+
+---
+
+## Mapa de Auditoría
+
+| Sección | Verificación automática | Verificación manual |
+|---|---|---|
+| 0 Arqueología | — | ¿Cada eje se traza a un artefacto? ¿≤2 importados? |
+| 1 Manifiesto | — | ¿Describe una identidad o una categoría? |
+| 2 Paleta | `SLOP-AI-GRADIENT`, `SLOP-GRAY-PALETTE` | Contraste mínimo |
+| 3 Tipografía | `SLOP-INTER-ROBOTO` | ¿Es activa o decorativa? |
+| 4 Spacing | — | ¿Escala intencional o 8/16/24/32? |
+| 5 Bordes | `SLOP-UNIFORM-RADIUS` | ¿Un solo radio? |
+| 6 Sombras | — | ¿Dirección de luz? |
+| 7 Motion | `SLOP-TRANSITION-ALL`, `SLOP-UNIFORM-DURATION` | ¿Cada animación tiene propósito? |
+| 8 Navegación / layout | `SLOP-GRID12` | ¿Reimaginación o "más pequeño"? |
+| 9 Componentes | `SLOP-SPINNER`, `SLOP-EMPTY-COPY`, `SLOP-ERROR-COPY` | Matriz de estados completa |
+| 10 Assets | `SLOP-EMOJI-ICON`, `SLOP-MATERIAL-ICONS` | Licencias |
+| 11 Prohibiciones | (todas) | — |
+| 12 Referencias | — | ¿Por qué cada una? |
+| 13 Notas técnicas | — | ¿Fallback por efecto? |
+| 14 Sonido | — | Mute, opt-in, lifecycle |
+| 15 Iluminación | — | Dirección de luz |
+| 16 Tempo | `SLOP-UNIFORM-DURATION` | ¿Fases o uniforme? |
+| 17 Cursor | `SLOP-CURSOR-DEFAULT` | ¿Touch y focus? |
+| 18 Accesibilidad | — | Piso por dimensión |
+| 19 Degradación | — | Condiciones cubiertas |
+| 20 Performance | — | Presupuesto y escaleras |
+| 21 Voz y microcopy | `SLOP-EMPTY-COPY`, `SLOP-ERROR-COPY` | Vocabulario prohibido; copy de estados |
+| 22 Entrega y artefactos | — | ¿Existen los 4 artefactos? |
 
 ---
 
