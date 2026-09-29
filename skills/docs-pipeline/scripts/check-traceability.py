@@ -31,9 +31,18 @@ import sys
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
+# --- Output budget -----------------------------------------------------------
+# Same caps as check-docs.py: a machine-generated set with thousands of
+# findings must not flood the session. Totals are kept in --json output.
+MAX_LIST = 200
+MAX_HUMAN = 40
+
 # The suffix must not be followed by a dot-digit, or NFR-1.1 is read as "NFR-1".
 DEFAULT_ID_PATTERN = r"\b([A-Z][A-Z0-9]{1,7}-\d{1,3})\b(?!\.\d)"
 NFR_PATTERN = r"\b(NFR-\d+\.\d+)\b"
+# Compiled forms for extract() (which requires exactly one capture group).
+NFR_ID_RE = re.compile(NFR_PATTERN)
+NFR_GROUP_RE = re.compile(r"\b(NFR-\d+)\b(?!\.\d)")
 
 # Other ID namespaces that live in these documents and are not requirements.
 # Without this, business rules (RN-01) and ADRs read as untraced requirements.
@@ -54,22 +63,35 @@ def read(path: str) -> str:
     return open(path, encoding="utf-8", errors="replace").read()
 
 
-def extract(pattern: str, text: str) -> set[str]:
-    return set(re.findall(pattern, text))
+def extract(pattern: re.Pattern[str], text: str) -> set[str]:
+    """IDs matched by a pattern. Callers must pass a pattern with exactly one
+    capture group (validated in main), so findall yields plain strings."""
+    return set(pattern.findall(text))
 
 
 def parse_openapi(path: str) -> set[str]:
-    """Extract 'METHOD /path' from an OpenAPI document without a YAML dependency."""
+    """Extract 'METHOD /path' from an OpenAPI document without a YAML dependency.
+
+    Handles the shapes a real contract uses: unquoted and quoted path keys
+    (``'/orders':``), list-style entries, arbitrary indentation, and inline
+    method values (``get: {operationId: x}``). The previous indentation-exact
+    parser missed quoted keys entirely and reported zero endpoints on a valid
+    contract, silently skipping the endpoint gate.
+    """
     if not os.path.exists(path):
         return set()
     endpoints: set[str] = set()
     current_path: str | None = None
+    methods = "|".join(HTTP_METHODS)
     for line in read(path).splitlines():
-        m = re.match(r"^  (/[^\s:]+):\s*$", line)
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        m = re.match(r"""^\s*(?:-\s*)?['"]?(/[^\s:'"]*)['"]?\s*:""", line)
         if m:
             current_path = m.group(1)
             continue
-        m = re.match(r"^    (" + "|".join(HTTP_METHODS) + r"):\s*$", line)
+        m = re.match(r"^\s+(" + methods + r")\s*:", line)
         if m and current_path:
             endpoints.add(f"{m.group(1).upper()} {current_path}")
     return endpoints
@@ -116,6 +138,20 @@ def main() -> int:
                     help="comma-separated ID prefixes that are not requirements")
     args = ap.parse_args()
 
+    # --id-pattern is a regex with exactly one capture group. A zero-group or
+    # multi-group pattern makes findall return strings/tuples that the rest of
+    # the pipeline cannot handle; reject it with a message instead of a stack
+    # trace (this used to crash with AttributeError on tuples).
+    try:
+        id_re = re.compile(args.id_pattern)
+    except re.error as e:
+        print(f"invalid --id-pattern: {e}", file=sys.stderr)
+        return 2
+    if id_re.groups != 1:
+        print(f"--id-pattern must contain exactly one capture group "
+              f"(found {id_re.groups})", file=sys.stderr)
+        return 2
+
     root = os.path.abspath(args.project)
     docs = os.path.join(root, "docs")
 
@@ -134,8 +170,8 @@ def main() -> int:
     req_text = read(req_file)
     trace_text = read(trace_file)
 
-    defined = extract(args.id_pattern, req_text)
-    traced = extract(args.id_pattern, trace_text)
+    defined = extract(id_re, req_text)
+    traced = extract(id_re, trace_text)
 
     ignore = {p.strip() for p in args.ignore_prefix.split(",") if p.strip()}
     defined = {i for i in defined if i.rsplit("-", 1)[0] not in ignore}
@@ -144,15 +180,22 @@ def main() -> int:
     untraced = sorted(defined - traced)
     undefined = sorted(traced - defined)
 
-    nfr_defined = extract(NFR_PATTERN, read(nfr_file)) if os.path.exists(nfr_file) else set()
-    # Group-level is the documented convention: a matrix maps NFR-1 (the category)
-    # to its verification, not each of NFR-1.1 ... NFR-1.8 individually.
-    nfr_group_pattern = r"\b(NFR-\d+)\b(?!\.\d)"
-    nfr_groups = extract(nfr_group_pattern, read(nfr_file)) if os.path.exists(nfr_file) else set()
-    nfr_groups_traced = extract(nfr_group_pattern, trace_text)
+    nfr_text = read(nfr_file) if os.path.exists(nfr_file) else ""
+    nfr_defined = extract(NFR_ID_RE, nfr_text)
+    # Group-level is the documented convention: a matrix maps NFR-1 (the
+    # category) to its verification, not each of NFR-1.1 ... NFR-1.8
+    # individually. NFR.md writes dotted IDs (NFR-1.1 ...), so groups are
+    # DERIVED from those IDs (NFR-1.1 -> NFR-1) and unioned with any bare
+    # group IDs written explicitly. Before this fix the group gate never
+    # fired, because \b(NFR-\d+)\b(?!\.\d) cannot match inside "NFR-1.1"
+    # and a set that only uses dotted IDs reported "0 groups, ok" while
+    # the traceability matrix ignored every NFR.
+    nfr_groups = {i.rsplit(".", 1)[0] for i in nfr_defined}
+    nfr_groups |= extract(NFR_GROUP_RE, nfr_text)
+    nfr_groups_traced = extract(NFR_GROUP_RE, trace_text)
     nfr_groups_untraced = sorted(nfr_groups - nfr_groups_traced)
 
-    nfr_traced = extract(NFR_PATTERN, trace_text)
+    nfr_traced = extract(NFR_ID_RE, trace_text)
     nfr_untraced = sorted(nfr_defined - nfr_traced)
 
     prefixes: dict[str, int] = {}
@@ -173,18 +216,24 @@ def main() -> int:
         print(json.dumps({
             "requirements_defined": len(defined),
             "requirements_traced": len(traced),
-            "untraced": untraced,
-            "undefined": undefined,
+            "untraced": untraced[:MAX_LIST],
+            "untraced_total": len(untraced),
+            "undefined": undefined[:MAX_LIST],
+            "undefined_total": len(undefined),
             "nfr_defined": len(nfr_defined),
             "nfr_groups": len(nfr_groups),
-            "nfr_groups_untraced": nfr_groups_untraced,
+            "nfr_groups_untraced": nfr_groups_untraced[:MAX_LIST],
+            "nfr_groups_untraced_total": len(nfr_groups_untraced),
             "nfr_individually_traced": len(nfr_traced),
-            "nfr_untraced": nfr_untraced,
+            "nfr_untraced": nfr_untraced[:MAX_LIST],
+            "nfr_untraced_total": len(nfr_untraced),
             "modules": dict(sorted(prefixes.items())),
             "openapi_endpoints": len(api_endpoints),
             "traced_endpoints": len(traced_endpoints),
-            "endpoints_not_traced": endpoints_not_traced,
-            "endpoints_not_in_contract": endpoints_not_in_contract,
+            "endpoints_not_traced": endpoints_not_traced[:MAX_LIST],
+            "endpoints_not_traced_total": len(endpoints_not_traced),
+            "endpoints_not_in_contract": endpoints_not_in_contract[:MAX_LIST],
+            "endpoints_not_in_contract_total": len(endpoints_not_in_contract),
             "failures": failures,
         }, indent=2, ensure_ascii=False))
         return 1 if failures else 0
@@ -199,11 +248,17 @@ def main() -> int:
     print(f"  defined in REQUIREMENTS.md   {len(defined)}")
     print(f"  traced in TRACEABILITY.md    {len(traced)}")
     if untraced:
-        print(f"  UNTRACED ({len(untraced)}): {', '.join(untraced)}")
+        shown = ", ".join(untraced[:MAX_HUMAN])
+        print(f"  UNTRACED ({len(untraced)}): {shown}")
+        if len(untraced) > MAX_HUMAN:
+            print(f"          ... and {len(untraced) - MAX_HUMAN} more")
     else:
         print("  ok  every defined ID is traced")
     if undefined:
-        print(f"  UNDEFINED ({len(undefined)}): {', '.join(undefined)}")
+        shown = ", ".join(undefined[:MAX_HUMAN])
+        print(f"  UNDEFINED ({len(undefined)}): {shown}")
+        if len(undefined) > MAX_HUMAN:
+            print(f"          ... and {len(undefined) - MAX_HUMAN} more")
         print("        traced but never defined in REQUIREMENTS.md")
 
     head("Modules")
@@ -218,7 +273,10 @@ def main() -> int:
         print(f"  defined                    {len(nfr_defined)} across {len(nfr_groups)} group(s)")
         print(f"  groups traced              {len(nfr_groups) - len(nfr_groups_untraced)}")
         if nfr_groups_untraced:
-            print(f"  GROUPS UNTRACED: {', '.join(nfr_groups_untraced)}")
+            shown = ", ".join(nfr_groups_untraced[:MAX_HUMAN])
+            print(f"  GROUPS UNTRACED ({len(nfr_groups_untraced)}): {shown}")
+            if len(nfr_groups_untraced) > MAX_HUMAN:
+                print(f"          ... and {len(nfr_groups_untraced) - MAX_HUMAN} more")
         else:
             print("  ok  every NFR group is traced")
         print(f"  individually traced        {len(nfr_traced)} of {len(nfr_defined)}")
@@ -232,17 +290,19 @@ def main() -> int:
     print(f"  in the traceability     {len(traced_endpoints)}")
     if endpoints_not_traced:
         print(f"  NOT TRACED ({len(endpoints_not_traced)}):")
-        for e in endpoints_not_traced:
+        for e in endpoints_not_traced[:MAX_HUMAN]:
             print(f"      {e}")
+        if len(endpoints_not_traced) > MAX_HUMAN:
+            print(f"      ... and {len(endpoints_not_traced) - MAX_HUMAN} more")
         print("        in the contract but serving no requirement")
     else:
         print("  ok  every contract endpoint is traced")
     if endpoints_not_in_contract:
         print(f"  NOT IN CONTRACT ({len(endpoints_not_in_contract)}):")
-        for e in endpoints_not_in_contract[:10]:
+        for e in endpoints_not_in_contract[:MAX_HUMAN]:
             print(f"      {e}")
-        if len(endpoints_not_in_contract) > 10:
-            print(f"      ... and {len(endpoints_not_in_contract) - 10} more")
+        if len(endpoints_not_in_contract) > MAX_HUMAN:
+            print(f"      ... and {len(endpoints_not_in_contract) - MAX_HUMAN} more")
         print("        traced but absent from openapi.yaml.")
         print("        Expected when the contract covers an earlier release than the matrix.")
 

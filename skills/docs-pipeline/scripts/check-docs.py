@@ -27,6 +27,18 @@ from urllib.parse import unquote
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
+# --- Output budget -----------------------------------------------------------
+# No check should be able to flood the session with megabytes of findings.
+# Human output caps the per-list detail; JSON caps each array (totals kept).
+MAX_LIST = 200    # items per array in --json output
+MAX_HUMAN = 40    # detailed items per failure list in human output
+
+# Directories that are never part of a documentation set. Walking them (and
+# reading every .md inside) is where a "run the checks" command turns into a
+# minutes-long flood.
+IGNORED_DIRS = {"node_modules", ".venv", "venv", "build", "dist", ".next",
+                "__pycache__", ".git"}
+
 # --- The document classes that define "complete" -----------------------------
 # key -> (label, [acceptable paths relative to the project root], required)
 CLASSES: list[tuple[str, str, list[str], bool]] = [
@@ -118,8 +130,7 @@ def language_of(text: str) -> str:
 def find_markdown(root: str) -> list[str]:
     out = []
     for dp, dn, fn in os.walk(root):
-        if ".git" in dp.split(os.sep):
-            continue
+        dn[:] = [d for d in dn if d not in IGNORED_DIRS]
         for f in fn:
             if f.endswith(".md"):
                 out.append(os.path.join(dp, f))
@@ -129,7 +140,21 @@ def find_markdown(root: str) -> list[str]:
 def check_classes(root: str) -> list[dict]:
     rows = []
     for key, label, paths, required in CLASSES:
-        found = next((p for p in paths if os.path.exists(os.path.join(root, p))), None)
+        found = None
+        if key == "adr":
+            # A decision-record set exists if the directory holds at least one
+            # record file; the README is a nice-to-have, not the class itself.
+            # Requiring docs/adr/README.md made every freshly generated set
+            # fail the gate forever.
+            adr_readme = os.path.join(root, "docs", "adr", "README.md")
+            adr_dir = os.path.join(root, "docs", "adr")
+            if os.path.exists(adr_readme):
+                found = "docs/adr/README.md"
+            elif os.path.isdir(adr_dir) and any(
+                    f.endswith(".md") for f in os.listdir(adr_dir)):
+                found = "docs/adr/"
+        else:
+            found = next((p for p in paths if os.path.exists(os.path.join(root, p))), None)
         rows.append({
             "key": key, "label": label, "required": required,
             "found": found, "ok": bool(found) or not required,
@@ -188,7 +213,10 @@ def check_mermaid(root: str) -> list[dict]:
         if not f.endswith(".md"):
             continue
         text = open(os.path.join(agent_dir, f), encoding="utf-8", errors="replace").read()
-        if "mermaid" in text.lower():
+        # Only an actual code fence is a diagram. The word alone ("Mermaid" as
+        # prose, a https://mermaid.live link) is not, and flagging it forces
+        # the agent to rewrite documents that are already correct.
+        if re.search(r"^```mermaid", text, flags=re.IGNORECASE | re.MULTILINE):
             bad.append({"file": f"docs/agent-docs/{f}"})
     return bad
 
@@ -261,11 +289,16 @@ def main() -> int:
             "classes": classes,
             "missing_required": missing_required,
             "missing_optional": missing_optional,
-            "broken_links": broken,
-            "emoji_violations": emoji_bad,
-            "emoji_allowed": emoji_ok,
-            "mermaid_in_agent_docs": mermaid_bad,
-            "count_conflicts": conflicts,
+            "broken_links": broken[:MAX_LIST],
+            "broken_links_total": len(broken),
+            "emoji_violations": emoji_bad[:MAX_LIST],
+            "emoji_violations_total": len(emoji_bad),
+            "emoji_allowed": emoji_ok[:MAX_LIST],
+            "emoji_allowed_total": len(emoji_ok),
+            "mermaid_in_agent_docs": mermaid_bad[:MAX_LIST],
+            "mermaid_in_agent_docs_total": len(mermaid_bad),
+            "count_conflicts": conflicts[:MAX_LIST],
+            "count_conflicts_total": len(conflicts),
             "failures": failures,
         }, indent=2, ensure_ascii=False))
         return 1 if failures else 0
@@ -290,34 +323,47 @@ def main() -> int:
 
     head("Internal links")
     if broken:
-        for b in broken:
+        for b in broken[:MAX_HUMAN]:
             print(f"  BROKEN  {b['file']} -> {b['target']}")
+        if len(broken) > MAX_HUMAN:
+            print(f"  ... and {len(broken) - MAX_HUMAN} more broken link(s)")
     else:
         print("  ok  all resolve")
 
     head("Emoji")
     if emoji_bad:
-        for e in emoji_bad:
+        for e in emoji_bad[:MAX_HUMAN]:
             print(f"  FAIL  {e['file']}  {e['count']} in an English document  {e['samples']}")
+        if len(emoji_bad) > MAX_HUMAN:
+            print(f"  ... and {len(emoji_bad) - MAX_HUMAN} more English emoji violation(s)")
     else:
         print("  ok  none in English documents")
     if emoji_ok and not args.quiet:
-        for e in emoji_ok:
+        for e in emoji_ok[:MAX_HUMAN]:
             print(f"  note  {e['file']}  {e['count']} in a working document ({e['language']})")
+        if len(emoji_ok) > MAX_HUMAN:
+            print(f"  ... and {len(emoji_ok) - MAX_HUMAN} more working-document emoji note(s)")
 
     head("Mermaid in agent-docs")
     if mermaid_bad:
-        for b in mermaid_bad:
+        for b in mermaid_bad[:MAX_HUMAN]:
             print(f"  FAIL  {b['file']}  agent docs use text graphs, not diagrams")
+        if len(mermaid_bad) > MAX_HUMAN:
+            print(f"  ... and {len(mermaid_bad) - MAX_HUMAN} more file(s)")
     else:
         print("  ok  none")
 
     head("Count consistency")
     if conflicts:
-        for c in conflicts:
+        for c in conflicts[:MAX_HUMAN]:
             print(f"  CHECK  {c['concept']}: {c['values']}")
             for n, where in c["where"].items():
-                print(f"              {n} declared in {', '.join(where)}")
+                files = " ".join(sorted(where)[:8])
+                if len(where) > 8:
+                    files += f" ... (+{len(where) - 8} more)"
+                print(f"              {n} declared in {files}")
+        if len(conflicts) > MAX_HUMAN:
+            print(f"  ... and {len(conflicts) - MAX_HUMAN} more conflict(s)")
         print("  note: ambiguous nouns cause false positives here. Verify by hand.")
     else:
         print("  ok  no contradicting counts")

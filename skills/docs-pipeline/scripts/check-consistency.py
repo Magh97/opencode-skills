@@ -31,6 +31,15 @@ from urllib.parse import unquote
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
+# --- Output budget -----------------------------------------------------------
+# Same caps as check-docs.py: findings are capped per list, totals kept in JSON.
+MAX_LIST = 200
+MAX_HUMAN = 40
+
+# Directories that are never part of a documentation set (see check-docs.py).
+IGNORED_DIRS = {"node_modules", ".venv", "venv", "build", "dist", ".next",
+                "__pycache__", ".git"}
+
 REQ_ID = re.compile(r"\b([A-Z][A-Z0-9]{1,7}-\d{1,3})\b(?!\.\d)")
 NFR_ID = re.compile(r"\b(NFR-\d+\.\d+)\b")
 ADR_REF = re.compile(r"\bADR-(\d{3,4})\b")
@@ -57,8 +66,7 @@ def read(path: str) -> str:
 def find_markdown(root: str) -> list[str]:
     out = []
     for dp, dn, fn in os.walk(root):
-        if ".git" in dp.split(os.sep):
-            continue
+        dn[:] = [d for d in dn if d not in IGNORED_DIRS]
         for f in fn:
             if f.endswith(".md"):
                 out.append(os.path.join(dp, f))
@@ -163,8 +171,7 @@ def main() -> int:
     # checked by check-docs.py.
     by_basename: dict[str, str] = {}
     for dp, dn, fn in os.walk(root):
-        if ".git" in dp.split(os.sep):
-            continue
+        dn[:] = [d for d in dn if d not in IGNORED_DIRS]
         for f in fn:
             by_basename.setdefault(f, os.path.join(dp, f))
 
@@ -208,14 +215,20 @@ def main() -> int:
     if args.json:
         print(json.dumps({
             "adr_files": len(adr_files),
-            "adr_missing": adr_missing,
-            "adr_orphans": [f"ADR-{a}" for a in adr_orphans],
+            "adr_missing": adr_missing[:MAX_LIST],
+            "adr_missing_total": len(adr_missing),
+            "adr_orphans": [f"ADR-{a}" for a in adr_orphans[:MAX_LIST]],
+            "adr_orphans_total": len(adr_orphans),
             "requirements_defined": len(defined_reqs),
-            "requirement_refs_undefined": req_undefined,
+            "requirement_refs_undefined": req_undefined[:MAX_LIST],
+            "requirement_refs_undefined_total": len(req_undefined),
             "nfr_defined": len(defined_nfrs),
-            "nfr_refs_undefined": nfr_undefined,
-            "paths_missing": path_missing,
+            "nfr_refs_undefined": nfr_undefined[:MAX_LIST],
+            "nfr_refs_undefined_total": len(nfr_undefined),
+            "paths_missing": path_missing[:MAX_LIST],
+            "paths_missing_total": len(path_missing),
             "duplicated_table_headers": len(duplicated),
+            "duplicated_table_headers_detail": list(duplicated.items())[:MAX_LIST],
             "failures": failures,
         }, indent=2, ensure_ascii=False))
         return 1 if failures else 0
@@ -229,27 +242,35 @@ def main() -> int:
     head("ADR references")
     print(f"  files present      {len(adr_files)}")
     if adr_missing:
-        for a in adr_missing:
+        for a in adr_missing[:MAX_HUMAN]:
             print(f"  MISSING  {a['adr']} referenced in {a['referenced_in']}")
+        if len(adr_missing) > MAX_HUMAN:
+            print(f"  ... and {len(adr_missing) - MAX_HUMAN} more missing ADR reference(s)")
     else:
         print("  ok  every referenced ADR exists")
     if adr_orphans:
-        print(f"  note  present but never referenced: "
-              f"{', '.join('ADR-' + a for a in adr_orphans)}")
+        shown = ", ".join("ADR-" + a for a in adr_orphans[:MAX_HUMAN])
+        print(f"  note  present but never referenced: {shown}")
+        if len(adr_orphans) > MAX_HUMAN:
+            print(f"        ... and {len(adr_orphans) - MAX_HUMAN} more")
 
     head("Requirement ID references")
     print(f"  defined in REQUIREMENTS.md   {len(defined_reqs)}")
     if req_undefined:
-        for r in req_undefined:
+        for r in req_undefined[:MAX_HUMAN]:
             print(f"  UNDEFINED  {r['id']} referenced in {r['referenced_in']}")
+        if len(req_undefined) > MAX_HUMAN:
+            print(f"  ... and {len(req_undefined) - MAX_HUMAN} more undefined reference(s)")
     else:
         print("  ok  every referenced requirement ID is defined")
 
     head("NFR ID references")
     print(f"  defined in NFR.md   {len(defined_nfrs)}")
     if nfr_undefined:
-        for r in nfr_undefined:
+        for r in nfr_undefined[:MAX_HUMAN]:
             print(f"  UNDEFINED  {r['id']} referenced in {r['referenced_in']}")
+        if len(nfr_undefined) > MAX_HUMAN:
+            print(f"  ... and {len(nfr_undefined) - MAX_HUMAN} more undefined reference(s)")
     else:
         print("  ok  every referenced NFR ID is defined")
 
@@ -257,8 +278,10 @@ def main() -> int:
     if path_missing:
         docs_missing = [p for p in path_missing if p["kind"] == "doc"]
         artifacts = [p for p in path_missing if p["kind"] == "artifact"]
-        for p in docs_missing:
+        for p in docs_missing[:MAX_HUMAN]:
             print(f"  CHECK  {p['path']}  (in {p['file']})")
+        if len(docs_missing) > MAX_HUMAN:
+            print(f"  ... and {len(docs_missing) - MAX_HUMAN} more missing document path(s)")
         for p in artifacts[:8]:
             print(f"  note   {p['path']}  (in {p['file']}) -- planned artifact?")
         if len(artifacts) > 8:

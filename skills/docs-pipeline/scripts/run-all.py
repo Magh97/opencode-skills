@@ -31,6 +31,8 @@ def main() -> int:
                     help="pass --strict to check-docs (count conflicts become failures)")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--verbose", action="store_true", help="show each script's full output")
+    ap.add_argument("--timeout", type=int, default=600,
+                    help="kill a script after N seconds (default 600)")
     args = ap.parse_args()
 
     results = []
@@ -38,15 +40,39 @@ def main() -> int:
         cmd = [sys.executable, os.path.join(HERE, name), args.project]
         if args.strict and name == "check-docs.py":
             cmd.append("--strict")
-        proc = subprocess.run(cmd, capture_output=True, text=True,
-                              encoding="utf-8", errors="replace")
-        tail = [l for l in (proc.stdout or "").splitlines() if l.strip()]
+        timed_out = False
+        try:
+            proc = subprocess.run(cmd, capture_output=True, text=True,
+                                  encoding="utf-8", errors="replace",
+                                  timeout=args.timeout)
+            exit_code = proc.returncode
+            out = proc.stdout or ""
+            err = proc.stderr or ""
+        except subprocess.TimeoutExpired as e:
+            # A script that walks a huge tree can hang long enough to stall the
+            # whole session. Kill it, report the partial output, keep going.
+            exit_code = -1
+            out = e.stdout or ""
+            err = (e.stderr or "") + "\n[TIMED OUT after {}s]".format(args.timeout)
+            timed_out = True
+        tail = [l for l in out.splitlines() if l.strip()]
+        if len(out) > 8000:
+            out = out[:8000] + "\n... (output truncated)"
+        if timed_out:
+            summary = "TIMEOUT"
+        elif tail:
+            summary = tail[-1]
+        else:
+            # exit != 0 with no stdout: the failure message went to stderr
+            # (e.g. "missing required file(s)"). Surface it in the summary.
+            err_tail = [l for l in err.splitlines() if l.strip()]
+            summary = " ".join(err_tail[-1].split()) if err_tail else "(no output)"
         results.append({
             "script": name,
-            "exit": proc.returncode,
-            "summary": tail[-1] if tail else "(no output)",
-            "output": proc.stdout or "",
-            "stderr": proc.stderr or "",
+            "exit": exit_code,
+            "summary": summary,
+            "output": out,
+            "stderr": err,
         })
 
     failed = [r for r in results if r["exit"] != 0]
@@ -67,7 +93,12 @@ def main() -> int:
         for r in results:
             print()
             print(f"===== {r['script']} =====")
-            print(r["output"].rstrip())
+            lines = r["output"].rstrip().splitlines()
+            if len(lines) > 200:
+                print("\n".join(lines[:200]))
+                print(f"... ({len(lines) - 200} more lines)")
+            else:
+                print(r["output"].rstrip())
             if r["stderr"].strip():
                 print("--- stderr ---")
                 print(r["stderr"].rstrip())
