@@ -1,6 +1,6 @@
 ---
 name: docs-pipeline
-description: "Genera y verifica un set completo de documentación de diseño: premise audit, decision register, 14 clases de documento, trazabilidad y verificación mecánica con 3 scripts. Úsala cuando el usuario diga 'documenta este proyecto', 'genera la documentación de diseño', 'plan de proyecto completo', 'traceability matrix', o para auditar un document set existente."
+description: "Genera y verifica un set completo de documentación de diseño: premise audit, decision register, 14 tipos de documento, trazabilidad y verificación con 3 scripts. Úsala con 'documenta este proyecto', 'documentación de diseño', 'traceability matrix' o para auditar un set existente."
 ---
 
 # Docs Pipeline
@@ -81,7 +81,7 @@ Read [`references/decision-register.md`](references/decision-register.md).
 
 ## Phase 3 — Planning
 
-Load and follow `planning-core`, `planning-roadmap`, `planning-risk`, `planning-stakeholders`, `planning-status` (or `agent-planning` for the compact form).
+Load and follow `planning-core`, `planning-roadmap`, `planning-risk`, `planning-stakeholders`, `planning-status` (el modo compacto de `planning-core` produce el charter en 1 página).
 
 Produces: charter, roadmap, risks, stakeholders, status.
 
@@ -91,7 +91,7 @@ Produces: charter, roadmap, risks, stakeholders, status.
 
 ## Phase 4 — Design
 
-Load and follow `design-core`, `design-data`, `design-api`, `design-adr` (or `agent-design`).
+Load and follow `design-core`, `design-data`, `design-api`, `design-adr` (el modo compacto de `design-core` produce las secciones agent-optimized).
 
 Produces: architecture, schema, API contract, ADRs, technical spec.
 
@@ -121,7 +121,7 @@ The four that are almost always missing, and why they matter:
 
 ## Phase 6 — Design system
 
-Load and follow `agent-anti-slop-designer-experimental` (risky, memorable) or `agent-anti-slop-designer` (safer).
+Load and follow `agent-anti-slop-designer` (modo estándar o experimental — `references/experimental.md` para lo arriesgado/memorable).
 
 **Derive the visual direction from the domain, not from a menu of art movements.** The best design system is made of the product's own artifacts. A restaurant system is made of thermal tickets, rubber stamps and heat lamps; a logistics system is made of manifests, barcodes and loading docks.
 

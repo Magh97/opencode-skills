@@ -1,6 +1,7 @@
 ---
 name: planning-risk
-description: "Identificación, clasificación y mitigación de riesgos del proyecto. Cubre matriz probabilidad × impacto, riesgos técnicos, de negocio y externos, y plan de mitigación. Actívala al iniciar un proyecto, al planear un sprint, o cuando el usuario diga 'riesgos del proyecto', 'risk matrix', 'mitigación', 'qué puede salir mal'. Normalmente se usa junto con planning-core, planning-roadmap y planning-stakeholders al planear un proyecto completo."
+description: "Identificación y mitigación de riesgos: matriz probabilidad × impacto, riesgos técnicos/de negocio/externos y plan de mitigación. Úsala con 'riesgos del proyecto', 'risk matrix', 'mitigación' o 'qué puede salir mal'."
+disable-model-invocation: true
 ---
 
 # Planning Risk — Identificación y Mitigación

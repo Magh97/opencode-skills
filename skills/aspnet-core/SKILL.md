@@ -1,6 +1,6 @@
 ---
 name: aspnet-core
-description: "Guía principal de desarrollo ASP.NET Core (.NET 9/10). Cubre pipeline HTTP, hosting, startup, middleware, configuración, DI en contexto web, entornos, static files, routing, y fundamentos del framework. Actívala para cualquier tarea ASP.NET Core: nuevos proyectos, configuración del pipeline, diagnóstico de errores, o migración desde versiones anteriores."
+description: "Guía principal de ASP.NET Core (.NET 9/10): pipeline HTTP, hosting, middleware, configuración, DI, entornos, static files y routing. Úsala para cualquier tarea ASP.NET Core: proyectos nuevos, configuración del pipeline, debugging o migraciones."
 ---
 
 # ASP.NET Core — Guía Principal
@@ -503,15 +503,15 @@ Solution.sln
 | Skill                       | Cuándo cargarla                                |
 |-----------------------------|------------------------------------------------|
 | `aspnet-mvc`                | Controllers, Views, Tag Helpers, Layouts       |
-| `aspnet-web-api`            | REST APIs con Controllers y Minimal APIs, AddValidation(), OpenAPI 3.1/YAML |
+|  `dotnet-api` (references/aspnet.md)| REST APIs con Controllers y Minimal APIs, AddValidation(), OpenAPI 3.1/YAML |
 | `aspnet-razor-pages`        | Razor Pages, PageModel, handlers               |
 | `aspnet-blazor`             | Blazor Server, WASM, Hybrid, WASM preloading    |
 | `aspnet-identity`           | AuthN/AuthZ, Identity, JWT, OAuth              |
-| `aspnet-ef-core`            | EF Core en contexto web (scoped, migraciones)  |
+|  `dotnet-ef-core` (references/aspnet.md)| EF Core en contexto web (scoped, migraciones)  |
 | `aspnet-signalr`            | Hubs, streaming, backplane Redis               |
 | `aspnet-middleware`         | Custom middleware, filters, model binding      |
-| `aspnet-testing`            | WebApplicationFactory, E2E, Playwright         |
-| `aspnet-performance`        | Caching, compression, CDN, bundling            |
+|  `dotnet-testing` (references/aspnet.md)| WebApplicationFactory, E2E, Playwright         |
+|  `dotnet-performance` (references/aspnet.md)| Caching, compression, CDN, bundling            |
 | `aspnet-deployment`         | IIS, Docker, Azure, nginx, CI/CD               |
 
 ---

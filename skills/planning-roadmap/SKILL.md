@@ -1,6 +1,7 @@
 ---
 name: planning-roadmap
-description: "Roadmap, milestones, cronograma y plan de entregables. Cubre timeline por fases, dependencias entre equipos/sistemas, y delivery plan progresivo. Actívala al definir fechas, planear releases, o cuando el usuario diga 'roadmap', 'milestones', 'cronograma', 'entregables', 'fases del proyecto', 'Gantt'. Normalmente se usa junto con planning-core, planning-risk y planning-stakeholders al planear un proyecto completo."
+description: "Roadmap, milestones y cronograma: timeline por fases, dependencias y plan de entregables. Úsala con 'roadmap', 'milestones', 'cronograma', 'entregables', 'fases del proyecto' o 'Gantt'."
+disable-model-invocation: true
 ---
 
 # Planning Roadmap — Timeline y Entregables

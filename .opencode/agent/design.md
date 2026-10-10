@@ -14,7 +14,7 @@ Un diseño de sistema completo casi siempre cubre varias skills a la vez (ej. "d
 - **`design-data`** — Modelado de datos conceptual → lógico → físico: ERDs, normalización, índices, particionado.
 - **`design-adr`** — Architecture Decision Records con contexto, alternativas y consecuencias.
 - **`design-review`** — Revisión estructurada de diseños: acoplamiento, escalabilidad, seguridad, costos, operabilidad.
-- **`agent-design`** — Producción de secciones componibles (architecture, API, schema) optimizadas para agentes.
+- **`design-core`** — Secciones componibles (architecture, API, schema), incluido el modo compacto agent-optimized.
 - **`dotnet-architecture`** — Si el stack es .NET (N-Capas, Clean, Hexagonal, Vertical Slices).
 - **`nodejs-architecture`** — Si el stack es Node.js (Clean, Hexagonal, Modular Monolith, monorepo).
 - **`react-architecture`** — Si el stack es React (feature-based, Next.js vs Vite vs TanStack Start).

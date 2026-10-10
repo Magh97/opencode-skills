@@ -1,7 +1,8 @@
 ---
 name: productivity-changelog
-description: Genera CHANGELOG.md a partir de conventional commits en git log. Agrupa cambios por tipo (feat, fix, breaking, chore, docs), infiere versión semántica, y linkea issues/PRs cuando están referenciados en los commits. Úsala antes de un release, al cierre de sprint, o cuando el usuario diga "genera changelog", "release notes", "qué cambió", "changelog desde la última versión".
-requires-devkits: auto-detect
+description: "Genera CHANGELOG.md desde conventional commits: agrupa por tipo (feat, fix, breaking…), infiere versión semántica y linkea issues/PRs. Úsala con 'genera changelog', 'release notes' o 'qué cambió' antes de un release."
+metadata:
+  requires-devkits: auto-detect
 ---
 
 # Productivity Changelog — Commits a Release Notes

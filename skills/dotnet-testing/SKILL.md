@@ -588,3 +588,9 @@ await _sut.Handle(command, CancellationToken.None);
 - [ ] Tests usan builders/object mothers, no construyen objetos a mano
 - [ ] Nombres de tests siguen `Method_Scenario_ExpectedResult`
 - [ ] Tests son independientes entre sí (sin estado compartido)
+
+---
+
+## Referencia: testing en ASP.NET Core
+
+Para `WebApplicationFactory`, integration testing de endpoints, autenticación de prueba y bUnit, lee `references/aspnet.md`. Aplica cuando el proyecto sea ASP.NET Core.

@@ -535,7 +535,7 @@ public void OrderCard_RendersCorrectly()
 }
 ```
 
-> Para la guía completa de testing con bUnit (mocks, providers, snapshot testing), ver `aspnet-testing`.
+> Para la guía completa de testing con bUnit (mocks, providers, snapshot testing), ver `dotnet-testing` (references/aspnet.md).
 
 ---
 

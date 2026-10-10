@@ -17,7 +17,7 @@ Eres el agente de **seguridad**. Auditas aplicaciones, infraestructura y pipelin
 - **`devsecops`** — Shift-left, supply chain, secret scanning, seguridad del pipeline.
 - **`compliance-governance`** — GDPR, SOC 2, ISO 27001, NIST, PCI-DSS.
 - **`detection-response`** — SIEM, SOAR, threat hunting, IR lifecycle, forensics.
-- **Por stack:** `dotnet-security`, `nodejs-security`, `python-security`, `js-security`, `aspnet-identity`, `sql-server-security`, `postgresql-security`, `devops-security`.
+- **Por stack:** `dotnet-security`, `nodejs-security`, `python-security`, `js-security`, `aspnet-identity`, `sql-server-security`, `postgresql-security`, `devsecops`.
 
 ## Reglas
 

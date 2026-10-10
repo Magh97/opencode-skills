@@ -1,6 +1,6 @@
 ---
 name: python-core
-description: "Guía principal de desarrollo Python (3.13/3.14). Cubre type hints modernas, async/await, uv (package manager), stdlib, free-threaded Python (3.14), template strings, Pydantic v2 para modelos, y fundamentos del ecosistema. Actívala para cualquier tarea Python: nuevas features, revisión de código, migraciones de versión. Las sub-skills del kit profundizan en dominios específicos."
+description: "Guía principal de Python (3.13/3.14): type hints, async/await, uv, free-threaded 3.14, template strings, Pydantic v2 y stdlib. Úsala para cualquier tarea Python: features, revisión o migraciones de versión."
 ---
 
 # Python Core Development Guide

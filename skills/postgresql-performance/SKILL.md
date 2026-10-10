@@ -1,6 +1,6 @@
 ---
 name: postgresql-performance
-description: "Rendimiento y tuning de queries en PostgreSQL. Cubre EXPLAIN/EXPLAIN ANALYZE, tipos de índices (B-tree, GIN, GiST, BRIN, Hash), vacuum y autovacuum, estadísticas (ANALYZE), particionamiento por poda (pruning), parallel query, async I/O (PG 18), skip scan (PG 18), y estrategias de optimización de queries. Actívala al diagnosticar queries lentas, diseñar índices, o resolver problemas de rendimiento."
+description: "Rendimiento y tuning en PostgreSQL: EXPLAIN ANALYZE, índices (B-tree, GIN, GiST, BRIN, Hash), vacuum/autovacuum, estadísticas, particionado, parallel query y skip scan (PG 18). Úsala al diagnosticar queries lentas o diseñar índices."
 disable-model-invocation: true
 ---
 

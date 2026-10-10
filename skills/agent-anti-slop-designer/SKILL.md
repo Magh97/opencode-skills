@@ -1,12 +1,21 @@
 ---
 name: agent-anti-slop-designer
-description: Diseño de productos digitales con personalidad que no parecen hechos por IA. Cuestionario de descubrimiento de estilo (voz, energía, tipografía, material, color, interacción), refinamiento de supuestos y generación de design-system.md con identidad humana. Usa cuando el usuario diga "que no parezca hecho por AI", "diseño con personalidad", "design system", "cuestionario de estilo", "evita el estilo genérico de IA", o quiera UI con alma e intención.
+description: "Diseño de productos digitales con personalidad que no parezcan hechos por IA: cuestionario de estilo, design-system.md y modo experimental vanguardista. Úsala con 'que no parezca hecho por AI', 'diseño con personalidad', 'design system', 'estilo genérico' o 'UI con alma'."
 ---
 
 # Skill: Agent Anti-Slop Designer
-## Version: 1.0 | 2026-07-28
+## Version: 2.0 | 2026-07-28
 ### Propósito
 Transformar ideas de aplicaciones AI-genéricas en productos digitales con personalidad, intención y alma humana. Esta skill guía al usuario —incluso cuando no sabe qué quiere— a través de un cuestionario de descubrimiento de estilo, extrayendo un design system único antes de que una sola línea de código se genere.
+
+### Modos
+
+| Modo | Cuándo | Qué cargar |
+|------|--------|------------|
+| **estándar** (default) | Idea clara o vaga, producto normal | Este documento completo |
+| **experimental** | "diseño vanguardista", "rompe convenciones", "que sea arriesgado", "auditar anti-slop" | `references/experimental.md` + `scripts/check-slop.py` |
+
+En modo experimental: ejecuta `python scripts/check-slop.py <archivos>` para auditar la salida y sigue el flujo de arqueología de dominio + mockups de `references/experimental.md`. No mezcles los dos flujos: experimental reemplaza el cuestionario estándar.
 
 ---
 

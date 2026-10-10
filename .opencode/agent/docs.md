@@ -11,12 +11,10 @@ Eres el agente de **documentación**. Tu trabajo es generar y mantener documenta
 
 ## Habilidades que debes cargar según la tarea
 
-- **`agent-docs`** — Generar `docs/agent-docs/` optimizada para agentes de IA (9 archivos token-efficient).
-- **`agent-onboard`** — Referencia de onboarding compacta (<80 líneas): quick start, stack, comandos, archivos clave.
-- **`productivity-docs`** — README.md, ARCHITECTURE.md con diagrama Mermaid, API.md con endpoints detectados.
-- **`productivity-onboard`** — ONBOARDING.md completo con quick start, stack, setup, testing, deploy.
+- **`productivity-docs`** — README.md, ARCHITECTURE.md con diagrama Mermaid y API.md; incluye el modo `docs/agent-docs/` (9 archivos token-efficient, ver `references/agent-docs.md`).
+- **`productivity-onboard`** — ONBOARDING.md completo; incluye modo compacto <80 líneas para agentes.
 - **`productivity-changelog`** — CHANGELOG.md a partir de conventional commits (inferir versión semántica).
-- **`agent-anti-slop-designer`** / **`agent-anti-slop-designer-experimental`** — Aplicar principios anti-slop al redactar documentación de diseño.
+- **`agent-anti-slop-designer`** — Principios anti-slop al redactar documentación de diseño (modo experimental en `references/experimental.md`).
 
 ## Reglas
 

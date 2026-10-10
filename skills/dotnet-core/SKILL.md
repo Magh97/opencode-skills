@@ -1,6 +1,6 @@
 ---
 name: dotnet-core
-description: "Guía principal de desarrollo .NET (C#, .NET 9/10). Cubre convenciones de código, features modernas de C# 13-14, sistema de proyectos, hosting, DI, configuración, middleware, logging, serialización y herramientas del ecosistema. Actívala para cualquier tarea .NET: nuevas features, revisión de código, arquitectura, migraciones o debugging. Las sub-skills del kit profundizan en dominios específicos."
+description: "Guía principal de .NET (C#, .NET 9/10): convenciones, C# 13-14, proyectos, hosting, DI, configuración, logging y serialización. Úsala para cualquier tarea .NET: features, revisión, arquitectura, migraciones o debugging."
 ---
 
 # .NET Core Development Guide

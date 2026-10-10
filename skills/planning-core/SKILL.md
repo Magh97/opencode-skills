@@ -1,6 +1,6 @@
 ---
 name: planning-core
-description: "Guía principal de planeación de proyectos de software. Cubre project charter, definición de alcance, MVP slicing (MoSCoW), metodología ágil liviana, roles, ceremony mínimo y estimación de alto nivel. Actívala al iniciar un proyecto nuevo, planear un sprint 0, definir alcance, o cuando el usuario diga 'planear proyecto', 'project charter', 'kickoff', 'definir alcance'. Las sub-skills del kit profundizan en stakeholders, riesgos, roadmap y reportes de estado."
+description: "Guía principal de planeación de software: project charter, alcance, MVP slicing (MoSCoW), ágil liviano y estimación de alto nivel. Incluye el modo compacto de 1 página. Úsala al iniciar proyecto, planear sprint 0 o 'project charter'."
 ---
 
 # Planning Core — Planeación de Proyecto
@@ -162,3 +162,45 @@ En equipos de 2-4 personas, no multipliques roles. Una persona puede ser PO + Te
 - No estimar en horas/hombre detallado. Eso va en `sputnik-core`.
 - No diseñar arquitectura. Eso va en `design-core`.
 - No reemplazar al PO. Las decisiones de alcance las valida el usuario.
+
+---
+
+## Modo compacto (charter de 1 página, para agentes)
+
+Cuando el usuario pida "plan this", "project charter", "MVP scope" o el consumidor sea un agente, genera el charter en una pasada, **máximo 1 página, tablas sin prosa**:
+
+```
+# Project Charter: [Nombre]
+
+## Objective
+[Una frase: problema + usuario.]
+
+## MVP Scope (Must)
+- [Feature]
+
+## Out of Scope (Won't — explícito)
+- [Exclusión]
+
+## Actors
+| Actor | Device | Access |
+
+## Modules
+| Module | Responsibility | Priority | Phase |
+
+## Roadmap
+| Phase | Duration | Features | Depends On |
+
+## Top Risks
+| Risk | Type | Probability | Impact | Mitigation |
+
+## Stack (inferido/sugerido)
+| Layer | Tech | Why |
+
+## Key Decisions (ADR candidates)
+| Decision | Options | Choice | Rationale |
+
+## Undefined
+- [ ] [Gap que requiere decisión]
+```
+
+Reglas: preguntar máximo 2 cosas en un solo mensaje; IDs `ORD-01`; prioridad `P0|P1|P2`; duraciones en semanas; sin teoría de metodología, sin roles, sin presupuesto salvo petición explícita.

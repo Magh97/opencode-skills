@@ -1,6 +1,6 @@
 ---
 name: flutter-core
-description: "Guía principal de Flutter y Dart. Cubre widgets, composición, stateful/stateless, hot reload, temas, null safety, records, patterns y fundamentos del framework. Actívala para cualquier tarea Flutter: nuevas pantallas, diseño de widgets, o migración de versiones. Las sub-skills del kit profundizan en dominios específicos."
+description: "Guía principal de Flutter y Dart: widgets, composición, stateful/stateless, temas, null safety, records y patterns. Úsala para cualquier tarea Flutter: pantallas nuevas, diseño de widgets o migración de versiones."
 ---
 
 # Flutter Core Guide

@@ -1,6 +1,6 @@
 ---
 name: postgresql-integration
-description: "Integración de PostgreSQL con .NET y aplicaciones. Cubre Npgsql, Entity Framework Core con PostgreSQL (configuración, connection resiliency, pg_trgm, JSONB mapping, vector), Dapper para queries de alto rendimiento, connection pooling (interno y PgBouncer), y mejores prácticas de conexión. Actívala al configurar la capa de datos en aplicaciones .NET, optimizar el acceso a datos, o migrar de SQL Server a PostgreSQL."
+description: "Integración de PostgreSQL con .NET: Npgsql, EF Core (resiliency, pg_trgm, JSONB, vector), Dapper y connection pooling (PgBouncer). Úsala al configurar la capa de datos, optimizar acceso o migrar de SQL Server."
 disable-model-invocation: true
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: sql-server-procedural
-description: "Programación procedural en SQL Server con T-SQL. Cubre stored procedures, funciones (scalar, inline, multi-statement), triggers (AFTER, INSTEAD OF), vistas, vistas indexadas, CTEs comunes, manejo de errores con TRY/CATCH y THROW, cursores (cuándo evitarlos), y parámetros con valores por defecto. Actívala al implementar lógica de negocio en la base de datos, migrar SPs legacy, o diseñar APIs de datos."
+description: "Programación en T-SQL: stored procedures, funciones, triggers, vistas (indexadas), CTEs, TRY/CATCH/THROW y cursores. Úsala al implementar lógica en la base, migrar SPs legacy o diseñar APIs de datos."
 disable-model-invocation: true
 ---
 

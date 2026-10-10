@@ -1,0 +1,6 @@
+# Normaliza finales de línea a LF en el repo (evita churn por core.autocrlf).
+* text=auto eol=lf
+
+# Scripts que deben conservar bit ejecutable
+*.sh text eol=lf
+*.py text eol=lf

@@ -94,5 +94,70 @@ else
     exit 1
 fi
 
+echo "=== Test 6: --list-kits coincide con kits.tsv ==="
+expected_kits=$(awk -F'\t' '!/^#/ && $1 != "" { n++ } END { print n }' "$SCRIPT_DIR/.opencode/kits.tsv")
+listed_kits=$(HOME="$TMP_HOME" "$SCRIPT_DIR/install.sh" --list-kits | wc -l | tr -d ' ')
+if [[ "$listed_kits" -eq "$expected_kits" ]]; then
+    echo "PASS: $listed_kits kits listados"
+else
+    echo "FAIL: esperaba $expected_kits kits, obtuve $listed_kits"
+    exit 1
+fi
+
+echo "=== Test 7: kit desconocido falla ==="
+if HOME="$TMP_HOME" "$SCRIPT_DIR/install.sh" -y --global --kits no-existe >/dev/null 2>&1; then
+    echo "FAIL: un kit desconocido deberia fallar"
+    exit 1
+else
+    echo "PASS: kit desconocido rechazado"
+fi
+
+echo "=== Test 8: --dry-run no escribe nada ==="
+rm -rf "$CONFIG_DIR"
+run_install --global --dry-run >/dev/null
+if [[ ! -d "$SKILLS_DIR" && ! -d "$AGENTS_DIR" ]]; then
+    echo "PASS: dry-run no creo directorios"
+else
+    echo "FAIL: dry-run escribio en disco"
+    exit 1
+fi
+
+echo "=== Test 9: --prune elimina skills huerfanas ==="
+rm -rf "$CONFIG_DIR"
+run_install --global >/dev/null
+mkdir -p "$SKILLS_DIR/skill-huerfana"
+echo "---" > "$SKILLS_DIR/skill-huerfana/SKILL.md"
+run_install --global --prune >/dev/null
+if [[ ! -d "$SKILLS_DIR/skill-huerfana" ]]; then
+    echo "PASS: skill huerfana eliminada"
+else
+    echo "FAIL: --prune no elimino la skill huerfana"
+    exit 1
+fi
+
+echo "=== Test 10: --uninstall borra solo lo instalado ==="
+rm -rf "$CONFIG_DIR"
+run_install --global >/dev/null
+run_install --uninstall >/dev/null
+agents_left=$(count_agents "$AGENTS_DIR")
+skills_left=$(count_skills "$SKILLS_DIR")
+if [[ "$agents_left" -eq 0 && "$skills_left" -eq 0 ]]; then
+    echo "PASS: agentes y skills desinstalados"
+else
+    echo "FAIL: quedaron $agents_left agentes y $skills_left skills"
+    exit 1
+fi
+
+echo "=== Test 11: --target pi ==="
+rm -rf "$CONFIG_DIR" "$TMP_HOME/.pi"
+run_install --global --target pi >/dev/null
+pi_skills=$(count_skills "$TMP_HOME/.pi/agent/skills")
+if [[ "$pi_skills" -eq 133 ]]; then
+    echo "PASS: 133 skills instaladas en ~/.pi/agent/skills"
+else
+    echo "FAIL: esperaba 133 skills en pi, obtuve $pi_skills"
+    exit 1
+fi
+
 echo ""
 echo "=== Todos los tests pasaron ==="

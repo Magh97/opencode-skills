@@ -1,6 +1,6 @@
 ---
 name: js-core
-description: "Guía principal de JavaScript vanilla en el navegador (ES6+). Cubre selectores DOM modernos, fetch API, eventos, ES Modules nativos (type=\"module\"), async/await, FormData, templates, localStorage, MutationObserver, y APIs del navegador. Actívala para cualquier tarea de JavaScript vanilla, especialmente en proyectos ASP.NET MVC + Razor sin bundler ni framework SPA. Las sub-skills del kit profundizan en dominios específicos."
+description: "Guía principal de JavaScript vanilla en el navegador (ES6+): DOM, fetch, eventos, ES Modules, async/await, FormData y APIs del navegador. Úsala para JS vanilla, sobre todo en ASP.NET MVC + Razor sin bundler ni SPA."
 ---
 
 # JavaScript Vanilla Core (Navegador)

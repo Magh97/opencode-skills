@@ -1,6 +1,6 @@
 ---
 name: postgresql-procedural
-description: "Programación procedural en PostgreSQL con PL/pgSQL. Cubre funciones (RETURNS TABLE, SETOF, VOID), procedimientos (CALL/COMMIT), triggers (BEFORE/AFTER/INSTEAD OF), vistas, vistas materializadas, reglas, event triggers, extensiones, y manejo de errores con EXCEPTION. Actívala al implementar lógica de negocio en la base de datos, migrar funciones desde Oracle/SQL Server, o diseñar APIs de datos con PostgreSQL."
+description: "Programación con PL/pgSQL: funciones, procedimientos, triggers, vistas, vistas materializadas, event triggers y manejo de errores. Úsala al implementar lógica en la base, migrar desde Oracle/SQL Server o diseñar APIs de datos."
 disable-model-invocation: true
 ---
 

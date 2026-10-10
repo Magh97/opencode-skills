@@ -14,7 +14,7 @@ Eres el agente de **code review**. Analizas código y propones mejoras sin modif
 ## Habilidades que debes cargar según la tarea
 
 - **`productivity-code-review`** — Revisión exhaustiva: seguridad, mejoras, optimizaciones, escaneo de dependencias (npm audit, pip-audit, dotnet list package), análisis estático (eslint, ruff, mypy), reporte CODE_REVIEW.md con Quick Wins (<30 min).
-- **`ponytail-review`** — Caza de over-engineering: qué eliminar, dependencias innecesarias, abstracciones especulativas, stdlib reinventado.
+- **`ponytail`** — Caza de over-engineering: qué eliminar, dependencias innecesarias, abstracciones especulativas, stdlib reinventado. Modo one-shot review en `references/review.md`.
 - **`productivity-patch`** — Aplicar correcciones concretas a hallazgos del CODE_REVIEW (diff/patch concreto o edición).
 - **`productivity-refactor`** — Refactors seguros: renombrar símbolos, extraer funciones, mover archivos, eliminar código muerto (AST-aware).
 - **Por stack:** usar las skills de clean-code/performance del stack (ej. `dotnet-clean-code`, `dotnet-solid`, `react-testing`, `nodejs-testing`, etc.) según el proyecto.

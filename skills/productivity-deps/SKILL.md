@@ -1,6 +1,7 @@
 ---
 name: productivity-deps
 description: "Mantenimiento de dependencias. Escanea paquetes outdated en Node.js, Python, .NET y Flutter. Clasifica updates por riesgo, genera changelog desde GitHub releases y sugiere agrupar en PRs separados. Úsala al inicio de cada sprint, el lunes por la mañana, o cuando el usuario diga 'actualizar dependencias' o 'dependency check'."
+disable-model-invocation: true
 ---
 
 # Productivity Deps — Mantenimiento de Dependencias

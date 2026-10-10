@@ -2,7 +2,8 @@
 name: sputnik-retro
 description: "Retrospectiva de estimación del equipo Sputnik. Compara puntos estimados vs horas reales en Jira, calcula precisión, identifica patrones de sub/sobre-estimación por capa y genera recomendaciones. Úsala al final de cada sprint o cuando el usuario pida 'retrospectiva de estimación', 'comparar estimado vs real', o 'cómo mejorar las estimaciones'."
 disable-model-invocation: true
-requires-devkits: auto-detect
+metadata:
+  requires-devkits: auto-detect
 ---
 
 # Sputnik Retro — Estimado vs Real

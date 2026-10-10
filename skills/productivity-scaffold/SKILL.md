@@ -2,7 +2,8 @@
 name: productivity-scaffold
 description: "Genera la estructura inicial de un proyecto desde una spec técnica. Crea árbol de directorios, archivos base, Dockerfile, CI pipeline y boilerplate según el stack elegido. Úsala después de productivity-spec o cuando el usuario pida 'crear proyecto', 'scaffold', 'inicializar el repo', o 'generar boilerplate'."
 disable-model-invocation: true
-requires-devkits: auto-detect
+metadata:
+  requires-devkits: auto-detect
 ---
 
 # Productivity Scaffold — Spec a Proyecto

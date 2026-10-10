@@ -169,7 +169,7 @@ volumes:
 
 Antes de publicar: escanea la imagen con Trivy y fírmala con Cosign.
 
-> Para el detalle completo de escaneo de vulnerabilidades y firma de imágenes, ver `devops-security`.
+> Para el detalle completo de escaneo de vulnerabilidades y firma de imágenes, ver `devsecops`.
 
 ---
 

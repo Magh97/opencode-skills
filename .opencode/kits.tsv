@@ -1,0 +1,27 @@
+# Fuente única de verdad de los kits de skills.
+# Formato TSV: kit<TAB>prefijos<TAB>prefijos-excluidos<TAB>nombres-exactos
+# - prefijos: lista separada por comas; "" si el kit usa solo nombres exactos.
+# - un prefijo matchea la skill con ese nombre exacto o que empiece con "<prefijo>-".
+# - prefijos-excluidos: se evaluan solo contra los prefijos de este kit.
+# - nombres-exactos: lista separada por comas; "" si el kit usa solo prefijos.
+# Lo consumen install.sh, install.ps1 y verify-install.js. No duplicar en otro lado.
+agent	agent-		
+aspnet	aspnet-		
+design	design-		
+devops	devops-		
+docs	docs-		
+dotnet	dotnet-,aspnet-		
+flutter	flutter-		
+git	git-		
+js	js-		
+nodejs	nodejs-		
+planning	planning-		
+ponytail	ponytail		
+postgresql	postgresql-		
+productivity	productivity-		
+python-ai-intel	python-ai-intel-		
+python	python-	python-ai-intel-	
+react	react-		
+security			application-security,compliance-governance,cryptography-secrets,detection-response,devsecops,identity-access-management,infrastructure-security,secure-architecture,security-fundamentals,vulnerability-management
+sputnik	sputnik-		
+sql-server	sql-server-		

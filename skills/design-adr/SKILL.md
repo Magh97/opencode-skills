@@ -1,6 +1,7 @@
 ---
 name: design-adr
-description: "Architecture Decision Records: formato ligero para documentar decisiones técnicas con contexto, alternativas consideradas y consecuencias. Actívala al tomar una decisión arquitectónica importante, o cuando el usuario diga 'ADR', 'decision record', 'por qué elegimos X', 'documentar decisión', 'arquitecture decision'. Normalmente se usa junto con design-core y sus hermanas (design-api, design-data, design-review) al hacer un diseño técnico completo."
+description: "Architecture Decision Records: formato ligero para documentar decisiones técnicas (contexto, alternativas, consecuencias). Úsala con 'ADR', 'decision record', 'por qué elegimos X' o 'documentar decisión'. Se combina con design-core al hacer diseño técnico completo."
+disable-model-invocation: true
 ---
 
 # Design ADR — Architecture Decision Records

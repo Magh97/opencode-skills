@@ -1,6 +1,6 @@
 ---
 name: git-core
-description: "Guía principal de Git (v2.54). Cubre init, clone, add, commit, push, pull, fetch, remote, status, log, diff, stash, .gitignore, configuración global, y aliases. Actívala para cualquier tarea Git: nuevos repos, configuración inicial, o troubleshooting básico. Las sub-skills del kit profundizan en dominios específicos."
+description: "Guía principal de Git (v2.54): init, clone, add, commit, push, pull, fetch, remote, status, log, diff, stash, .gitignore, configuración y aliases. Úsala para cualquier tarea Git o troubleshooting básico."
 ---
 
 # Git Core Guide

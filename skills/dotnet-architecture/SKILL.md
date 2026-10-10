@@ -1,6 +1,6 @@
 ---
 name: dotnet-architecture
-description: Arquitectura de software en .NET. Cubre N-Capas, Clean Architecture, Hexagonal (Ports & Adapters), Vertical Slices y Modular Monolith. Incluye diagramas de referencia, estructura de proyectos, flujo de dependencias, reglas de acoplamiento, y criterios para elegir arquitectura según tamaño y complejidad del sistema. Actívala al diseñar nuevos sistemas, evaluar migraciones arquitectónicas o decidir estructura de solución.
+description: "Arquitectura en .NET: N-Capas, Clean Architecture, Hexagonal, Vertical Slices y Modular Monolith, con estructura de proyectos y reglas de dependencias. Úsala al diseñar sistemas, decidir estructura de solución o evaluar migraciones arquitectónicas."
 disable-model-invocation: true
 ---
 

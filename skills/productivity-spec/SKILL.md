@@ -1,7 +1,8 @@
 ---
 name: productivity-spec
-description: "Guía estructurada para transformar una historia de usuario en especificación técnica completa. Clasifica stack, identifica suposiciones, valida iterativamente y genera spec con estructura de proyecto y checklist. Úsala cuando el usuario proporcione una historia de usuario o requisitos ambiguos que necesiten convertirse en spec técnica."
-requires-devkits: auto-detect
+description: "Transforma una historia de usuario en especificación técnica: clasifica stack, marca suposiciones y genera spec con estructura y checklist; incluye modo compacto auto-fill. Úsala con requisitos ambiguos o 'spec this'."
+metadata:
+  requires-devkits: auto-detect
 ---
 
 # Productivity Spec — Historia de Usuario a Especificación Técnica
@@ -183,3 +184,43 @@ E. Otra (especifica tu respuesta)
 - Si el usuario no selecciona ninguna suposición para corregir, salta directamente a la Fase 4.
 - Las alternativas deben cubrir el espectro más probable de respuestas para minimizar la selección de "Otra".
 - Documenta cada respuesta del usuario para construir la especificación final.
+
+---
+
+## Modo compacto (auto-fill, sin preguntas)
+
+Cuando el usuario diga "spec this", "technical spec", "define this feature" o pida velocidad para un agente, **no hagas el flujo iterativo**: auto-rellena con los defaults y marca cada suposición con `[ASSUMED]`.
+
+Salida en una pasada:
+```
+# Spec: [Feature]
+
+## Stack
+| Layer | Tech | Version |
+
+## Assumptions (revisar antes de implementar)
+[ASSUMED] 1. ...
+
+## Endpoints
+| Method | Path | Auth | Request | Response | Errors |
+
+## Entities
+| Entity | Fields | Relations | Notes |
+
+## Business Rules
+- condición → acción
+
+## States / Transitions
+## UI Components
+| Component | Screen | Props | States |
+
+## Validation Rules
+| Field | Rule | Error Code |
+
+## Error Scenarios
+| Scenario | Behavior | Error Code |
+
+## What's NOT Defined
+- [ ] [Gap]
+```
+Defaults de auto-fill: JWT Bearer si hay usuarios; paginación `?page=1&pageSize=20` (max 100); respuesta `{ data }` / `{ error: { code, message } }`; timestamps en toda tabla; Zod/Pydantic/DataAnnotations; códigos `NOT_FOUND`, `VALIDATION_ERROR`, `CONFLICT`, `FORBIDDEN`, `UNAUTHORIZED`. Al final imprime: `> [ASSUMED] = auto-rellenado. Revisar antes de implementar.`

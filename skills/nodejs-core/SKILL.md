@@ -1,6 +1,6 @@
 ---
 name: nodejs-core
-description: "Guía principal de desarrollo Node.js (24 LTS / 26 Current). Cubre runtime, ESM vs CJS, TypeScript 7 (Go compiler), async/await, streams, eventos, Temporal API, debugging, herramientas (tsx, node:test) y fundamentos del ecosistema. Actívala para cualquier tarea Node.js: nuevos proyectos, migraciones de versión, revisión de código o configuración del entorno. Las sub-skills del kit profundizan en dominios específicos."
+description: "Guía principal de Node.js (24 LTS / 26 Current): runtime, ESM vs CJS, TypeScript 7, async/await, streams, eventos, Temporal, debugging y node:test. Úsala para cualquier tarea Node.js: proyectos, migraciones, revisión o entorno."
 ---
 
 # Node.js Core Development Guide
@@ -427,8 +427,8 @@ src/
 | `nodejs-security` | Helmet, CORS, rate limiting, JWT, input validation, OWASP |
 | `nodejs-testing` | Vitest, node:test, Playwright, MSW, Testcontainers |
 | `nodejs-database` | Prisma 7, SQL Server + PostgreSQL, connection pooling, migrations (overview) |
-| `nodejs-prisma` | Prisma 7 — schema PSL, CRUD, nested writes, interactive transactions, client extensions, migrate, seed, Accelerate |
-| `nodejs-drizzle` | Drizzle ORM — schema TS, queries SQL-like/relacionales, drizzle-kit, Zod, MSSQL, prepared statements |
+| `nodejs-database` → `references/prisma.md` | Prisma 7 — schema PSL, CRUD, nested writes, interactive transactions, client extensions, migrate, seed, Accelerate |
+| `nodejs-database` → `references/drizzle.md` | Drizzle ORM — schema TS, queries SQL-like/relacionales, drizzle-kit, Zod, MSSQL, prepared statements |
 | `nodejs-deployment` | Docker, PM2, CI/CD, pino, OpenTelemetry |
 | `nodejs-architecture` | Clean/Hexagonal, DI, monorepo, event-driven |
 
@@ -444,7 +444,7 @@ src/
 | HTTP framework | Express 5 o Fastify | `express@5` / `fastify` |
 | Validación | Zod | `zod` |
 | Logger | Pino | `pino` |
-| ORM | Prisma 7 o Drizzle | `@prisma/client` / `drizzle-orm` (ver `nodejs-prisma` / `nodejs-drizzle`) |
+| ORM | Prisma 7 o Drizzle | `@prisma/client` / `drizzle-orm` (ver `nodejs-database` y sus `references/`) |
 | Testing | Vitest + node:test | `vitest` |
 | Linting | ESLint 9 flat config | `eslint` |
 | Formatting | Prettier | `prettier` |

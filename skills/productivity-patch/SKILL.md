@@ -1,8 +1,9 @@
 ---
 name: productivity-patch
-description: Aplica correcciones específicas a partir de hallazgos del CODE_REVIEW.md generado por productivity-code-review. Toma un número de issue del reporte y genera el diff/patch concreto, edita el archivo, o explica la corrección paso a paso. Úsala cuando el usuario diga "aplica el fix #7", "corrige el hallazgo de seguridad #3", "implementa la mejora #12 del reporte", o "patch el issue de XSS en orders.ts".
+description: "Aplica correcciones a partir de los hallazgos de CODE_REVIEW.md: toma el número de issue y genera el patch concreto o explica la corrección. Úsala con 'aplica el fix #7', 'corrige el hallazgo #3' o 'implementa la mejora #12'."
 disable-model-invocation: true
-requires-devkits: auto-detect
+metadata:
+  requires-devkits: auto-detect
 ---
 
 # Productivity Patch — Reporte a Corrección

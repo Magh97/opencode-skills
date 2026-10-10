@@ -590,3 +590,9 @@ O vía `runtimeconfig.json`:
 - [ ] Response caching en endpoints de solo lectura
 - [ ] Kestrel limits configurados (request body size, concurrency)
 - [ ] `dotnet-counters` / Application Insights para monitoreo
+
+---
+
+## Referencia: performance en ASP.NET Core
+
+Para response/output caching, compression, static files, CDN y Kestrel limits específicos de web, lee `references/aspnet.md`. Aplica cuando el proyecto sea ASP.NET Core.

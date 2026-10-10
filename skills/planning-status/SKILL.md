@@ -1,6 +1,7 @@
 ---
 name: planning-status
-description: "Genera reporte de estado del proyecto: avance por fase/módulo, tareas completadas vs pendientes, bloqueantes, desvíos de cronograma, riesgos materializados, y decisiones pendientes. Lee del código, git log y issues/Jira. Actívala cuando el usuario diga 'estado del proyecto', 'status report', 'qué falta', 'qué sobra', 'avance', 'project health', 'cómo vamos'. Para la sección de riesgos materializados, consume el registro de riesgos generado por planning-risk."
+description: "Reporte de estado del proyecto: avance por fase/módulo, pendientes, bloqueantes, desvíos, riesgos materializados y decisiones pendientes (lee código, git log e issues). Úsala con 'estado del proyecto', 'status report', 'qué falta', 'avance' o 'cómo vamos'."
+disable-model-invocation: true
 ---
 
 # Planning Status — Reporte de Estado

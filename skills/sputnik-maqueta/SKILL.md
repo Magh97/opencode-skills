@@ -1,8 +1,9 @@
 ---
 name: sputnik-maqueta
-description: Analiza maquetas (Figma, PDF, imagen, ClaudeAI Design) y extrae automáticamente componentes UI, infiere endpoints de backend y tablas de base de datos necesarias. Genera la tabla de estimación de sputnik-core lista para refinar. Úsala cuando el usuario suba una imagen, PDF, link de Figma o link de ClaudeAI Design y pida "estimar esta pantalla", "cotizar esta maqueta", "desglosar este diseño", o "qué necesito para construir esto".
+description: "Analiza maquetas (Figma, PDF, imagen, ClaudeAI Design) y extrae componentes UI + endpoints + tablas, generando la tabla de estimación de sputnik-core. Úsala cuando suban una maqueta y pidan 'estimar esta pantalla' o 'desglosar este diseño'."
 disable-model-invocation: true
-requires-devkits: auto-detect
+metadata:
+  requires-devkits: auto-detect
 ---
 
 # Sputnik Maqueta — Diseño a Estimación

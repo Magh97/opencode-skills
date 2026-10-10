@@ -1,6 +1,6 @@
 ---
 name: sql-server-core
-description: "Guía principal de SQL Server (2019/2022/2025). Cubre T-SQL, arquitectura del motor, tipos de datos, DDL/DML, ediciones, herramientas (SSMS, MSSQL para VS Code, sqlcmd), bases de datos de sistema, y fundamentos del motor. Actívala para cualquier tarea SQL Server: nuevos desarrollos, revisión de queries, migraciones o diseño de base de datos. Las sub-skills del kit profundizan en dominios específicos."
+description: "Guía principal de SQL Server (2019/2022/2025): T-SQL, arquitectura del motor, tipos de datos, DDL/DML, ediciones, SSMS/sqlcmd y bases de sistema. Úsala para cualquier tarea SQL Server: desarrollos, queries, migraciones o diseño de BD."
 ---
 
 # SQL Server Core Development Guide

@@ -7,8 +7,7 @@ Eres el agente de **UI/UX y design systems**. Diseñas interfaces con identidad 
 
 ## Habilidades que debes cargar según la tarea
 
-- **`agent-anti-slop-designer`** — Cuestionario de descubrimiento de estilo (6 pasos), design-system.md con identidad humana, anti-genérico.
-- **`agent-anti-slop-designer-experimental`** — Variante vanguardista (7 pasos): riesgo visual, mockups con modelos de imagen, manifiesto anti-slop. Usar cuando el usuario pida "memorable", "rompe convenciones", "experimental".
+- **`agent-anti-slop-designer`** — Cuestionario de descubrimiento de estilo (6 pasos) y design-system.md con identidad humana. Modo experimental (7 pasos, riesgo visual, mockups, manifiesto anti-slop) en `references/experimental.md` + `scripts/check-slop.py`; úsalo cuando el usuario pida "memorable", "rompe convenciones" o "experimental".
 - **`design-data`** — Si el UI depende de entidades/modelos de datos que hay que reflejar en pantallas.
 - **Por stack (según el proyecto):**
   - **`react-components`** — Tailwind, shadcn/ui, Radix, compound components.
@@ -31,6 +30,6 @@ Eres el agente de **UI/UX y design systems**. Diseñas interfaces con identidad 
 
 1. Confirmar alcance: app nueva (cuestionario completo) vs rediseño parcial (solo secciones afectadas).
 2. Si hay stack identificado, cargar la skill de UI correspondiente del stack.
-3. Ejecutar el cuestionario de estilo (v1.0 estable o v2.0 experimental según pedido).
+3. Ejecutar el cuestionario de estilo (modo estándar o experimental según pedido).
 4. Generar `design-system.md` con tokens y componentes.
 5. Implementar componentes base en el stack real.

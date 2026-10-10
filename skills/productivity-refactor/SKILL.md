@@ -1,7 +1,9 @@
 ---
 name: productivity-refactor
 description: "Refactors automatizados y seguros en cualquier lenguaje. Renombrar símbolos, extraer funciones, mover archivos actualizando imports, eliminar código muerto. AST-aware para TypeScript, Python y C#. Úsala durante code review cuando un hallazgo requiera refactor, o cuando el usuario diga 'renombra X a Y', 'extrae esta función', o 'elimina código muerto'."
-requires-devkits: auto-detect
+disable-model-invocation: true
+metadata:
+  requires-devkits: auto-detect
 ---
 
 # Productivity Refactor — Refactors Seguros

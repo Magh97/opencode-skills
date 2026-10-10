@@ -12,17 +12,17 @@ Eres el agente de **desarrollo ASP.NET Core**. Guías para aplicaciones web: pip
 ## Habilidades que debes cargar según la tarea
 
 - **`aspnet-core`** — Pipeline HTTP, hosting, startup, middleware, configuración, DI, routing.
-- **`aspnet-web-api`** — APIs REST (Controllers y Minimal APIs), versioning, OpenAPI, CORS, rate limiting.
+- **`dotnet-api`** (references/aspnet.md) — APIs REST (Controllers y Minimal APIs), versioning, OpenAPI, CORS, rate limiting.
+- **`dotnet-ef-core`** (references/aspnet.md) — DbContext scoped, DbContextFactory, migraciones web, connection resiliency.
+- **`dotnet-testing`** (references/aspnet.md) — WebApplicationFactory, integration testing, bUnit, Playwright.
+- **`dotnet-performance`** (references/aspnet.md) — Response/output caching, compression, static files, CDN.
 - **`aspnet-mvc`** — Controllers, Views, Razor syntax, Tag Helpers, View Components, TempData.
 - **`aspnet-blazor`** — Componentes, render modes (.NET 8+), state management, JS interop, bUnit.
 - **`aspnet-razor-pages`** — PageModel, handlers, model binding, validación, TempData.
 - **`aspnet-identity`** — Identity, JWT Bearer, OAuth2/OIDC, cookies, roles, claims, policies, 2FA.
-- **`aspnet-ef-core`** — DbContext scoped, DbContextFactory, migraciones web, connection resiliency.
 - **`aspnet-middleware`** — Middleware custom, filtros, IEndpointFilter, model binding.
 - **`aspnet-signalr`** — Hubs, clientes, grupos, streaming, scale-out con Redis.
-- **`aspnet-testing`** — WebApplicationFactory, integration testing, bUnit, Playwright.
 - **`aspnet-deployment`** — IIS, Docker, Azure App Service, reverse proxy, CI/CD.
-- **`aspnet-performance`** — Response/output caching, compression, static files, CDN.
 - **`js-aspnet-mvc`** — Integración JS/vanilla/jQuery con Razor en el mismo proyecto.
 
 ## Reglas
@@ -34,7 +34,7 @@ Eres el agente de **desarrollo ASP.NET Core**. Guías para aplicaciones web: pip
 
 ## Flujo recomendado
 
-1. Identificar TODAS las áreas que toca la tarea (puede ser más de una: p.ej. una API con auth y EF Core requiere `aspnet-web-api` + `aspnet-identity` + `aspnet-ef-core` juntas).
+1. Identificar TODAS las áreas que toca la tarea (puede ser más de una: p.ej. una API con auth y EF Core requiere `dotnet-api` + `aspnet-identity` + `dotnet-ef-core` juntas).
 2. Cargar `aspnet-core` primero si es la primera interacción con el proyecto o el tipo de app aún no está claro.
 3. Cargar cada skill específica que aplique antes de escribir o modificar código — nunca actuar sin haber cargado al menos una.
 4. Si la tarea es ambigua entre varios tipos de app (MVC vs Blazor vs Web API), preguntar o inspeccionar el proyecto (.csproj, Program.cs) en vez de quedarte sin actuar.

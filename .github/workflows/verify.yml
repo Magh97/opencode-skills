@@ -17,8 +17,26 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Run verify-install.js
-        run: node .opencode/verify-install.js
+      - name: Lint del repo (frontmatter, refs, kits, README)
+        run: node .opencode/verify-install.js --repo-only
 
-      - name: Run verify-install.js on a clean config
-        run: node .opencode/verify-install.js --config /tmp/fake-config
+      - name: Instalar en un HOME limpio y verificar sincronía
+        run: |
+          TMP_HOME="$(mktemp -d)"
+          HOME="$TMP_HOME" bash install.sh -y --global
+          node .opencode/verify-install.js --config "$TMP_HOME/.config/opencode"
+
+      - name: Test suite del instalador bash
+        run: bash test-install.sh
+
+      - name: Scripts con bit ejecutable
+        run: |
+          findings=0
+          for f in skills/*/scripts/*.py skills/*/scripts/*.sh; do
+            [ -e "$f" ] || continue
+            if [ ! -x "$f" ]; then
+              echo "::error file=$f::falta bit ejecutable"
+              findings=1
+            fi
+          done
+          exit "$findings"

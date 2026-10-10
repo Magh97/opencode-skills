@@ -1,7 +1,8 @@
 ---
 name: productivity-docs
-description: 'Genera documentación desde el código fuente: README.md (si no existe o está incompleto), ARCHITECTURE.md con diagrama Mermaid de módulos, y API.md con endpoints detectados automáticamente desde routers (Express, FastAPI, .NET Minimal API) y rutas (React Router, Next.js). Úsala cuando el usuario diga "documenta el proyecto", "genera README", "crea diagrama de arquitectura", "qué endpoints existen", o al finalizar un módulo grande.'
-requires-devkits: auto-detect
+description: "Genera documentación desde el código: README.md, ARCHITECTURE.md (Mermaid) y API.md con endpoints detectados (Express, FastAPI, .NET, React Router). Modo agent-docs para documentación optimizada. Úsala con 'documenta el proyecto' o 'genera README'."
+metadata:
+  requires-devkits: auto-detect
 ---
 
 # Productivity Docs — Código a Documentación
@@ -210,3 +211,11 @@ Ofrecer completar los gaps si el usuario quiere.
 - No incluir rutas de archivos internos en API.md (solo rutas HTTP).
 - No generar docs para `node_modules`, `dist`, `build`, `.venv`, `bin/obj`.
 - No asumir parámetros de query que no están en el código. Si usas Zod/Pydantic, leer el schema; si no, inferir del uso de `req.query`.
+
+---
+
+## Modo agente (`docs/agent-docs/`)
+
+Cuando el usuario pida "agent docs", "docs para agentes" u "optimiza docs para IA", genera la carpeta `docs/agent-docs/` con 9 archivos token-efficient (CONTEXT, STACK, RULES, ARCHITECTURE, SCHEMA, API, PATTERNS, DESIGN, WORKFLOWS). El flujo completo, la plantilla de cada archivo y las reglas están en `references/agent-docs.md`.
+
+Diferencias clave: solo lee docs existentes (no modifica), no usa Mermaid (grafos textuales `A → B → C`), no genera archivos que no apliquen (sin DB no hay SCHEMA.md, etc.) y CONTEXT.md siempre lleva el orden de lectura numerado.

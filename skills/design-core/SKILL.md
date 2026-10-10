@@ -1,6 +1,6 @@
 ---
 name: design-core
-description: "Guía principal de diseño técnico de sistemas. Cubre design-first, C4 model, diagramas como código, estilos de arquitectura y cuándo usar cada uno. Actívala al diseñar un sistema nuevo, documentar arquitectura existente, evaluar trade-offs, o cuando el usuario diga 'diseñar sistema', 'C4 model', o 'diagrama de arquitectura'."
+description: "Guía principal de diseño técnico de sistemas: design-first, C4 model, diagramas como código y estilos de arquitectura. Úsala al diseñar un sistema nuevo, documentar arquitectura o evaluar trade-offs; también con 'C4 model' y 'diagrama de arquitectura'."
 ---
 
 # Design Core — Diseño Técnico de Sistemas
@@ -193,3 +193,15 @@ Para features no triviales, escribe un mini design doc antes de codear:
 - No generar diagramas UML de clases (nivel 4). Rara vez aportan valor.
 - No elegir tecnología sin preguntar restricciones (cloud, licencias, experiencia del equipo).
 - No diseñar para escala de Netflix si el MVP tiene 100 usuarios.
+
+---
+
+## Modo compacto (secciones agent-optimized)
+
+Cuando el usuario diga "design the architecture/API/schema" o el consumidor sea un agente, genera solo las secciones pedidas, en formato tabular y sin teoría:
+
+- **Architecture**: grafo textual (`A → B → C`), tabla de contenedores, tabla de módulos, rutas del cliente, data flow numerado, state machine en cadena.
+- **API**: base URL, auth, formato de respuesta, paginación, una tabla por grupo de recursos, eventos WS, tabla de códigos de error.
+- **Schema**: enums, bloques `TABLE x { campo TIPO ... }`, tabla de índices con razón, notas de diseño.
+
+Reglas: sin Mermaid en la salida agent-optimized (los docs humanos sí lo usan); sin C4 explicado, sin primer de REST, sin teoría de normalización; moneda `NUMERIC(19,4)`; timestamps `TIMESTAMPTZ`; FKs con `ON DELETE`.

@@ -1,6 +1,6 @@
 # opencode-skills
 
-Conjunto de **155 skills** y **22 agentes** para [opencode](https://opencode.ai), agrupados por kits: .NET, ASP.NET Core, SQL Server, PostgreSQL, Python, Node.js, React, Flutter, JavaScript, seguridad, DevOps, Git, planeación, diseño, documentación y más.
+Conjunto de **133 skills** y **22 agentes** para [opencode](https://opencode.ai), agrupados por kits: .NET/ASP.NET Core, SQL Server, PostgreSQL, Python, Node.js, React, Flutter, JavaScript, seguridad, DevOps, Git, planeación, diseño, documentación y más.
 
 ## Instalación
 
@@ -8,14 +8,14 @@ Conjunto de **155 skills** y **22 agentes** para [opencode](https://opencode.ai)
 
 **Windows (PowerShell):**
 ```powershell
-# Instalar agentes (21) en ~/.config/opencode/agent/
+# Instalar agentes (22) en ~/.config/opencode/agent/
 ./install.ps1 -Yes
 
-# Instalar agentes + skills (155) en ~/.config/opencode/
+# Instalar agentes + skills en ~/.config/opencode/
 ./install.ps1 -Yes -Global
 
 # Instalar solo los kits que te interesan (ej. stack .NET + React + SQL Server)
-./install.ps1 -Yes -Global -Kits dotnet,aspnet,sql-server,react,js,postgresql
+./install.ps1 -Yes -Global -Kits dotnet,react,sql-server,js,postgresql
 
 # Ver los kits disponibles
 ./install.ps1 -ListKits
@@ -23,20 +23,22 @@ Conjunto de **155 skills** y **22 agentes** para [opencode](https://opencode.ai)
 # Instalar las skills tambien en directorios universales de otros clientes de agentes
 ./install.ps1 -Yes -Global -Target opencode,agents,pi
 
-# Ver los destinos disponibles
-./install.ps1 -ListTargets
+# Simular la instalacion sin escribir nada / limpiar skills viejas / desinstalar
+./install.ps1 -Yes -Global -DryRun
+./install.ps1 -Yes -Global -Prune
+./install.ps1 -Yes -Uninstall
 ```
 
 **macOS / Linux:**
 ```bash
-# Instalar agentes (21)
+# Instalar agentes (22)
 ./install.sh -y
 
-# Instalar agentes + skills (155) con -Global
+# Instalar agentes + skills con --global
 ./install.sh -y --global
 
 # Instalar solo los kits que te interesan
-./install.sh -y --global --kits dotnet,aspnet,sql-server,react,js,postgresql
+./install.sh -y --global --kits dotnet,react,sql-server,js,postgresql
 
 # Ver los kits disponibles
 ./install.sh --list-kits
@@ -44,11 +46,17 @@ Conjunto de **155 skills** y **22 agentes** para [opencode](https://opencode.ai)
 # Instalar las skills tambien en directorios universales de otros clientes de agentes
 ./install.sh -y --global --target opencode,agents,pi
 
-# Ver los destinos disponibles
-./install.sh --list-targets
+# Simular / limpiar / desinstalar
+./install.sh -y --global --dry-run
+./install.sh -y --global --prune
+./install.sh -y --uninstall
 ```
 
-Kits disponibles: `agent`, `aspnet`, `design`, `devops`, `docs`, `dotnet`, `flutter`, `git`, `js`, `nodejs`, `planning`, `ponytail`, `postgresql`, `productivity`, `python`, `python-ai-intel`, `react`, `security`, `sputnik`, `sql-server`. `-Kits`/`--kits` solo filtra skills; los agentes siempre se instalan completos.
+Kits disponibles (fuente única: `.opencode/kits.tsv`): `agent`, `aspnet`, `design`, `devops`, `docs`, `dotnet`, `flutter`, `git`, `js`, `nodejs`, `planning`, `ponytail`, `postgresql`, `productivity`, `python`, `python-ai-intel`, `react`, `security`, `sputnik`, `sql-server`.
+
+- `dotnet` incluye las skills `dotnet-*` **y** `aspnet-*` (un solo kit para todo el stack .NET).
+- `aspnet` se mantiene como alias por compatibilidad: con él instalas solo las `aspnet-*`.
+- `--kits`/`-Kits` solo filtra skills; los agentes siempre se instalan completos.
 
 Destinos disponibles para `-Target`/`--target` (solo afecta a dónde van las **skills**; los agentes siempre van a `~/.config/opencode/agent`, específico de opencode):
 
@@ -64,7 +72,8 @@ Esta vía es la **verificada**: copia exactamente lo que hay en el repo y garant
 
 ```bash
 node .opencode/verify-install.js                 # verifica ~/.config/opencode
-node .opencode/verify-install.js --config <dir>  # verifica una instalación en otra ruta (sistema limpio)
+node .opencode/verify-install.js --repo-only     # solo lint del repo (sin instalación)
+node .opencode/verify-install.js --config <dir>  # verifica una instalación en otra ruta
 ```
 
 ### 2. Vía alternativa: CLI `npx skills` (⚠️ solo skills, con bug conocido)
@@ -91,6 +100,12 @@ npx skills add Magh97/opencode-skills --skill dotnet-core --skill dotnet-ef-core
 
 Reinicia opencode para que cargue las skills y agentes nuevos.
 
+## Cómo se cargan las skills
+
+- opencode inyecta en el prompt **solo el nombre y la descripción** de las skills auto-invocables (las que no tienen `disable-model-invocation: true`). Este repo mantiene ese conjunto en **25 skills y ~5.7k chars (~1.4k tokens)**, para que el coste por request sea bajo.
+- Las skills con `disable-model-invocation: true` (sub-skills de dominio) no se anuncian al modelo pero siguen siendo invocables: los agentes las cargan por instrucción, y tú puedes forzarlas con **@-mención** (`@dotnet-ef-core`) o desde el selector `/skills`.
+- El detalle largo de una skill vive en `references/`, que opencode no carga hasta que la skill lo pide (progressive disclosure). Así una skill de 100 líneas puede arrastrar 900 líneas de referencia sin inflar el contexto.
+
 ## Agentes incluidos
 
 | Modo | Agentes |
@@ -98,6 +113,8 @@ Reinicia opencode para que cargue las skills y agentes nuevos.
 | **primary** | `sputnik`, `security`, `devops`, `git`, `code-review`, `qna` |
 | **all** | `docs`, `planning`, `design`, `ui`, `business-planning` |
 | **subagent** | `dotnet`, `aspnet`, `sqlserver`, `postgres`, `js`, `react`, `node`, `python`, `python-ai-intel`, `flutter` |
+
+Además, `.opencode/agent/build.md` es un override del agente `build` con reglas de orquestación (22 archivos de agente en total).
 
 ## Orquestación
 
@@ -110,16 +127,20 @@ Para afinar permisos de delegación a nivel global, copia el patrón de `opencod
 ## Estructura
 
 ```
-skills/               # 155 skills (<nombre>/SKILL.md)
+skills/               # 133 skills (<nombre>/SKILL.md + references/ y scripts/ opcionales)
 .opencode/agent/      # 22 agentes opencode (<nombre>.md)
-install.ps1           # Instalador de agentes (Windows)
-install.sh            # Instalador de agentes (macOS/Linux)
+.opencode/kits.tsv    # fuente única de kits (la leen ambos instaladores y el verificador)
+.opencode/verify-install.js # lint del repo + verificación de sincronía repo <-> config
+install.ps1           # Instalador (Windows): -Global, -Kits, -Target, -DryRun, -Prune, -Uninstall
+install.sh            # Instalador (macOS/Linux): --global, --kits, --target, --dry-run, --prune, --uninstall
+test-install.sh       # Test suite del instalador bash
 opencode.example.json # Ejemplo de config global (permisos de delegación)
 ```
 
 ## Desarrollo
 
-- Las skills se definen en `skills/<nombre>/SKILL.md` con frontmatter YAML (`name` + `description`).
-- Una skill puede incluir subdirectorios opcionales: `references/` para documentacion de apoyo y `scripts/` para utilidades ejecutables. El instalador copia la carpeta completa (`Copy-Item -Recurse` / `cp -R`), y `verify-install.js` hashea **todos** los archivos del skill, no solo `SKILL.md`, para que la deriva en un `references/` o un `scripts/` no pase desapercibida.
+- Las skills se definen en `skills/<nombre>/SKILL.md` con frontmatter YAML (`name` + `description`, y `disable-model-invocation: true` para sub-skills).
+- Los campos extra de opencode (`requires-devkits`, etc.) van dentro de `metadata:`; opencode ignora los campos desconocidos de primer nivel.
+- Una skill puede incluir subdirectorios opcionales: `references/` para documentación de apoyo y `scripts/` para utilidades ejecutables. El instalador copia la carpeta completa (`Copy-Item -Recurse` / `cp -R`), y `verify-install.js` hashea **todos** los archivos del skill, no solo `SKILL.md`, para que la deriva en un `references/` o un `scripts/` no pase desapercibida.
 - Los agentes se definen en `.opencode/agent/<nombre>.md` con frontmatter (`description`, `mode`).
-- Para validar el frontmatter de todas las skills, cualquier SKILL.md que no empiece con `---` ni tenga `name`/`description` no será descubrible.
+- Antes de commitear: `node .opencode/verify-install.js --repo-only` (lint del repo) y `bash test-install.sh` (instalador). El lint comprueba frontmatter, referencias cruzadas, cobertura de kits, presupuesto de descripciones auto-invocables y consistencia del README. Ver [CONTRIBUTING.md](CONTRIBUTING.md).

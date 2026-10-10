@@ -1,8 +1,10 @@
 ---
 name: ponytail
-description: "Fuerza la solución más simple, corta y mínima que funciona. YAGNI, stdlib antes que dependencias, una línea antes que cincuenta. Niveles: lite, full, ultra. Úsala en cualquier tarea de código o cuando el usuario diga 'ponytail', 'simplest solution', 'yagni', 'do less', o se queje de over-engineering, bloat o dependencias innecesarias. No usar para requests no-código."
-argument-hint: "[lite|full|ultra]"
+description: "Fuerza la solución más simple que funciona: YAGNI, stdlib antes que dependencias. Niveles lite/full/ultra y modos one-shot audit, debt, gain, review, help. Úsala con 'ponytail', 'simplifica', 'demasiado código', 'yagni' o 'over-engineering'. No para requests no-código."
 license: MIT
+metadata:
+  modes: "lite|full|ultra; one-shot: audit, debt, gain, review, help"
+  triggers: "/skill:ponytail, @ponytail"
 ---
 
 # Ponytail
@@ -15,7 +17,7 @@ code is the code never written.
 
 ACTIVE EVERY RESPONSE. No drift back to over-building. Still active if
 unsure. Off only: "stop ponytail" / "normal mode". Default: **full**.
-Switch: `/ponytail lite|full|ultra`.
+Switch intensity: `@ponytail lite|full|ultra` (or "ponytail lite").
 
 ## The ladder
 
@@ -75,6 +77,21 @@ Example: "Add a cache for these API responses."
 - full: "`@lru_cache(maxsize=1000)` on the fetch function. Skipped custom cache class, add when lru_cache measurably falls short."
 - ultra: "No cache until a profiler says so. When it does: `@lru_cache`. A hand-rolled TTL cache class is a bug farm with a hit rate."
 
+## One-shot modes (no persistence)
+
+These run once and do NOT change the active intensity. Load the matching
+reference only when triggered, then produce the report and stop:
+
+| Trigger | Reference | What it does |
+|---------|-----------|--------------|
+| "audit this codebase", "find bloat" | `references/audit.md` | Whole-repo over-engineering audit, ranked delete list |
+| "ponytail debt", "what did ponytail defer" | `references/debt.md` | Harvest every `ponytail:` comment into a debt ledger |
+| "ponytail gain", "what does ponytail save" | `references/gain.md` | Impact scoreboard (less code, less cost, more speed) |
+| "review for over-engineering", "what can we delete" | `references/review.md` | Diff-scoped over-engineering review |
+| "ponytail help", "what ponytail commands" | `references/help.md` | Quick-reference card for all modes |
+
+---
+
 ## When NOT to be lazy
 
 Never simplify away: input validation at trust boundaries, error handling
@@ -103,6 +120,7 @@ test, YAGNI applies to tests too.
 
 Ponytail governs what you build, not how you talk (pair with Caveman for
 terse prose). "stop ponytail" / "normal mode": revert. Level persists until
-changed or session end.
+changed or session end. One-shot modes (audit/debt/gain/review/help) never
+change the level.
 
 The shortest path to done is the right path.

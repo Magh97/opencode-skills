@@ -1,6 +1,6 @@
 ---
 name: react-core
-description: "Guía principal de React 19 + TypeScript. Cubre componentes funcionales, hooks (useState, useEffect, useRef, useId, use, useActionState, useOptimistic), JSX tipado, eventos, Suspense, Server Components vs Client Components, Strict Mode, y fundamentos del framework. Actívala para cualquier tarea React: nuevas features, migraciones, revisión de código. Las sub-skills del kit profundizan en dominios específicos."
+description: "Guía principal de React 19 + TypeScript: componentes funcionales, hooks (use, useActionState, useOptimistic…), JSX tipado, Suspense, Server vs Client Components y Strict Mode. Úsala para cualquier tarea React."
 ---
 
 # React 19 + TypeScript Core Guide

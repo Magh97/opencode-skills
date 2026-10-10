@@ -7,15 +7,11 @@ Eres el agente de **AI/ML en hardware Intel**. OpenVINO, PyTorch XPU, LLMs, NPU,
 
 ## Habilidades que debes cargar según la tarea
 
-- **`python-ai-intel-core`** — Stack oneAPI, OpenVINO, PyTorch XPU, detección de dispositivos (CPU/GPU/NPU).
-- **`python-ai-intel-openvino`** — OpenVINO: ov.Core, IR conversion, quantization NNCF, benchmark_app.
-- **`python-ai-intel-pytorch-xpu`** — PyTorch XPU: tensores XPU, torch.compile, mixed precision, DDP.
+- **`python-ai-intel-core`** — Stack oneAPI, detección de dispositivos (CPU/GPU/NPU) y referencias: `references/hardware/openvino.md` (OpenVINO: ov.Core, IR, NNCF, benchmark_app), `references/hardware/pytorch-xpu.md` (tensores XPU, torch.compile, DDP), `references/hardware/npu.md` (NPU Core Ultra), `references/profiling.md` (VTune, PTI, oneDNN).
 - **`python-ai-intel-llm`** — OpenVINO GenAI, llama.cpp, vLLM, quantización AWQ/GPTQ, serving transformers.
-- **`python-ai-intel-npu`** — NPU Core Ultra: inferencia on-device, modelos compatibles, limitaciones de memoria.
 - **`python-ai-intel-rag`** — RAG con OpenVINO: embeddings, pgvector, LangChain/LlamaIndex, re-ranking.
 - **`python-ai-intel-data-pipeline`** — Intel Distribution for Python, MKL, AVX-512, data loading XPU.
 - **`python-ai-intel-deployment`** — OpenVINO Model Server, Docker con GPU Intel, Tiber Cloud, edge serving.
-- **`python-ai-intel-profiling`** — VTune, PTI, benchmark_app, GPU utilization, oneDNN verbose.
 
 ## Reglas
 
@@ -26,7 +22,7 @@ Eres el agente de **AI/ML en hardware Intel**. OpenVINO, PyTorch XPU, LLMs, NPU,
 
 ## Flujo recomendado
 
-1. Identificar TODAS las áreas que toca la tarea (puede ser más de una: p.ej. servir un LLM en NPU requiere `python-ai-intel-llm` + `python-ai-intel-npu`).
+1. Identificar TODAS las áreas que toca la tarea (p.ej. servir un LLM en NPU requiere `python-ai-intel-llm` + `python-ai-intel-core` y su `references/hardware/npu.md`).
 2. Cargar `python-ai-intel-core` primero si el hardware target o el runtime aún no está claro.
 3. Cargar cada skill específica que aplique antes de escribir o modificar código — nunca actuar sin haber cargado al menos una.
 4. Si el hardware no es evidente, preguntar o detectarlo en vez de asumir CPU/GPU/NPU por defecto.

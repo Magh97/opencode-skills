@@ -1,7 +1,8 @@
 ---
 name: productivity-onboard
-description: "Genera ONBOARDING.md a partir de la spec y el scaffolding del proyecto. Incluye quick start, stack, arquitectura por módulo, setup, testing, deploy y recursos. Úsala después de scaffolding, al entregar un proyecto, o cuando un dev nuevo se une al equipo. Dispara con 'genera onboarding', 'guía para nuevo dev', o 'cómo levantar el proyecto'."
-requires-devkits: auto-detect
+description: "Genera ONBOARDING.md con quick start, stack, arquitectura, setup, testing y deploy; incluye modo compacto de menos de 80 líneas para agentes. Úsala tras el scaffolding, al entregar un proyecto o con 'guía para nuevo dev'."
+metadata:
+  requires-devkits: auto-detect
 ---
 
 # Productivity Onboard — Guía de Arranque
@@ -221,3 +222,49 @@ Detectar si el lector es backend, frontend o full-stack (preguntar o inferir) y 
 - **Lenguaje humano.** Nada de "el controlador inyecta el servicio vía DI con Scoped lifetime". Decir "el controlador usa el servicio para la lógica de negocio".
 - **Variables de entorno todas listadas.** Si falta una y el dev se entera en runtime, el onboarding falló.
 - **Comandos copiables.** Todo en bloques `bash`.
+
+---
+
+## Modo compacto (≤80 líneas, para agentes)
+
+Cuando el consumidor sea un agente (no una persona) o el usuario pida "onboarding rápido", genera **una sola página de ≤80 líneas**:
+
+```
+# Onboarding: [Proyecto]
+> Quick start time: [min]
+
+## Quick Start
+```bash
+git clone [url] && cd [dir]
+cp .env.example .env
+docker compose up
+```
+Open: [URLs con puerto]
+
+## Stack
+| Layer | Tech |
+
+## Key Commands
+| Task | Command |
+
+## Key Files      (máx. 10, solo los que se editan a diario)
+| File | Purpose |
+
+## Env Vars
+| Variable | Required | Default/Example |
+
+## Architecture (digest de 1 min)
+[grafo textual: A → B → C]
+
+### Top 3 Modules
+| Module | Purpose |
+
+### Top 3 Routes
+| Route | Purpose |
+```
+
+Reglas del modo compacto:
+- Quick start <5 comandos; si necesita más, el setup es el problema.
+- Tablas siempre; cero párrafos, cero teoría de arquitectura.
+- Leer primero `docs/agent-docs/CONTEXT.md` si existe y saltar directo a generar.
+- Si excede 80 líneas, recortar filas no esenciales. No incluir contactos, recursos externos ni CI/CD narrativo (solo comandos).

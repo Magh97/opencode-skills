@@ -188,3 +188,9 @@ Plataformas SIEM/SOAR: ver `detection-response`.
 - [ ] Secure coding training anual
 - [ ] Métricas de seguridad visibles para equipos
 - [ ] Blameless post-mortems para incidentes de seguridad
+
+---
+
+## Referencias
+
+- `references/tooling.md` — tooling completo: Cosign/Sigstore, HashiCorp Vault, Trivy, RBAC de Kubernetes, network policies, SBOM, firmado/attestation de imágenes.

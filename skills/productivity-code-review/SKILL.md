@@ -1,7 +1,8 @@
 ---
 name: productivity-code-review
-description: "Revisión exhaustiva de código en cualquier proyecto. Analiza seguridad, mejoras, optimizaciones y críticas usando dev-kits del stack. Incluye escaneo de dependencias y análisis estático. Genera CODE_REVIEW.md con checkboxes y sección Quick Wins. Úsala cuando el usuario pida 'review', 'auditar código', 'code review', 'security review', o evaluar calidad de código."
-requires-devkits: auto-detect
+description: "Revisión exhaustiva de código: seguridad, mejoras, optimizaciones y críticas con los dev-kits del stack; escaneo de dependencias y análisis estático. Genera CODE_REVIEW.md. Úsala con 'review', 'auditar código', 'code review' o 'security review'."
+metadata:
+  requires-devkits: auto-detect
 ---
 
 # Productivity Code Review — Auditoría de Proyecto

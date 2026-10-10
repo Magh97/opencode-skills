@@ -1,7 +1,8 @@
 ---
 name: agent-business-planning
-description: "Genera el plan de negocio completo de 12 secciones y orquesta delegación a planeación (charter, roadmap), diseño (arquitectura, API, schema) y documentación (README, onboarding). Opcional: spec técnica, validación y scaffold. Úsala cuando el usuario diga 'planea el sistema', 'plan de negocio', 'estructura teórica del proyecto', o 'arranca el proyecto desde cero'."
-requires-devkits: auto-detect
+description: "Genera el plan de negocio de 12 secciones y orquesta planeación, diseño y documentación (charter, roadmap, arquitectura, README). Úsala con 'planea el sistema', 'plan de negocio', 'estructura teórica del proyecto' o 'arranca el proyecto desde cero'."
+metadata:
+  requires-devkits: auto-detect
 ---
 
 # Agent Business Planning -- Estructura Teorica de Sistemas de Negocio
@@ -50,7 +51,7 @@ Genera documentos human-facing completos, autocontenidos, con tablas bien format
 - Se ofrece si el usuario quiere el puente entre la estructura teorica y el codigo.
 - Consumir: plan de negocio completo (12 secciones) + entregables de planning y design.
 - Producir: spec tecnica completa (endpoints, entidades, reglas de negocio, estados, UI components, stack confirmado, checklist de pendientes) → `SPEC.md`.
-- Si el usuario prefiere una spec agent-optimized compacta, derivar a `agent-spec` via agente `planning`.
+- Si el usuario prefiere una spec agent-optimized compacta, usar el modo compacto de `productivity-spec` (auto-fill con `[ASSUMED]`) via agente `planning`.
 
 ### Fase 6: Scaffold del Proyecto (OPCIONAL) -- cargar `productivity-scaffold`
 - Se ofrece tras la spec tecnica, si el proyecto aun no existe o el usuario lo pide.

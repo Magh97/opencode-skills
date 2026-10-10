@@ -1,6 +1,7 @@
 ---
 name: design-data
-description: "Modelado de datos: conceptual → lógico → físico. Cubre ERDs con Mermaid/DBML, normalización, estrategia de índices, particionado, y diseño de esquemas previo al código. Actívala al diseñar una base de datos nueva, modelar entidades, o cuando el usuario diga 'modelo de datos', 'ERD', 'schema design', 'normalización', 'diseñar base de datos', 'tablas'. Normalmente se usa junto con design-core y sus hermanas (design-api, design-adr, design-review) al hacer un diseño técnico completo."
+description: "Modelado de datos conceptual → lógico → físico: ERDs (Mermaid/DBML), normalización, índices y particionado. Úsala con 'modelo de datos', 'ERD', 'schema design', 'normalización', 'diseñar base de datos' o 'tablas'."
+disable-model-invocation: true
 ---
 
 # Design Data — Modelado de Datos

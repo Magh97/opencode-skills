@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # ASP.NET Core MVC
 
-Guía completa de MVC (Model-View-Controller) en ASP.NET Core. Para APIs REST con Controllers, ver `aspnet-web-api`. Para Razor Pages, ver `aspnet-razor-pages`.
+Guía completa de MVC (Model-View-Controller) en ASP.NET Core. Para APIs REST con Controllers, ver `dotnet-api` (references/aspnet.md). Para Razor Pages, ver `aspnet-razor-pages`.
 
 ---
 

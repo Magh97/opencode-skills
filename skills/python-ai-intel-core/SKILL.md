@@ -1,6 +1,6 @@
 ---
 name: python-ai-intel-core
-description: "Guía principal de AI en Python con hardware Intel. Cubre el stack oneAPI, OpenVINO, PyTorch XPU, Intel Arc, Core Ultra (NPU), Xeon, y Gaudi. Versiones, instalación, detección de dispositivos, y ciclo dev→deploy. Actívala para cualquier tarea de AI/ML sobre hardware Intel: nuevos proyectos, migración desde CUDA, optimización, o decisión de hardware target."
+description: "Guía principal de AI en Python con hardware Intel: oneAPI, OpenVINO, PyTorch XPU, Arc, Core Ultra (NPU), Xeon y Gaudi; instalación, detección de dispositivos y ciclo dev→deploy. Úsala para AI/ML sobre hardware Intel o migrar desde CUDA."
 ---
 
 # Python AI on Intel — Core Guide
@@ -245,17 +245,17 @@ miapp/
 
 ---
 
-## Sub-skills del kit
+## Sub-skills y referencias del kit
 
-> 📁 Cada sub-skill tiene su guía detallada en `./{nombre}/SKILL.md`. Usa `read` para cargarla cuando el tema lo requiera.
+> 📁 Las sub-skills viven en `./{nombre}/SKILL.md`; las referencias en `./references/`. Usa `read` cuando el tema lo requiera. El hardware (OpenVINO, XPU, NPU) y el profiling se consultan como referencia para no inflar el contexto general.
 
-| Skill | Cuándo cargarla |
+| Referencia / Skill | Cuándo cargarla |
 |-------|----------------|
-| `python-ai-intel-openvino` | Inference, IR conversion, pre/post-processing, model optimization |
-| `python-ai-intel-pytorch-xpu` | Training en GPU Intel, `torch.compile`, mixed precision, XPU tensors |
+| `references/hardware/openvino.md` | Inference, IR conversion, pre/post-processing, model optimization |
+| `references/hardware/pytorch-xpu.md` | Training en GPU Intel, `torch.compile`, mixed precision, XPU tensors |
 | `python-ai-intel-llm` | LLMs en Intel: llama.cpp, OpenVINO GenAI, vLLM, quantization AWQ/GPTQ |
-| `python-ai-intel-npu` | Core Ultra NPU: OpenVINO NPU plugin, modelos compatibles, limitaciones |
-| `python-ai-intel-profiling` | VTune, PTI, OpenVINO benchmarks, GPU utilization, memory profiling |
+| `references/hardware/npu.md` | Core Ultra NPU: OpenVINO NPU plugin, modelos compatibles, limitaciones |
+| `references/profiling.md` | VTune, PTI, OpenVINO benchmarks, GPU utilization, memory profiling |
 | `python-ai-intel-deployment` | Docker + OVMS, Intel Tiber Cloud, CI/CD, model packaging, edge serving |
 | `python-ai-intel-data-pipeline` | Intel-optimized pandas/NumPy, MKL, AVX-512, data loading XPU affinity |
 | `python-ai-intel-rag` | RAG en Intel: embeddings via OpenVINO, pgvector, LangChain/LlamaIndex |

@@ -1,6 +1,6 @@
 ---
 name: devops-core
-description: "Guía principal de DevOps y SRE. Cubre principios DevOps, 12-factor app, GitOps, métricas DORA (deployment frequency, lead time, MTTR, change failure rate), SLO/SLI/SLA, cultura de incidentes blameless, y Platform Engineering. Actívala al diseñar pipelines, evaluar madurez DevOps, o implementar GitOps. Las sub-skills del kit profundizan en dominios específicos."
+description: "Guía principal de DevOps y SRE: principios, 12-factor, GitOps, métricas DORA, SLO/SLI/SLA e incidentes blameless. Úsala al diseñar pipelines, evaluar madurez DevOps o implementar GitOps."
 ---
 
 # DevOps Core Guide
@@ -140,7 +140,7 @@ Incidente detectado
 | `devops-cicd` | GitHub Actions, progressive delivery, canary, blue-green |
 | `devops-monitoring` | OpenTelemetry, Prometheus, Grafana, alerting, SLO |
 | `devops-iac` | OpenTofu 1.12, Terraform, Pulumi, Bicep |
-| `devops-security` | Cosign, Vault, Trivy, RBAC, network policies |
+| `devsecops` | Cosign, Vault, Trivy, RBAC, network policies |
 | `devops-cloud` | AWS/GCP/Azure, FinOps, serverless, cost optimization |
 
 ---

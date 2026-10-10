@@ -1,6 +1,6 @@
 ---
 name: dotnet-security
-description: Seguridad en aplicaciones .NET 9/10. Cubre autenticación (JWT, OAuth2/OIDC, Identity), autorización (RBAC, políticas, claims), protección de datos (Data Protection API, secretos, cifrado), headers de seguridad (CSP, HSTS, X-Content-Type-Options), OWASP Top 10 mitigado en .NET, y hardening de configuración. Actívala al implementar auth, revisar vulnerabilidades, o configurar seguridad en APIs y aplicaciones web.
+description: "Seguridad en .NET 9/10: autenticación (JWT, OAuth2/OIDC, Identity), autorización, Data Protection, secretos, cifrado, headers de seguridad y OWASP Top 10. Úsala al implementar auth o revisar vulnerabilidades en APIs y apps web."
 disable-model-invocation: true
 ---
 

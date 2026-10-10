@@ -1,6 +1,6 @@
 ---
 name: nodejs-database
-description: "Acceso a datos en Node.js con Prisma 7, Drizzle y drivers nativos. Cubre PostgreSQL, SQL Server, migraciones, connection pooling, queries type-safe, raw SQL, y buenas prácticas de integración. Actívala al configurar ORM, diseñar esquemas de datos, optimizar queries, o migrar entre ORMs."
+description: "Acceso a datos en Node.js: Prisma 7, Drizzle y drivers nativos. Cubre PostgreSQL, SQL Server, migraciones, pooling, queries type-safe y raw SQL. Referencias completas en `references/prisma.md` y `references/drizzle.md`. Úsala al configurar un ORM, diseñar esquemas, optimizar queries o migrar entre ORMs."
 disable-model-invocation: true
 ---
 
@@ -24,7 +24,7 @@ Guía de acceso a datos en Node.js 2026. **Prisma 7 vs Drizzle** como ORMs. Driv
 
 **Regla**: Equipo que prefiere schema-first + abstracción → **Prisma 7**. Serverless + control SQL fino → **Drizzle**.
 
-Para el detalle completo de schema, queries, migraciones y connection pooling de cada ORM, ver `nodejs-prisma` o `nodejs-drizzle` según el ORM elegido.
+Para el detalle completo de schema, queries, migraciones y connection pooling de cada ORM, ver `references/prisma.md` o `references/drizzle.md` según el ORM elegido.
 
 ---
 
@@ -72,7 +72,7 @@ const result = await pool.request()
   .query('SELECT * FROM orders WHERE customer_id = @customerId');
 ```
 
-Para el detalle operativo de connection pooling, migraciones y patrones de queries con ORM, ver `nodejs-prisma` (Prisma 7) o `nodejs-drizzle` (Drizzle) según corresponda.
+Para el detalle operativo de connection pooling, migraciones y patrones de queries con ORM, ver `references/prisma.md` (Prisma 7) o `references/drizzle.md` (Drizzle) según corresponda.
 
 ---
 
@@ -86,3 +86,12 @@ Para el detalle operativo de connection pooling, migraciones y patrones de queri
 - [ ] Raw SQL solo para queries complejas (reportes, analytics)
 - [ ] SQL parametrizado siempre (Prisma/Drizzle lo manejan; drivers nativos requieren hacerlo explícito)
 - [ ] PgBouncer si >200 conexiones concurrentes en PostgreSQL
+
+---
+
+## Referencias (progressive disclosure)
+
+- `references/prisma.md` — Prisma 7 completo: schema PSL, CRUD, nested writes, transacciones, client extensions, migrate, seed, Accelerate.
+- `references/drizzle.md` — Drizzle ORM completo: schema TS, queries SQL-like/relacionales, drizzle-kit, Zod, MSSQL, prepared statements.
+
+Léelas solo cuando el proyecto use ese ORM.
