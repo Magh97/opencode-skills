@@ -8,6 +8,9 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TMP_HOME=$(mktemp -d)
 CONFIG_DIR="$TMP_HOME/.config/opencode"
+# Aislar tambien XDG_CONFIG_HOME: los runners de CI lo definen y, si no, install.sh
+# escribe en el config real del usuario en vez del HOME temporal.
+export XDG_CONFIG_HOME="$TMP_HOME/.config"
 AGENTS_DIR="$CONFIG_DIR/agent"
 SKILLS_DIR="$CONFIG_DIR/skills"
 
