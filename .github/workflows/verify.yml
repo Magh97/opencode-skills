@@ -23,8 +23,15 @@ jobs:
       - name: Instalar en un HOME limpio y verificar sincronía
         run: |
           TMP_HOME="$(mktemp -d)"
-          HOME="$TMP_HOME" bash install.sh -y --global
-          node .opencode/verify-install.js --config "$TMP_HOME/.config/opencode"
+          if ! HOME="$TMP_HOME" XDG_CONFIG_HOME="$TMP_HOME/.config" bash install.sh -y --global > /tmp/install.log 2>&1; then
+            echo "::error title=install.sh fallo::$(tail -c 1500 /tmp/install.log | tr '\n' '|')"
+            exit 1
+          fi
+          if ! node .opencode/verify-install.js --config "$TMP_HOME/.config/opencode" > /tmp/verify.log 2>&1; then
+            echo "::error title=verify-install fallo::$(tail -c 1500 /tmp/verify.log | tr '\n' '|')"
+            exit 1
+          fi
+          echo "install + verify OK"
 
       - name: Test suite del instalador bash
         run: bash test-install.sh
